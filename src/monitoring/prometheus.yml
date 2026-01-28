@@ -1,0 +1,25 @@
+# =============================================================================
+# Configuration Prometheus pour le monitoring
+# =============================================================================
+
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+scrape_configs:
+  # Application principale
+  - job_name: 'generic-app'
+    static_configs:
+      - targets: ['app:8000']
+    metrics_path: '/metrics'
+    scrape_interval: 10s
+
+  # Prometheus lui-même
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+
+  # Redis (avec redis_exporter si déployé)
+  - job_name: 'redis'
+    static_configs:
+      - targets: ['redis:6379']
