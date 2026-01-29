@@ -50,7 +50,18 @@ Exemples valides :
 Chaque agent doit charger, dans l’ordre :
 1. `AGENTS.base.md`
 2. `clients/<clientKey>/CLIENT.md` (si présent)
+3. `clients/<clientKey>/mcp.json` (si présent)
 3. `projects/<project>/PROJECT.md` (si présent)
+
+## 4.b Contrôle des outils MCP
+
+- **Serveurs** : si `clients/<clientKey>/mcp.json` ne définit pas un serveur
+  requis (ex: `servers.<name>`), les outils liés à ce serveur sont **interdits**.
+- **Outils** : si `tools.<name>.enabled` est `false`, les outils correspondants
+  sont **interdits**.
+- **Par défaut** : en l’absence de configuration explicite autorisant un outil
+  MCP, considérer l’outil comme **interdit**.
+- En cas de doute, demander confirmation au user avant tout appel d’outil MCP.
 
 ## 5. Neutralité technologique
 

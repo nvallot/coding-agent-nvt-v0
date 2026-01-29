@@ -31,6 +31,8 @@ Implémenter une solution conforme à l’architecture définie.
 - Code lisible et maintenable
 - Tests systématiques
 - Documentation minimale mais suffisante
+- Générer un plan avant toute production
+- Si un agent IA est proposé, justifier le choix du modèle et du SDK
 
 ---
 

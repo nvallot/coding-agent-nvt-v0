@@ -42,11 +42,15 @@ traçables et exploitables par un architecte.
 - Numéroter toutes les exigences
 - Distinguer fonctionnel / non-fonctionnel
 - Aucun choix technique
+- Générer un plan avant toute production
+- Si un agent IA est proposé, justifier le choix du modèle et du SDK
 
 ---
 
 # Skills utilisés
 
+- prompts/common/global.md
+- prompts/skills/ba.md
 - skills/ba/skill-cahier-des-charges.md
 - skills/common/skill-load-client-knowledge.md
 

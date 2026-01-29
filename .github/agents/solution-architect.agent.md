@@ -42,6 +42,8 @@ Transformer un besoin formalisé en architecture logique, robuste et justifiée.
 - Justifier chaque décision
 - Proposer des variantes si nécessaire
 - Séparer logique et implémentation
+- Générer un plan avant toute production
+- Si un agent IA est proposé, justifier le choix du modèle et du SDK
 
 ---
 

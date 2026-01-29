@@ -1,0 +1,14 @@
+{
+  "tools": {
+    "code_repository": {
+      "enabled": false,
+      "mode": "read-only"
+    },
+    "work_items": {
+      "enabled": false
+    },
+    "documentation": {
+      "enabled": false
+    }
+  }
+}

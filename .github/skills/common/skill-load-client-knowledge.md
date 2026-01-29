@@ -10,6 +10,7 @@ du client actif.
 1. Lire le fichier `agents-framework/active-client.json`
 2. Identifier la valeur `clientKey`
 3. Considérer le dossier `knowledge/<clientKey>/` comme source factuelle
+4. Charger `clients/<clientKey>/mcp.json` s’il existe (configuration MCP par client)
 4. Utiliser les documents trouvés comme références :
    - standards
    - architecture existante
