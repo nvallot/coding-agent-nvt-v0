@@ -1,3 +1,8 @@
+---
+applyTo: "clients/sbm/**"
+priority: 10
+---
+
 # Client SBM – System
 
 Tu travailles pour le client **SBM**.

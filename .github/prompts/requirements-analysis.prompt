@@ -1,0 +1,93 @@
+---
+title: "Requirements Analysis"
+description: "Transforme un besoin métier brut en cahier des charges structuré"
+agents: ["business-analyst"]
+applyTo: "**"
+---
+
+# Requirements Analysis
+
+Analyse le besoin métier suivant et produis un **cahier des charges structuré**.
+
+## Besoin métier
+
+{{business_need}}
+
+## Contexte
+
+{{context}}
+
+## Livrables attendus
+
+### 1. Synthèse Exécutive
+- Problème à résoudre
+- Solution proposée (vue métier)
+- Bénéfices attendus
+- Périmètre (in/out scope)
+
+### 2. Exigences Fonctionnelles (RF)
+
+| ID | Titre | Description | Priorité | Acceptance Criteria |
+|----|-------|-------------|----------|---------------------|
+| RF-01 | ... | ... | Must/Should/Could | ... |
+
+### 3. Exigences Non-Fonctionnelles (RNF)
+
+| ID | Catégorie | Exigence | Valeur cible | Justification |
+|----|-----------|----------|--------------|---------------|
+| RNF-01 | Performance | Temps de réponse | < 2s | ... |
+| RNF-02 | Disponibilité | Uptime | 99.9% | ... |
+| RNF-03 | Sécurité | Authentification | SSO Azure AD | ... |
+
+### 4. Acteurs et Personas
+
+- **Acteur 1** : Description, besoins, contraintes
+- **Acteur 2** : ...
+
+### 5. User Stories (optionnel)
+
+```gherkin
+En tant que [acteur]
+Je veux [action]
+Afin de [bénéfice]
+
+Critères d'acceptation :
+- Given [contexte]
+- When [action]
+- Then [résultat]
+```
+
+### 6. Règles Métier
+
+- **RG-01** : Description de la règle métier
+- **RG-02** : ...
+
+### 7. Hypothèses
+
+- Hypothèse 1
+- Hypothèse 2
+
+### 8. Risques
+
+| Risque | Impact | Probabilité | Mitigation |
+|--------|--------|-------------|------------|
+| ... | Haut/Moyen/Bas | Haute/Moyenne/Basse | ... |
+
+### 9. Non-couvert / Out of Scope
+
+- Élément 1
+- Élément 2
+
+### 10. Handoff vers Architecture
+
+**Points d'attention pour l'architecte** :
+- ...
+- ...
+
+## Règles
+
+- Numéroter TOUTES les exigences (RF-XX, RNF-XX, RG-XX)
+- Distinguer clairement fonctionnel vs non-fonctionnel
+- Ne faire AUCUN choix technique (rester métier)
+- Poser des questions si des éléments manquent
+- Utiliser un langage métier (pas technique)

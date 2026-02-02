@@ -11,19 +11,19 @@ Sources officielles :
 ```
 .github/
 ├── agents/                        # Custom agents (.agent.md)
-│   ├── business-analyst.agent.md
-│   ├── solution-architect.agent.md
-│   └── developer.agent.md
+│   ├── business-analyst.agent.md  # model: gpt-4o, temp: 0.6
+│   ├── solution-architect.agent.md # model: claude-sonnet-4.5, temp: 0.5
+│   └── developer.agent.md         # model: gpt-4o, temp: 0.3
 ├── clients/                       # Client-specific configs
 │   ├── active-client.json         # Current active client
 │   └── sbm/                       # SBM Offshore
 │       ├── README.md
 │       ├── CLIENT.md              # Context and priorities
 │       ├── mcp.json               # MCP servers and tools
-│       └── instructions/          # SBM-specific instructions
-│           ├── AGENTS.base.md
-│           ├── sbm.system.md
-│           └── sbm-isp-architecture-guidelines.md
+│       └── instructions/          # SBM-specific instructions (path-based)
+│           ├── README.md
+│           ├── sbm.system.md      # applyTo: clients/sbm/**, priority: 10
+│           └── sbm-isp-architecture-guidelines.md # priority: 20
 ├── instructions/                  # Generic instructions (all clients)
 │   ├── AGENTS.base.md             # Universal agent rules
 │   ├── HIERARCHY.md               # Instruction loading hierarchy
@@ -46,19 +46,29 @@ Sources officielles :
 │       ├── naming-conventions.md
 │       ├── security-guidelines.md
 │       └── ... (dynamically loaded)
-└── skills/                        # Generic task procedures
-    ├── azure-function-deployment/
-    ├── bicep-deployment/
-    └── service-bus-setup/
+├── skills/                        # Generic task procedures
+│   ├── README.md
+│   ├── azure-function-deployment/
+│   ├── bicep-deployment/
+│   └── service-bus-setup/
+├── prompts/                       # Prompt files templates
+│   ├── README.md
+│   ├── architecture-design.prompt
+│   ├── code-review.prompt
+│   ├── requirements-analysis.prompt
+│   └── brainstorm.prompt
+├── copilot-config.json            # Global model config & routing
+├── mcp-server.json                # Global MCP servers config
+└── README.md
 ```
 
 ## Concepts
 
 ### Agents
-Custom agents (`.agent.md`) define specialized AI personas:
-- Business Analyst: requirements and functional specs
-- Solution Architect: technical architecture
-- Developer: implementation
+Custom agents (`.agent.md`) define specialized AI personas with model config:
+- **Business Analyst** (gpt-4o, temp: 0.6): requirements and functional specs
+- **Solution Architect** (claude-sonnet-4.5, temp: 0.5): technical architecture
+- **Developer** (gpt-4o, temp: 0.3): implementation
 
 ### Instructions
 Define **how agents behave**:
@@ -86,13 +96,19 @@ Referenced in instructions, invoked dynamically when needed.
 
 ### Prompt Files
 Templates for specific use cases (brainstorm, code review, etc.).
-Invoked explicitly by user.
+Invoked explicitly by user with `/` command.
 
-(Note: Prompt files not yet implemented in v0.1)
+Located in `.github/prompts/*.prompt` with variables `{{var}}`.
+
+## Configuration Files
+
+- **copilot-config.json** : Model configuration, routing, temperature
+- **mcp-server.json** : Global MCP servers (Azure, GitHub, etc.)
+- **clients/active-client.json** : Current active client key
 
 ## Démarrage rapide
 
-1. Ouvrir le repo dans VS Code
+1. Ouvrir le repo dans VS Code avec model config, instructions path-based, knowledge, skills, prompts
 2. Choisir un agent dans la liste **Agents** dropdown
 3. Les règles et la base de connaissance sont automatiquement chargées selon le contexte
 

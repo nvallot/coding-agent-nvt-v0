@@ -1,0 +1,55 @@
+{
+  "$schema": "https://aka.ms/copilot-config-schema",
+  "version": "1.0",
+  "model": {
+    "default": "claude-sonnet-4.5",
+    "fallback": [
+      "gpt-4o",
+      "gpt-4-turbo"
+    ]
+  },
+  "model_config": {
+    "temperature": 0.5,
+    "max_tokens": 16000,
+    "top_p": 0.9
+  },
+  "model_routing": {
+    "enabled": true,
+    "rules": [
+      {
+        "condition": "task_complexity >= 8",
+        "model": "claude-sonnet-4.5"
+      },
+      {
+        "condition": "response_length > 10000",
+        "model": "claude-sonnet-4.5"
+      },
+      {
+        "condition": "task_type == 'code_generation'",
+        "model": "gpt-4o"
+      }
+    ]
+  },
+  "agents": {
+    "business-analyst": {
+      "model": "gpt-4o",
+      "temperature": 0.6,
+      "description": "Analyse métier et exigences"
+    },
+    "solution-architect": {
+      "model": "claude-sonnet-4.5",
+      "temperature": 0.5,
+      "description": "Architecture et design patterns"
+    },
+    "developer": {
+      "model": "gpt-4o",
+      "temperature": 0.3,
+      "description": "Implémentation et code"
+    }
+  },
+  "context": {
+    "includeWorkspace": true,
+    "maxTokens": 32000,
+    "semanticSearch": true
+  }
+}

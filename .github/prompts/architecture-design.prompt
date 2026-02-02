@@ -1,0 +1,70 @@
+---
+title: "Architecture Solution Design"
+description: "Guide l'agent pour produire un document d'architecture complet avec diagrammes et justifications"
+agents: ["solution-architect"]
+applyTo: "clients/**"
+---
+
+# Architecture Solution Design
+
+Tu dois produire un **document d'architecture complet** pour le projet {{project_name}}.
+
+## Contexte
+
+{{context}}
+
+## Contraintes
+
+{{constraints}}
+
+## Livrables attendus
+
+1. **Vue d'ensemble**
+   - Contexte métier
+   - Objectifs et enjeux
+   - Périmètre (in/out scope)
+
+2. **Architecture logique**
+   - Diagramme de composants (C4 Level 2)
+   - Description de chaque composant
+   - Interactions et flux de données
+
+3. **Architecture Azure**
+   - Services Azure utilisés
+   - Diagramme d'infrastructure
+   - Naming conventions appliquées
+
+4. **Sécurité**
+   - Authentification/Autorisation
+   - Secrets management
+   - Network isolation
+
+5. **Observabilité**
+   - Logging strategy
+   - Monitoring et alerting
+   - CorrelationId propagation
+
+6. **Justifications**
+   - Choix technologiques
+   - Alternatives envisagées
+   - Trade-offs
+
+7. **Risques et Mitigation**
+   - Risques identifiés
+   - Plans de mitigation
+   - Points d'attention
+
+## Instructions spécifiques
+
+- Respecter les conventions client (voir knowledge/<client>/naming-conventions.md)
+- Utiliser les guidelines d'architecture (voir clients/<client>/instructions/)
+- Proposer des diagrammes Mermaid ou Draw.io
+- Justifier TOUS les choix techniques
+
+## Format de sortie
+
+Markdown structuré avec :
+- Table des matières
+- Diagrammes Mermaid embedded
+- Liens vers knowledge base
+- Section "Decision Records" (ADR style)

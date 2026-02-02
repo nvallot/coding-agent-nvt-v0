@@ -1,0 +1,78 @@
+---
+title: "Code Review"
+description: "Analyse de code avec focus sur best practices, sécurité et performance"
+agents: ["developer", "solution-architect"]
+applyTo: "**/*.{cs,js,ts,py,bicep}"
+---
+
+# Code Review
+
+Effectue une **revue de code complète** pour les fichiers suivants :
+
+{{files}}
+
+## Points de vérification
+
+### 1. Qualité du Code
+- [ ] Respect des conventions de nommage
+- [ ] Code lisible et maintenable
+- [ ] Commentaires pertinents (pas de sur-documentation)
+- [ ] Pas de code dupliqué
+- [ ] Complexité cyclomatique raisonnable
+
+### 2. Sécurité
+- [ ] Pas de secrets hardcodés
+- [ ] Validation des inputs
+- [ ] Gestion des erreurs appropriée
+- [ ] Pas d'injection SQL/XSS possible
+- [ ] Authentification/Autorisation correcte
+
+### 3. Performance
+- [ ] Pas de requêtes N+1
+- [ ] Utilisation appropriée du cache
+- [ ] Gestion mémoire correcte
+- [ ] Async/await utilisé correctement
+
+### 4. Tests
+- [ ] Tests unitaires présents
+- [ ] Couverture suffisante
+- [ ] Tests d'intégration si nécessaire
+- [ ] Edge cases couverts
+
+### 5. Azure Best Practices
+- [ ] Managed Identity utilisée
+- [ ] Secrets via Key Vault
+- [ ] Logs et métriques
+- [ ] Retry policies
+- [ ] Circuit breaker si applicable
+
+## Format de sortie
+
+Pour chaque fichier :
+
+```markdown
+## [Fichier] path/to/file.ext
+
+### ✅ Points positifs
+- ...
+
+### ⚠️ Points d'attention
+- **[Sévérité: Critique/Majeure/Mineure]** Description
+  - Ligne: X
+  - Recommandation: ...
+
+### 💡 Suggestions d'amélioration
+- ...
+
+### 📊 Métriques
+- Complexité: X
+- Lignes de code: Y
+- Couverture tests: Z%
+```
+
+## Consignes
+
+- Sois constructif et pédagogue
+- Propose des exemples de correction
+- Priorise les problèmes (Critique > Majeure > Mineure)
+- Référence les best practices pertinentes

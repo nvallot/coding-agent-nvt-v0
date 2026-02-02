@@ -1,6 +1,8 @@
 ---
 name: "Solution Architect"
 description: "Architecture cible justifiée et exploitable"
+model: "claude-sonnet-4.5"
+temperature: 0.5
 tools: ["read", "search", "edit"]
 infer: true
 handoffs:

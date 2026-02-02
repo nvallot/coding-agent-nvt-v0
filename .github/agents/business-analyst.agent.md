@@ -1,6 +1,8 @@
 ---
 name: "Business Analyst"
 description: "Analyse métier, exigences RF/RNF sans choix technique"
+model: "gpt-4o"
+temperature: 0.6
 tools: ["read", "search", "edit"]
 infer: true
 handoffs:

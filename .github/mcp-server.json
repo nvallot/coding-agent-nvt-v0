@@ -1,0 +1,52 @@
+{
+  "$schema": "https://github.com/modelcontextprotocol/specification/blob/main/schema/mcp-server.schema.json",
+  "version": "1.0",
+  "description": "Global MCP servers configuration for all clients",
+  "servers": {
+    "azure": {
+      "command": "npx",
+      "args": ["-y", "@azure/mcp-server"],
+      "env": {
+        "AZURE_SUBSCRIPTION_ID": "${AZURE_SUBSCRIPTION_ID}"
+      },
+      "description": "Azure resources management"
+    },
+    "azure-devops": {
+      "command": "npx",
+      "args": ["-y", "@azure/mcp-server-azure-devops"],
+      "env": {
+        "AZURE_DEVOPS_ORG": "${AZURE_DEVOPS_ORG}",
+        "AZURE_DEVOPS_PAT": "${AZURE_DEVOPS_PAT}"
+      },
+      "description": "Azure DevOps integration"
+    },
+    "github": {
+      "command": "npx",
+      "args": ["-y", "@github/mcp-server"],
+      "env": {
+        "GITHUB_TOKEN": "${GITHUB_TOKEN}"
+      },
+      "description": "GitHub integration"
+    },
+    "filesystem": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem"],
+      "description": "Local filesystem access"
+    }
+  },
+  "tools": {
+    "restrictions": {
+      "azure": {
+        "allowed_operations": [
+          "read",
+          "list",
+          "create",
+          "update"
+        ],
+        "forbidden_operations": [
+          "delete"
+        ]
+      }
+    }
+  }
+}

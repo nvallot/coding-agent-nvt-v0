@@ -1,6 +1,8 @@
 ---
 name: "Developer"
 description: "Implémentation technique conforme à l'architecture"
+model: "gpt-4o"
+temperature: 0.3
 tools: ["read", "search", "edit", "execute"]
 infer: true
 ---

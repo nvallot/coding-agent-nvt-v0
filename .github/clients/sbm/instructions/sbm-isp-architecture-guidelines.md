@@ -1,3 +1,8 @@
+---
+applyTo: "clients/sbm/**"
+priority: 20
+---
+
 # SBM ISP Azure Architecture Best Practices (v0.1)
 
 **CRITICAL**: Follow these architectural guidelines when designing or implementing solutions for the SBM Integration Services Platform.
