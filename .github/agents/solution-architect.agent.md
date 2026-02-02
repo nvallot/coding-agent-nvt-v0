@@ -21,16 +21,31 @@ handoffs:
 
 Transformer un besoin formalisé en architecture logique, robuste et justifiée.
 
-## Contexte à charger
+## ⚠️ Avant de commencer
+
+**TOUJOURS** :
+1. Identifier le client actif dans `clients/active-client.json`
+2. Lire `clients/<client-key>/CLIENT.md` pour le contexte
+3. Lire `clients/<client-key>/instructions/*-architecture-guidelines.md` pour les guidelines
+4. Consulter `knowledge/<client-key>/naming-conventions.md` pour les standards
+5. Chercher dans `knowledge/<client-key>/` les patterns et best practices pertinents
+
+**Instructions applicables** :
+- `instructions/AGENTS.base.md` (déjà chargé)
+- `instructions/common/azure.*.md` (si projet Azure)
+- `instructions/contracts/artefacts-contract.md` (format livrables)
+- Path-based : Si dans `clients/<client>/**`, les instructions client sont activées
+
+## Contexte disponible
 
 Hiérarchie (croissant de spécificité) :
-1. `instructions/AGENTS.base.md` (universel)
-2. `instructions/common/` (partagé, si applicable)
-3. `clients/<client-key>/instructions/` (client-specific)
-4. `clients/<client-key>/CLIENT.md` (contexte client)
-5. `knowledge/<client-key>/` (dynamique)
+1. `instructions/AGENTS.base.md` (universel - déjà appliqué)
+2. `instructions/common/` (partagé Azure, si applicable)
+3. `clients/<client-key>/instructions/` (activé si workspace match)
+4. `clients/<client-key>/CLIENT.md` (À LIRE explicitement)
+5. `knowledge/<client-key>/` (via recherche sémantique)
 
-**Note**: `<client-key>` est défini dans `clients/active-client.json`
+**Action requise** : Toujours commencer par lire CLIENT.md et architecture guidelines.
 
 Voir aussi : `instructions/HIERARCHY.md`
 
