@@ -27,11 +27,19 @@ Sources officielles :
 ├── instructions/                  # Generic instructions (all clients)
 │   ├── AGENTS.base.md             # Universal agent rules
 │   ├── HIERARCHY.md               # Instruction loading hierarchy
+│   ├── README.md                  # Index
 │   ├── contracts/                 # Agent contracts
 │   │   ├── artefacts-contract.md
 │   │   └── flow-contract.md
 │   └── common/                    # Shared (multi-client)
-│       └── README.md
+│       ├── README.md
+│       ├── azure.general.md
+│       ├── azure.functions.md
+│       ├── azure.adf.md
+│       ├── azure.apim.md
+│       ├── azure.security.md
+│       ├── azure.observability.md
+│       └── azure.terraform.md
 ├── knowledge/                     # Reference information
 │   └── sbm/                       # SBM knowledge base
 │       ├── README.md

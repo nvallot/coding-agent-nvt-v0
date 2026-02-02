@@ -7,7 +7,7 @@ clients/sbm/
 ├── CLIENT.md                    # Client context and priorities
 ├── mcp.json                     # MCP servers and tools config
 ├── instructions/                # SBM-specific instructions
-│   ├── AGENTS.base.md          # Base rules for SBM agents
+│   ├── README.md               # Instruction hierarchy for SBM
 │   ├── sbm.system.md           # System prompt for SBM
 │   └── sbm-isp-architecture-guidelines.md  # Architecture best practices
 └── README.md                    # This file
@@ -15,14 +15,17 @@ clients/sbm/
 
 ## Loading Order
 
-When working on SBM projects, agents load:
+When working on SBM projects, agents load context in this hierarchy:
 
 1. `instructions/AGENTS.base.md` (universal rules)
-2. `clients/sbm/instructions/AGENTS.base.md` (SBM agent rules)
+2. `instructions/common/` (shared Azure standards, if applicable)
 3. `clients/sbm/instructions/sbm.system.md` (SBM system prompt)
-4. `clients/sbm/CLIENT.md` (context and priorities)
-5. `clients/sbm/mcp.json` (tool restrictions)
-6. `knowledge/sbm/` (dynamically loaded as needed)
+4. `clients/sbm/instructions/sbm-isp-architecture-guidelines.md` (ISP guidelines)
+5. `clients/sbm/CLIENT.md` (context and priorities)
+6. `clients/sbm/mcp.json` (tool restrictions)
+7. `knowledge/sbm/` (dynamically loaded as needed)
+
+See `instructions/HIERARCHY.md` for complete loading hierarchy details.
 
 ## Knowledge Base
 
