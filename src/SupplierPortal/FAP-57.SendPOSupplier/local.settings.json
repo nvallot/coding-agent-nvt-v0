@@ -1,0 +1,16 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+    "FUNCTIONS_WORKER_RUNTIME": "dotnet-isolated",
+    "AZURE_FUNCTIONS_ENVIRONMENT": "DEV",
+    "ServiceBusConnection__fullyQualifiedNamespace": "sbwe1-isp-dv-sbn-02.servicebus.windows.net",
+    "LucyApiBaseUrl": "https://lucy-api-dev.sbm.com",
+    "DataverseApiBaseUrl": "https://sbmsupplierportaltest.crm4.dynamics.com/api/data/v9.2",
+    "DataverseClientId": "<YOUR_CLIENT_ID>",
+    "DataverseClientSecret": "<YOUR_CLIENT_SECRET>",
+    "DataverseTenantId": "<YOUR_TENANT_ID>",
+    "StorageAccount": "DefaultEndpointsProtocol=https;AccountName=sbwe1ispdvsuportal;AccountKey=<YOUR_KEY>;EndpointSuffix=core.windows.net",
+    "APPINSIGHTS_INSTRUMENTATIONKEY": "<YOUR_INSTRUMENTATION_KEY>"
+  }
+}

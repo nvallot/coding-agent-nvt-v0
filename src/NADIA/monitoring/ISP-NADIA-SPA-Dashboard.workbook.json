@@ -1,0 +1,76 @@
+{
+  "version": "Notebook/1.0",
+  "items": [
+    {
+      "type": 1,
+      "content": {
+        "json": "# ISP - NADIA SPA - Monitoring Dashboard\n\nCe dashboard couvre les KPIs obligatoires du flux IT 05a (FAP-65 + FAP-57)."
+      }
+    },
+    {
+      "type": 3,
+      "content": {
+        "version": "KqlItem/1.0",
+        "query": "customEvents\n| where name in (\"NADIA_Execution_Started\", \"NADIA_Execution_Completed\")\n| summarize Executions=countif(name==\"NADIA_Execution_Completed\"), LastExecution=max(timestamp)\n| project Executions, LastExecution",
+        "size": 1,
+        "title": "Exécutions (FAP-65)",
+        "timeContext": { "durationMs": 86400000 }
+      }
+    },
+    {
+      "type": 3,
+      "content": {
+        "version": "KqlItem/1.0",
+        "query": "customEvents\n| where name == \"NADIA_Execution_Completed\"\n| project timestamp, tostring(customDimensions.CorrelationId) as CorrelationId, tostring(customDimensions.POProcessed) as POProcessed, tostring(customDimensions.Duration) as Duration\n| order by timestamp desc\n| take 20",
+        "size": 2,
+        "title": "Dernières exécutions (FAP-65)",
+        "timeContext": { "durationMs": 604800000 }
+      }
+    },
+    {
+      "type": 3,
+      "content": {
+        "version": "KqlItem/1.0",
+        "query": "customEvents\n| where name in (\"SPA_PKM_NotFound\", \"SPA_Dataverse_Error\")\n| summarize Errors=count() by name\n| order by Errors desc",
+        "size": 1,
+        "title": "Erreurs clés (FAP-57)",
+        "timeContext": { "durationMs": 604800000 }
+      }
+    },
+    {
+      "type": 3,
+      "content": {
+        "version": "KqlItem/1.0",
+        "query": "exceptions\n| where cloud_RoleName in (\"SBWE1-ISP-DV-FAP-65\", \"SBWE1-ISP-DV-FAP-57\")\n| project timestamp, cloud_RoleName, type, outerMessage\n| order by timestamp desc\n| take 20",
+        "size": 2,
+        "title": "Exceptions récentes",
+        "timeContext": { "durationMs": 604800000 }
+      }
+    },
+    {
+      "type": 3,
+      "content": {
+        "version": "KqlItem/1.0",
+        "query": "customEvents\n| where name == \"SPA_Dataverse_Sent\"\n| summarize Success=count()\n| project Success",
+        "size": 1,
+        "title": "Dataverse Upserts (FAP-57)",
+        "timeContext": { "durationMs": 86400000 }
+      }
+    },
+    {
+      "type": 3,
+      "content": {
+        "version": "KqlItem/1.0",
+        "query": "customEvents\n| where name == \"SPA_PKM_NotFound\"\n| project timestamp, tostring(customDimensions.PkmGuid) as PkmGuid, tostring(customDimensions.PoNumber) as PoNumber\n| order by timestamp desc\n| take 20",
+        "size": 2,
+        "title": "PKM Not Found (Dead Letter)",
+        "timeContext": { "durationMs": 604800000 }
+      }
+    }
+  ],
+  "styleSettings": {},
+  "isLocked": false,
+  "fallbackResourceIds": [
+    "/subscriptions/<SUBSCRIPTION_ID>/resourceGroups/IntegrationServicesDEV-CMN-RG/providers/microsoft.insights/components/SBWE1-ISP-DV-API-01"
+  ]
+}
