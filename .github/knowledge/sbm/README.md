@@ -1,4 +1,4 @@
-# SBM – Knowledge Base
+# SBM – Knowledge Base (v0.1)
 
 Cette base de connaissance contient les standards, principes et documents
 de référence pour le client SBM.

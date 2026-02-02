@@ -1,4 +1,4 @@
-# Naming Conventions – SBM
+# Naming Conventions – SBM (v0.1)
 
 ## Règles générales
 - Tout en minuscule quand le service l’autorise (ex: Storage Accounts)
@@ -10,9 +10,9 @@
 - `ST` = stg
 - `PR` = prd
 
-## Préfixe et structure standard (observée)
-La majorité des ressources suivent ce modèle :
+## Nommage standard (ressources avec tirets)
 
+**Modèle observé** :
 `<PREFIXE>-<PLATEFORME>-<ENV>-<SERVICE>-<INDEX>`
 
 Exemples observés :
@@ -35,15 +35,24 @@ Exemples observés :
 | `KVA` | Key Vault |
 | `FAP` | Function App |
 | `ASP` | App Service Plan |
-| `API` | Application Insights (ex: `SBWE1-ISP-DV-API-01`) |
-| `LAP` | Log Analytics (ex: `SBWE1-ISP-PR-LAP-MONITOR`) |
-| `WEB` | Web App / Site (ex: `SBWE1-ISP-DV-WEB-01`) |
+| `API` | Application Insights |
+| `LAP` | Log Analytics |
+| `WEB` | Web App / Site |
 
-> Ces codes sont basés sur les noms réellement observés dans Azure. Ils doivent être confirmés par le standard SBM.
+> Ces codes sont basés sur les noms réellement observés dans Azure et les documents internes. Ils doivent être confirmés par le standard SBM officiel.
+
+## Nommage lower-case (ressources contraintes)
+
+**Pattern observé** :
+`sbwe1isp<env><service><index>`
+
+Exemples observés :
+- `sbwe1ispdevdsta01`
+- `sbwe1ispdevdlog01`
 
 ## Resource Groups
-Patterns observés :
 
+Patterns observés :
 - `IntegrationServicesDEV-<DOMAINE>-RG`
 - `IntegrationServicesSTG-<DOMAINE>-RG`
 - `IntegrationServices-<DOMAINE>-RG` (PRD sans préfixe ENV)
@@ -53,21 +62,39 @@ Exemples observés :
 - `IntegrationServicesSTG-CMN-RG`
 - `IntegrationServices-IFS-RG`
 
-### Domaines observés
+Domaines observés :
 `CMN`, `IFS`, `EDB`, `ESH`, `MDM`, `MON`, `B2C`, `APA`, `NDA`, `SPL`, etc.
 
-## Storage Accounts
-Pattern observé (lowercase, sans tirets) :
+## Service Bus (noms d’entités)
 
-`sbwe1isp<env><service><index>`
+**Pattern recommandé** :
+`<project>.<type>.<entity>.<event>`
 
-Exemples observés :
-- `sbwe1ispdevdsta01`
-- `sbwe1ispdevdlog01`
+- `<project>`: trigramme projet (lowercase)
+- `<type>`: `q` (queue), `t` (topic), `s` (subscription)
+- `<entity>`: entité métier (lowercase)
+- `<event>`: action/événement (optionnel)
 
-## APIs & Functions
-- Function App : `SBWE1-ISP-<ENV>-FAP-<NN>`
-- APIs exposées via APIM : `SBWE1-ISP-<ENV>-APM-<NN>`
+Exemples :
+- `ifs.q.purchaseorder.created`
+- `lucy.t.employee.updated`
+- `lucy.s.employee.payroll`
+
+## Tags obligatoires (projet)
+
+| Tag | Description | Exemple |
+|-----|-------------|---------|
+| `env` | Environnement | `DEV`, `STG`, `PRD` |
+| `flow` | Code flow/projet | `IFS`, `LUCY` |
+| `desc` | Description courte | `ProcessOrders` |
+
+## App Configuration (clés)
+
+**Pattern** : `<Project>:<Component>:<Setting>`
+
+Exemples :
+- `ISP:IFS:ApiUrl`
+- `ISP:ServiceBus:QueueName`
 
 ## Remarques
-Ces conventions sont **déduites des ressources visibles** et de la pipeline release. Dès que le Terraform officiel est accessible dans le workspace, je consolide et remplace par la règle officielle SBM.
+Ces conventions sont **déduites des ressources visibles** et des documents internes. Dès que le Terraform officiel est accessible dans le workspace, consolider et remplacer par la règle SBM officielle.

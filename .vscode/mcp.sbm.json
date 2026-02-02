@@ -1,9 +1,0 @@
-{
-  "servers": {
-    "ado": {
-      "type": "stdio",
-      "command": "npx",
-      "args": ["-y", "@azure-devops/mcp", "sbm-offshore"]
-    }
-  }
-}
