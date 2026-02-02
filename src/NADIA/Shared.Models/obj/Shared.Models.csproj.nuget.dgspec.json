@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Users\\NicolasVALLOT\\.vscode\\extensions\\ms-dotnettools.vscode-dotnet-pack-1.0.13\\misc\\MIDWAI\\coding-agent-nvt-v0\\src\\NADIA\\Shared.Models\\Shared.Models.csproj": {}
+    "C:\\Users\\NicolasVALLOT\\.vscode\\extensions\\ms-dotnettools.vscode-dotnet-pack-1.0.13\\misc\\MIDWAI\\coding-agent-nvt-v0\\src\\NADIA\\Shared.Models\\Shared.Models.csproj": {}
   },
   "projects": {
-    "c:\\Users\\NicolasVALLOT\\.vscode\\extensions\\ms-dotnettools.vscode-dotnet-pack-1.0.13\\misc\\MIDWAI\\coding-agent-nvt-v0\\src\\NADIA\\Shared.Models\\Shared.Models.csproj": {
+    "C:\\Users\\NicolasVALLOT\\.vscode\\extensions\\ms-dotnettools.vscode-dotnet-pack-1.0.13\\misc\\MIDWAI\\coding-agent-nvt-v0\\src\\NADIA\\Shared.Models\\Shared.Models.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\NicolasVALLOT\\.vscode\\extensions\\ms-dotnettools.vscode-dotnet-pack-1.0.13\\misc\\MIDWAI\\coding-agent-nvt-v0\\src\\NADIA\\Shared.Models\\Shared.Models.csproj",
+        "projectUniqueName": "C:\\Users\\NicolasVALLOT\\.vscode\\extensions\\ms-dotnettools.vscode-dotnet-pack-1.0.13\\misc\\MIDWAI\\coding-agent-nvt-v0\\src\\NADIA\\Shared.Models\\Shared.Models.csproj",
         "projectName": "Shared.Models",
-        "projectPath": "c:\\Users\\NicolasVALLOT\\.vscode\\extensions\\ms-dotnettools.vscode-dotnet-pack-1.0.13\\misc\\MIDWAI\\coding-agent-nvt-v0\\src\\NADIA\\Shared.Models\\Shared.Models.csproj",
+        "projectPath": "C:\\Users\\NicolasVALLOT\\.vscode\\extensions\\ms-dotnettools.vscode-dotnet-pack-1.0.13\\misc\\MIDWAI\\coding-agent-nvt-v0\\src\\NADIA\\Shared.Models\\Shared.Models.csproj",
         "packagesPath": "C:\\Users\\NicolasVALLOT\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\NicolasVALLOT\\.vscode\\extensions\\ms-dotnettools.vscode-dotnet-pack-1.0.13\\misc\\MIDWAI\\coding-agent-nvt-v0\\src\\NADIA\\Shared.Models\\obj\\",
+        "outputPath": "C:\\Users\\NicolasVALLOT\\.vscode\\extensions\\ms-dotnettools.vscode-dotnet-pack-1.0.13\\misc\\MIDWAI\\coding-agent-nvt-v0\\src\\NADIA\\Shared.Models\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

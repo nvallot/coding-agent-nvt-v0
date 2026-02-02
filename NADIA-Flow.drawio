@@ -1,0 +1,141 @@
+<mxfile host="app.diagrams.net" modified="2026-02-02T00:00:00.000Z" agent="GitHub Copilot" version="22.1.1" type="device">
+  <diagram name="NADIA-SupplierPortal-Flow" id="NADIA-Flow">
+    <mxGraphModel dx="1400" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1200" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Title -->
+        <mxCell id="title" value="NADIA → Supplier Portal (Flux de données)" style="text;html=1;fontSize=18;fontStyle=1;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="420" y="20" width="760" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- NADIA flow (FAP-65) -->
+        <mxCell id="nadiaGroup" value="FAP-65 (NADIA)" style="swimlane;html=1;rounded=1;startSize=28;fillColor=#E3F2FD;strokeColor=#1E88E5;" vertex="1" parent="1">
+          <mxGeometry x="60" y="90" width="640" height="380" as="geometry" />
+        </mxCell>
+
+        <mxCell id="timer" value="Timer Trigger\n(04:00 CET)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#1E88E5;" vertex="1" parent="nadiaGroup">
+          <mxGeometry x="30" y="60" width="150" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="fap65" value="RetrivePOVendorFunction" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#1E88E5;" vertex="1" parent="nadiaGroup">
+          <mxGeometry x="220" y="60" width="200" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="sql" value="NADIA SQL\n(stored proc)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF8E1;strokeColor=#F9A825;" vertex="1" parent="nadiaGroup">
+          <mxGeometry x="30" y="170" width="150" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="sb" value="Service Bus Topic\n(purchase-orders)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8F5E9;strokeColor=#43A047;" vertex="1" parent="nadiaGroup">
+          <mxGeometry x="220" y="170" width="200" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="table" value="Table Storage\n(LastExecution)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF8E1;strokeColor=#F9A825;" vertex="1" parent="nadiaGroup">
+          <mxGeometry x="460" y="170" width="150" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="ai_nadia" value="App Insights" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F3E5F5;strokeColor=#8E24AA;" vertex="1" parent="nadiaGroup">
+          <mxGeometry x="220" y="270" width="200" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- Supplier Portal flow (FAP-57) -->
+        <mxCell id="spGroup" value="FAP-57 (Supplier Portal)" style="swimlane;html=1;rounded=1;startSize=28;fillColor=#E8F5E9;strokeColor=#43A047;" vertex="1" parent="1">
+          <mxGeometry x="820" y="90" width="640" height="380" as="geometry" />
+        </mxCell>
+
+        <mxCell id="sbSub" value="Service Bus Subscription\n(spa-processor)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8F5E9;strokeColor=#43A047;" vertex="1" parent="spGroup">
+          <mxGeometry x="30" y="60" width="200" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="fap57" value="SendPOSupplierFunction" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#43A047;" vertex="1" parent="spGroup">
+          <mxGeometry x="260" y="60" width="200" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="lucy" value="Lucy API\nHTTP GET /api/users" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF8E1;strokeColor=#F9A825;" vertex="1" parent="spGroup">
+          <mxGeometry x="30" y="170" width="200" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="dataverse" value="Dataverse\nUpsert" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF8E1;strokeColor=#F9A825;" vertex="1" parent="spGroup">
+          <mxGeometry x="260" y="170" width="200" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="ai_sp" value="App Insights" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F3E5F5;strokeColor=#8E24AA;" vertex="1" parent="spGroup">
+          <mxGeometry x="260" y="270" width="200" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- Shared resources -->
+        <mxCell id="shared" value="Ressources partagées" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EEEEEE;strokeColor=#616161;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="520" width="1400" height="110" as="geometry" />
+        </mxCell>
+
+        <mxCell id="keyvault" value="Key Vault" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF3E0;strokeColor=#FB8C00;" vertex="1" parent="shared">
+          <mxGeometry x="40" y="40" width="160" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="appinsights" value="Application Insights" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F3E5F5;strokeColor=#8E24AA;" vertex="1" parent="shared">
+          <mxGeometry x="240" y="40" width="220" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="servicebus" value="Service Bus Namespace" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8F5E9;strokeColor=#43A047;" vertex="1" parent="shared">
+          <mxGeometry x="500" y="40" width="220" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- Edges -->
+        <mxCell id="e1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="nadiaGroup" source="timer" target="fap65">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="nadiaGroup" source="fap65" target="sql">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="nadiaGroup" source="fap65" target="sb">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="nadiaGroup" source="fap65" target="table">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="nadiaGroup" source="fap65" target="ai_nadia">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="spGroup" source="sbSub" target="fap57">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="spGroup" source="fap57" target="lucy">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="spGroup" source="fap57" target="dataverse">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="spGroup" source="fap57" target="ai_sp">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Cross-repo flow: Service Bus topic to subscription -->
+        <mxCell id="e10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;" edge="1" parent="1" source="sb" target="sbSub">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Shared resources connections (dashed) -->
+        <mxCell id="e11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;" edge="1" parent="1" source="keyvault" target="fap65">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;" edge="1" parent="1" source="keyvault" target="fap57">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;" edge="1" parent="1" source="appinsights" target="ai_nadia">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;" edge="1" parent="1" source="appinsights" target="ai_sp">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;" edge="1" parent="1" source="servicebus" target="sb">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;" edge="1" parent="1" source="servicebus" target="sbSub">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

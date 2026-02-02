@@ -167,11 +167,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\Users\\NicolasVALLOT\\.vscode\\extensions\\ms-dotnettools.vscode-dotnet-pack-1.0.13\\misc\\MIDWAI\\coding-agent-nvt-v0\\src\\NADIA\\Shared.Models\\Shared.Models.csproj",
+      "projectUniqueName": "C:\\Users\\NicolasVALLOT\\.vscode\\extensions\\ms-dotnettools.vscode-dotnet-pack-1.0.13\\misc\\MIDWAI\\coding-agent-nvt-v0\\src\\NADIA\\Shared.Models\\Shared.Models.csproj",
       "projectName": "Shared.Models",
-      "projectPath": "c:\\Users\\NicolasVALLOT\\.vscode\\extensions\\ms-dotnettools.vscode-dotnet-pack-1.0.13\\misc\\MIDWAI\\coding-agent-nvt-v0\\src\\NADIA\\Shared.Models\\Shared.Models.csproj",
+      "projectPath": "C:\\Users\\NicolasVALLOT\\.vscode\\extensions\\ms-dotnettools.vscode-dotnet-pack-1.0.13\\misc\\MIDWAI\\coding-agent-nvt-v0\\src\\NADIA\\Shared.Models\\Shared.Models.csproj",
       "packagesPath": "C:\\Users\\NicolasVALLOT\\.nuget\\packages\\",
-      "outputPath": "c:\\Users\\NicolasVALLOT\\.vscode\\extensions\\ms-dotnettools.vscode-dotnet-pack-1.0.13\\misc\\MIDWAI\\coding-agent-nvt-v0\\src\\NADIA\\Shared.Models\\obj\\",
+      "outputPath": "C:\\Users\\NicolasVALLOT\\.vscode\\extensions\\ms-dotnettools.vscode-dotnet-pack-1.0.13\\misc\\MIDWAI\\coding-agent-nvt-v0\\src\\NADIA\\Shared.Models\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -251,11 +251,6 @@
     }
   },
   "logs": [
-    {
-      "code": "NU1301",
-      "level": "Error",
-      "message": "Impossible de charger l'index de service pour la source https://pkgs.dev.azure.com/sbm-offshore/67521561-fb53-4ea2-a082-a80103529fb1/_packaging/ISP-Feed/nuget/v3/index.json.\r\n  Response status code does not indicate success: 401 (Unauthorized)."
-    },
     {
       "code": "NU1900",
       "level": "Warning",

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "gPXeqTE9q9Q=",
-  "success": false,
-  "projectFilePath": "c:\\Users\\NicolasVALLOT\\.vscode\\extensions\\ms-dotnettools.vscode-dotnet-pack-1.0.13\\misc\\MIDWAI\\coding-agent-nvt-v0\\src\\NADIA\\Shared.Models\\Shared.Models.csproj",
+  "dgSpecHash": "YJInADibVgs=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\NicolasVALLOT\\.vscode\\extensions\\ms-dotnettools.vscode-dotnet-pack-1.0.13\\misc\\MIDWAI\\coding-agent-nvt-v0\\src\\NADIA\\Shared.Models\\Shared.Models.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\NicolasVALLOT\\.nuget\\packages\\system.text.encodings.web\\8.0.0\\system.text.encodings.web.8.0.0.nupkg.sha512",
     "C:\\Users\\NicolasVALLOT\\.nuget\\packages\\system.text.json\\8.0.1\\system.text.json.8.0.1.nupkg.sha512",
@@ -12,29 +12,21 @@
   ],
   "logs": [
     {
-      "code": "NU1301",
-      "level": "Error",
-      "message": "Impossible de charger l'index de service pour la source https://pkgs.dev.azure.com/sbm-offshore/67521561-fb53-4ea2-a082-a80103529fb1/_packaging/ISP-Feed/nuget/v3/index.json.\r\n  Response status code does not indicate success: 401 (Unauthorized).",
-      "projectPath": "c:\\Users\\NicolasVALLOT\\.vscode\\extensions\\ms-dotnettools.vscode-dotnet-pack-1.0.13\\misc\\MIDWAI\\coding-agent-nvt-v0\\src\\NADIA\\Shared.Models\\Shared.Models.csproj",
-      "filePath": "c:\\Users\\NicolasVALLOT\\.vscode\\extensions\\ms-dotnettools.vscode-dotnet-pack-1.0.13\\misc\\MIDWAI\\coding-agent-nvt-v0\\src\\NADIA\\Shared.Models\\Shared.Models.csproj",
-      "targetGraphs": []
-    },
-    {
       "code": "NU1900",
       "level": "Warning",
       "message": "Une erreur s’est produite lors de l’obtention des données de vulnérabilité du package\u00A0: Impossible de charger l'index de service pour la source https://pkgs.dev.azure.com/sbm-offshore/67521561-fb53-4ea2-a082-a80103529fb1/_packaging/ISP-Feed/nuget/v3/index.json.",
-      "projectPath": "c:\\Users\\NicolasVALLOT\\.vscode\\extensions\\ms-dotnettools.vscode-dotnet-pack-1.0.13\\misc\\MIDWAI\\coding-agent-nvt-v0\\src\\NADIA\\Shared.Models\\Shared.Models.csproj",
+      "projectPath": "C:\\Users\\NicolasVALLOT\\.vscode\\extensions\\ms-dotnettools.vscode-dotnet-pack-1.0.13\\misc\\MIDWAI\\coding-agent-nvt-v0\\src\\NADIA\\Shared.Models\\Shared.Models.csproj",
       "warningLevel": 1,
-      "filePath": "c:\\Users\\NicolasVALLOT\\.vscode\\extensions\\ms-dotnettools.vscode-dotnet-pack-1.0.13\\misc\\MIDWAI\\coding-agent-nvt-v0\\src\\NADIA\\Shared.Models\\Shared.Models.csproj",
+      "filePath": "C:\\Users\\NicolasVALLOT\\.vscode\\extensions\\ms-dotnettools.vscode-dotnet-pack-1.0.13\\misc\\MIDWAI\\coding-agent-nvt-v0\\src\\NADIA\\Shared.Models\\Shared.Models.csproj",
       "targetGraphs": []
     },
     {
       "code": "NU1903",
       "level": "Warning",
       "message": "Le package 'System.Text.Json' 8.0.1 présente une vulnérabilité de gravité élevé(e) connue, https://github.com/advisories/GHSA-8g4q-xg66-9fp4.",
-      "projectPath": "c:\\Users\\NicolasVALLOT\\.vscode\\extensions\\ms-dotnettools.vscode-dotnet-pack-1.0.13\\misc\\MIDWAI\\coding-agent-nvt-v0\\src\\NADIA\\Shared.Models\\Shared.Models.csproj",
+      "projectPath": "C:\\Users\\NicolasVALLOT\\.vscode\\extensions\\ms-dotnettools.vscode-dotnet-pack-1.0.13\\misc\\MIDWAI\\coding-agent-nvt-v0\\src\\NADIA\\Shared.Models\\Shared.Models.csproj",
       "warningLevel": 1,
-      "filePath": "c:\\Users\\NicolasVALLOT\\.vscode\\extensions\\ms-dotnettools.vscode-dotnet-pack-1.0.13\\misc\\MIDWAI\\coding-agent-nvt-v0\\src\\NADIA\\Shared.Models\\Shared.Models.csproj",
+      "filePath": "C:\\Users\\NicolasVALLOT\\.vscode\\extensions\\ms-dotnettools.vscode-dotnet-pack-1.0.13\\misc\\MIDWAI\\coding-agent-nvt-v0\\src\\NADIA\\Shared.Models\\Shared.Models.csproj",
       "libraryId": "System.Text.Json",
       "targetGraphs": [
         "net8.0"
@@ -44,9 +36,9 @@
       "code": "NU1903",
       "level": "Warning",
       "message": "Le package 'System.Text.Json' 8.0.1 présente une vulnérabilité de gravité élevé(e) connue, https://github.com/advisories/GHSA-hh2w-p6rv-4g7w.",
-      "projectPath": "c:\\Users\\NicolasVALLOT\\.vscode\\extensions\\ms-dotnettools.vscode-dotnet-pack-1.0.13\\misc\\MIDWAI\\coding-agent-nvt-v0\\src\\NADIA\\Shared.Models\\Shared.Models.csproj",
+      "projectPath": "C:\\Users\\NicolasVALLOT\\.vscode\\extensions\\ms-dotnettools.vscode-dotnet-pack-1.0.13\\misc\\MIDWAI\\coding-agent-nvt-v0\\src\\NADIA\\Shared.Models\\Shared.Models.csproj",
       "warningLevel": 1,
-      "filePath": "c:\\Users\\NicolasVALLOT\\.vscode\\extensions\\ms-dotnettools.vscode-dotnet-pack-1.0.13\\misc\\MIDWAI\\coding-agent-nvt-v0\\src\\NADIA\\Shared.Models\\Shared.Models.csproj",
+      "filePath": "C:\\Users\\NicolasVALLOT\\.vscode\\extensions\\ms-dotnettools.vscode-dotnet-pack-1.0.13\\misc\\MIDWAI\\coding-agent-nvt-v0\\src\\NADIA\\Shared.Models\\Shared.Models.csproj",
       "libraryId": "System.Text.Json",
       "targetGraphs": [
         "net8.0"
