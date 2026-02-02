@@ -1,0 +1,288 @@
+<mxfile host="app.diagrams.net" modified="2026-02-02T12:00:00.000Z" agent="Draw.io" version="24.0.0">
+  <diagram name="IT05a - NADIA to SPA" id="architecture">
+    <mxGraphModel dx="1434" dy="844" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1920" pageHeight="1200" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        
+        <!-- Title -->
+        <mxCell id="title" value="IT05a - Purchase Order Flow: NADIA → Supplier Performance Assessment" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=24;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="560" y="20" width="800" height="40" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="subtitle" value="FlowType: scm-SPA | Monitoring.Client v2.0.5 | StatusCode: 918860002" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontColor=#666666" vertex="1" parent="1">
+          <mxGeometry x="660" y="60" width="600" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- Resource Group 1: NADIA -->
+        <mxCell id="rg1" value="Resource Group: rg-isp-nadia-&lt;env&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E1F5FE;strokeColor=#0078D4;strokeWidth=3;verticalAlign=top;align=left;spacingLeft=10;fontSize=14;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="40" y="120" width="480" height="460" as="geometry" />
+        </mxCell>
+
+        <!-- SQL Database -->
+        <mxCell id="sqldb" value="&lt;b&gt;🗄️ NADIA SQL Database&lt;/b&gt;&lt;br&gt;&lt;br&gt;Stored Procedure:&lt;br&gt;&lt;b&gt;NADIA_SPA_SUPHEADERMETADATA_AZURE&lt;/b&gt;&lt;br&gt;&lt;br&gt;Business Rules:&lt;br&gt;• ProductId: PKG, EQT, BLK, SER, LOG&lt;br&gt;• PoCurrAmt &gt; 100,000&lt;br&gt;• FirstDeliveryDate (MIN)&lt;br&gt;• LastDeliveryDate (MAX)&lt;br&gt;• PO Close Out Boolean&lt;br&gt;• Exclude LOG/SER if not closed" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#0078D4;strokeColor=#003D6B;strokeWidth=2;fontColor=#FFFFFF;align=left;spacingLeft=15" vertex="1" parent="1">
+          <mxGeometry x="70" y="160" width="200" height="240" as="geometry" />
+        </mxCell>
+
+        <!-- Function App 1 -->
+        <mxCell id="fa1" value="&lt;b&gt;⚡ Azure Function App&lt;/b&gt;&lt;br&gt;&lt;br&gt;FAP-65.RetrivePOVendor&lt;br&gt;&lt;br&gt;Trigger: Timer&lt;br&gt;&lt;font color=&quot;#FFD700&quot;&gt;0 */5 * * * *&lt;/font&gt;&lt;br&gt;&lt;br&gt;FlowType: &lt;b&gt;scm-SPA&lt;/b&gt;&lt;br&gt;&lt;br&gt;Function:&lt;br&gt;RetrievePurchaseOrder" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0078D4;strokeColor=#003D6B;strokeWidth=2;fontColor=#FFFFFF;align=left;spacingLeft=15" vertex="1" parent="1">
+          <mxGeometry x="300" y="160" width="200" height="180" as="geometry" />
+        </mxCell>
+
+        <!-- Table Storage -->
+        <mxCell id="table1" value="&lt;b&gt;📊 Table Storage&lt;/b&gt;&lt;br&gt;&lt;br&gt;LastExecution&lt;br&gt;tracking&lt;br&gt;&lt;br&gt;(date + time)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E3F2FD;strokeColor=#0078D4;strokeWidth=2;fontColor=#000000;align=center" vertex="1" parent="1">
+          <mxGeometry x="70" y="430" width="120" height="120" as="geometry" />
+        </mxCell>
+
+        <!-- Blob Storage -->
+        <mxCell id="blob1" value="&lt;b&gt;📦 Blob Storage&lt;/b&gt;&lt;br&gt;&lt;br&gt;Container:&lt;br&gt;purchase-orders&lt;br&gt;&lt;br&gt;Archive JSON&lt;br&gt;messages" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E3F2FD;strokeColor=#0078D4;strokeWidth=2;fontColor=#000000;align=center" vertex="1" parent="1">
+          <mxGeometry x="220" y="430" width="120" height="120" as="geometry" />
+        </mxCell>
+
+        <!-- Resource Group 2: Service Bus -->
+        <mxCell id="rg2" value="Resource Group: rg-isp-supplier-events-&lt;env&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F1F8E9;strokeColor=#7FBA00;strokeWidth=3;verticalAlign=top;align=left;spacingLeft=10;fontSize=14;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="560" y="120" width="360" height="460" as="geometry" />
+        </mxCell>
+
+        <!-- Service Bus -->
+        <mxCell id="servicebus" value="&lt;b&gt;🚌 Service Bus Namespace&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;b&gt;supplier-events&lt;/b&gt;&lt;br&gt;&lt;br&gt;📢 Topic:&lt;br&gt;&lt;b&gt;purchase-orders&lt;/b&gt;&lt;br&gt;&lt;br&gt;🔔 Subscription:&lt;br&gt;&lt;b&gt;spa-subscription&lt;/b&gt;&lt;br&gt;&lt;br&gt;Message Properties:&lt;br&gt;• FlowId&lt;br&gt;• FlowTitle&lt;br&gt;• FlowType: scm-SPA&lt;br&gt;• EVENTTYPE: SPA&lt;br&gt;• EVENT_COUNT&lt;br&gt;&lt;br&gt;SessionId: flowId" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#7FBA00;strokeColor=#5A8600;strokeWidth=2;fontColor=#FFFFFF;align=left;spacingLeft=15" vertex="1" parent="1">
+          <mxGeometry x="590" y="160" width="300" height="380" as="geometry" />
+        </mxCell>
+
+        <!-- Resource Group 3: Supplier Portal -->
+        <mxCell id="rg3" value="Resource Group: rg-isp-supplier-portal-&lt;env&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FCE4EC;strokeColor=#C2185B;strokeWidth=3;verticalAlign=top;align=left;spacingLeft=10;fontSize=14;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="960" y="120" width="480" height="460" as="geometry" />
+        </mxCell>
+
+        <!-- Function App 2 -->
+        <mxCell id="fa2" value="&lt;b&gt;⚡ Azure Function App&lt;/b&gt;&lt;br&gt;&lt;br&gt;FAP-57.SendPOSupplier&lt;br&gt;&lt;br&gt;Trigger: Service Bus&lt;br&gt;Topic: purchase-orders&lt;br&gt;Subscription: spa-subscription&lt;br&gt;&lt;br&gt;Function:&lt;br&gt;ProcessVendorSPA&lt;br&gt;&lt;br&gt;StatusCode: &lt;b&gt;918860002&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0078D4;strokeColor=#003D6B;strokeWidth=2;fontColor=#FFFFFF;align=left;spacingLeft=15" vertex="1" parent="1">
+          <mxGeometry x="990" y="160" width="200" height="200" as="geometry" />
+        </mxCell>
+
+        <!-- Key Vault -->
+        <mxCell id="keyvault" value="&lt;b&gt;🔐 Key Vault&lt;/b&gt;&lt;br&gt;&lt;br&gt;Secrets:&lt;br&gt;• DataverseClientId&lt;br&gt;• DataverseClientSecret&lt;br&gt;&lt;br&gt;Configuration:&lt;br&gt;• Lucy API scope&lt;br&gt;• Connection strings" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFB900;strokeColor=#C78F00;strokeWidth=2;fontColor=#000000;align=left;spacingLeft=15" vertex="1" parent="1">
+          <mxGeometry x="1220" y="160" width="200" height="200" as="geometry" />
+        </mxCell>
+
+        <!-- Resource Group 4: APIM -->
+        <mxCell id="rg4" value="Resource Group: rg-apim-&lt;env&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E0F2F1;strokeColor=#00BCF2;strokeWidth=3;verticalAlign=top;align=left;spacingLeft=10;fontSize=14;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="960" y="620" width="480" height="200" as="geometry" />
+        </mxCell>
+
+        <!-- Lucy API -->
+        <mxCell id="lucy" value="&lt;b&gt;🔌 Lucy API (APIM)&lt;/b&gt;&lt;br&gt;&lt;br&gt;Gateway:&lt;br&gt;https://apimgt-stg.sbmoffshore.com/lucy&lt;br&gt;&lt;br&gt;Endpoint:&lt;br&gt;GET /UserAccount&lt;br&gt;$filter: tolower(user/email)&lt;br&gt;$expand: user&lt;br&gt;$select: personIdExternal,email&lt;br&gt;&lt;br&gt;Auth: ManagedIdentity&lt;br&gt;Scope: api://api.lucy.&lt;env&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#00BCF2;strokeColor=#0089C7;strokeWidth=2;fontColor=#FFFFFF;align=left;spacingLeft=15" vertex="1" parent="1">
+          <mxGeometry x="990" y="660" width="420" height="140" as="geometry" />
+        </mxCell>
+
+        <!-- Dataverse -->
+        <mxCell id="dataverse" value="&lt;b&gt;💾 DATAVERSE&lt;/b&gt;&lt;br&gt;&lt;br&gt;Table: &lt;b&gt;sbm_stagedpurchaseorder&lt;/b&gt;&lt;br&gt;&lt;br&gt;Fields (14+):&lt;br&gt;• sbm_ponumber&lt;br&gt;• sbm_mdmnumber&lt;br&gt;• sbm_pkmpersonid (Lucy)&lt;br&gt;• sbm_pkmemail&lt;br&gt;• sbm_productcode&lt;br&gt;• sbm_amount&lt;br&gt;• sbm_firstdelivery&lt;br&gt;• sbm_lastdelivery&lt;br&gt;• sbm_closeout&lt;br&gt;• sbm_erplastupdate&lt;br&gt;• sbm_projectnumber&lt;br&gt;• sbm_description&lt;br&gt;• sbm_pkmfirstname (Lucy)&lt;br&gt;• sbm_pkmlastname (Lucy)&lt;br&gt;• statuscode: &lt;b&gt;918860002&lt;/b&gt;" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#742774;strokeColor=#4D1A4D;strokeWidth=2;fontColor=#FFFFFF;align=left;spacingLeft=15" vertex="1" parent="1">
+          <mxGeometry x="1480" y="120" width="220" height="380" as="geometry" />
+        </mxCell>
+
+        <!-- Monitoring -->
+        <mxCell id="monitoring" value="&lt;b&gt;📈 Azure Monitor&lt;/b&gt;&lt;br&gt;&lt;br&gt;Monitoring.Client v2.0.5&lt;br&gt;&lt;br&gt;Dashboard:&lt;br&gt;ISP-NADIA-SPA-Dashboard&lt;br&gt;&lt;br&gt;FlowType: &lt;b&gt;scm-SPA&lt;/b&gt;&lt;br&gt;&lt;br&gt;Traces:&lt;br&gt;• StartingFlowSBN&lt;br&gt;• CompletingFlowSBN&lt;br&gt;• FailingFlowSBN&lt;br&gt;&lt;br&gt;Metrics:&lt;br&gt;• Success rate&lt;br&gt;• Processing time&lt;br&gt;• Error count" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#00B294;strokeColor=#008272;strokeWidth=2;fontColor=#FFFFFF;align=left;spacingLeft=15" vertex="1" parent="1">
+          <mxGeometry x="1480" y="540" width="220" height="280" as="geometry" />
+        </mxCell>
+
+        <!-- Business Rules Box -->
+        <mxCell id="rules" value="&lt;b&gt;📋 BUSINESS RULES - Stored Procedure&lt;/b&gt;&lt;br&gt;&lt;br&gt;🔍 Filters:&lt;br&gt;• ProductId IN ('PKG','EQT','BLK','SER','LOG')&lt;br&gt;• PoCurrAmt &gt; 100,000&lt;br&gt;• Modified since last execution&lt;br&gt;&lt;br&gt;🚫 Exclusions:&lt;br&gt;• LOG/SER when PO Close Out = 0&lt;br&gt;&lt;br&gt;📊 Calculations:&lt;br&gt;• FirstDeliveryDate = MIN(delivery)&lt;br&gt;• LastDeliveryDate = MAX(delivery)&lt;br&gt;• PO Close Out = LastDeliveryDate + 6 months ≤ TODAY&lt;br&gt;• DateModified = MAX(PO, PackageMgr, PackageLine)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F25022;strokeColor=#B93B1A;strokeWidth=2;fontColor=#FFFFFF;align=left;spacingLeft=15;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="40" y="620" width="480" height="200" as="geometry" />
+        </mxCell>
+
+        <!-- Configuration Box -->
+        <mxCell id="config" value="&lt;b&gt;⚙️ CONFIGURATION&lt;/b&gt;&lt;br&gt;&lt;br&gt;Environment Variables:&lt;br&gt;&lt;br&gt;&lt;b&gt;NADIA (FAP-65):&lt;/b&gt;&lt;br&gt;• ServiceBusConnection__fullyQualifiedNamespace&lt;br&gt;• NadiaConnectionString&lt;br&gt;• TimerTriggerRetrievePurchaseOrder&lt;br&gt;• BlobContainer: purchase-orders&lt;br&gt;• FlowType: scm-SPA (hardcoded)&lt;br&gt;• env&lt;br&gt;&lt;br&gt;&lt;b&gt;Supplier Portal (FAP-57):&lt;/b&gt;&lt;br&gt;• ServiceBusConnection__fullyQualifiedNamespace&lt;br&gt;• ServiceBusPurchaseOrderTopic&lt;br&gt;• ServiceBusPurchaseOrderSubscription&lt;br&gt;• DataverseUri&lt;br&gt;• DataverseClientId (Key Vault)&lt;br&gt;• DataverseClientSecret (Key Vault)&lt;br&gt;• LucyApiUrl&lt;br&gt;• FlowType: scm-SPA&lt;br&gt;• env" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#5E5E5E;strokeColor=#3E3E3E;strokeWidth=2;fontColor=#FFFFFF;align=left;spacingLeft=15;fontSize=10" vertex="1" parent="1">
+          <mxGeometry x="560" y="620" width="360" height="200" as="geometry" />
+        </mxCell>
+
+        <!-- ARROWS - Numbered Flow -->
+        <!-- Step 1: SQL to Function -->
+        <mxCell id="arrow1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=3;strokeColor=#0078D4;endArrow=block;endFill=1" edge="1" parent="1" source="sqldb" target="fa1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="label1" value="① SELECT SP&#xa;11 columns&#xa;Business rules applied" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=11;fontStyle=1;fillColor=#FFFFFF;strokeColor=#0078D4;strokeWidth=1" vertex="1" connectable="0" parent="arrow1">
+          <mxGeometry x="-0.1" y="1" relative="1" as="geometry">
+            <mxPoint x="1" y="-20" as="offset" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Step 2: Table Storage read -->
+        <mxCell id="arrow2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#666666;endArrow=block;endFill=1;dashed=1" edge="1" parent="1" source="fa1" target="table1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="label2" value="② Read&#xa;LastExecution" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontStyle=1;fillColor=#FFFFFF" vertex="1" connectable="0" parent="arrow2">
+          <mxGeometry x="-0.1" y="1" relative="1" as="geometry">
+            <mxPoint x="-30" y="1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Step 3: Publish to Service Bus -->
+        <mxCell id="arrow3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=4;strokeColor=#7FBA00;endArrow=block;endFill=1" edge="1" parent="1" source="fa1" target="servicebus">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="label3" value="③ Publish messages&#xa;PurchaseOrderPivot JSON&#xa;SessionId + Properties" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=11;fontStyle=1;fillColor=#FFFFFF;strokeColor=#7FBA00;strokeWidth=1" vertex="1" connectable="0" parent="arrow3">
+          <mxGeometry x="-0.1" y="1" relative="1" as="geometry">
+            <mxPoint y="-25" as="offset" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Step 4: Archive to Blob -->
+        <mxCell id="arrow4" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#666666;endArrow=block;endFill=1;dashed=1" edge="1" parent="1" source="fa1" target="blob1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="label4" value="④ Archive&#xa;JSON" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontStyle=1;fillColor=#FFFFFF" vertex="1" connectable="0" parent="arrow4">
+          <mxGeometry x="-0.1" y="1" relative="1" as="geometry">
+            <mxPoint x="25" y="1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Step 5: Monitoring from FA1 -->
+        <mxCell id="arrow5" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#00B294;endArrow=block;endFill=1;dashed=1;dashPattern=5 5" edge="1" parent="1" source="fa1" target="monitoring">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="400" y="100" />
+              <mxPoint x="1590" y="100" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="label5" value="⑤ Monitoring traces" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontStyle=1;fillColor=#FFFFFF" vertex="1" connectable="0" parent="arrow5">
+          <mxGeometry x="-0.1" y="1" relative="1" as="geometry">
+            <mxPoint x="30" y="-10" as="offset" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Step 6: Service Bus to FA2 -->
+        <mxCell id="arrow6" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=4;strokeColor=#7FBA00;endArrow=block;endFill=1" edge="1" parent="1" source="servicebus" target="fa2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="label6" value="⑥ Service Bus Trigger&#xa;purchase-orders topic" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=11;fontStyle=1;fillColor=#FFFFFF;strokeColor=#7FBA00;strokeWidth=1" vertex="1" connectable="0" parent="arrow6">
+          <mxGeometry x="-0.1" y="1" relative="1" as="geometry">
+            <mxPoint y="-20" as="offset" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Step 7: FA2 to Lucy -->
+        <mxCell id="arrow7" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=3;strokeColor=#00BCF2;endArrow=block;endFill=1" edge="1" parent="1" source="fa2" target="lucy">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1090" y="400" />
+              <mxPoint x="1090" y="730" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="label7" value="⑦ GET UserAccount&#xa;ManagedIdentity + Bearer" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=11;fontStyle=1;fillColor=#FFFFFF;strokeColor=#00BCF2;strokeWidth=1" vertex="1" connectable="0" parent="arrow7">
+          <mxGeometry x="-0.1" y="1" relative="1" as="geometry">
+            <mxPoint x="70" y="5" as="offset" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Step 8: Lucy response -->
+        <mxCell id="arrow8" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=3;strokeColor=#00BCF2;endArrow=block;endFill=1;dashed=1" edge="1" parent="1" source="lucy" target="fa2">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1200" y="730" />
+              <mxPoint x="1200" y="400" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="label8" value="⑧ Response&#xa;PersonIdExternal&#xa;FirstName, LastName" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontStyle=1;fillColor=#FFFFFF;strokeColor=#00BCF2;strokeWidth=1" vertex="1" connectable="0" parent="arrow8">
+          <mxGeometry x="-0.1" y="1" relative="1" as="geometry">
+            <mxPoint x="55" y="-5" as="offset" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Step 9: Key Vault -->
+        <mxCell id="arrow9" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#FFB900;endArrow=block;endFill=1;dashed=1" edge="1" parent="1" source="fa2" target="keyvault">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="label9" value="⑨ Get secrets&#xa;Dataverse creds" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontStyle=1;fillColor=#FFFFFF" vertex="1" connectable="0" parent="arrow9">
+          <mxGeometry x="-0.1" y="1" relative="1" as="geometry">
+            <mxPoint y="-15" as="offset" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Step 10: FA2 to Dataverse -->
+        <mxCell id="arrow10" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=4;strokeColor=#742774;endArrow=block;endFill=1" edge="1" parent="1" source="fa2" target="dataverse">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1250" y="260" />
+              <mxPoint x="1250" y="300" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="label10" value="⑩ Upsert Entity&#xa;sbm_stagedpurchaseorder&#xa;statuscode: 918860002" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=11;fontStyle=1;fillColor=#FFFFFF;strokeColor=#742774;strokeWidth=1" vertex="1" connectable="0" parent="arrow10">
+          <mxGeometry x="-0.1" y="1" relative="1" as="geometry">
+            <mxPoint x="-10" y="-30" as="offset" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Step 11: Monitoring from FA2 -->
+        <mxCell id="arrow11" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#00B294;endArrow=block;endFill=1;dashed=1;dashPattern=5 5" edge="1" parent="1" source="fa2" target="monitoring">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1090" y="400" />
+              <mxPoint x="1090" y="500" />
+              <mxPoint x="1450" y="500" />
+              <mxPoint x="1450" y="680" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="label11" value="⑪ Monitoring traces&#xa;+ DataverseEntityId" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontStyle=1;fillColor=#FFFFFF" vertex="1" connectable="0" parent="arrow11">
+          <mxGeometry x="-0.1" y="1" relative="1" as="geometry">
+            <mxPoint x="30" y="-10" as="offset" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Azure Logo -->
+        <mxCell id="azure_logo" value="☁️ AZURE" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=20;fontStyle=1;fontColor=#0078D4" vertex="1" parent="1">
+          <mxGeometry x="40" y="20" width="120" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- Legend -->
+        <mxCell id="legend_box" value="&lt;b&gt;LEGEND&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#000000;strokeWidth=2;verticalAlign=top;align=left;spacingLeft=10;fontSize=12;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="40" y="860" width="1660" height="100" as="geometry" />
+        </mxCell>
+
+        <mxCell id="legend1" value="━━━━▶" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontColor=#0078D4;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="70" y="900" width="100" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="legend1_text" value="SQL Query / Data extraction" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12" vertex="1" parent="1">
+          <mxGeometry x="180" y="900" width="200" height="20" as="geometry" />
+        </mxCell>
+
+        <mxCell id="legend2" value="━━━━▶" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontColor=#7FBA00;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="410" y="900" width="100" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="legend2_text" value="Service Bus messages" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12" vertex="1" parent="1">
+          <mxGeometry x="520" y="900" width="200" height="20" as="geometry" />
+        </mxCell>
+
+        <mxCell id="legend3" value="━━━━▶" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontColor=#742774;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="750" y="900" width="100" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="legend3_text" value="Dataverse upsert" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12" vertex="1" parent="1">
+          <mxGeometry x="860" y="900" width="200" height="20" as="geometry" />
+        </mxCell>
+
+        <mxCell id="legend4" value="━ ━ ━▶" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontColor=#00B294;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="1090" y="900" width="100" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="legend4_text" value="Monitoring traces" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12" vertex="1" parent="1">
+          <mxGeometry x="1200" y="900" width="200" height="20" as="geometry" />
+        </mxCell>
+
+        <mxCell id="legend5" value="━ ━ ━▶" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontColor=#666666;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="1430" y="900" width="100" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="legend5_text" value="Storage operations" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12" vertex="1" parent="1">
+          <mxGeometry x="1540" y="900" width="200" height="20" as="geometry" />
+        </mxCell>
+
+        <!-- Footer -->
+        <mxCell id="footer" value="IT05a - Purchase Order Flow | NADIA → Supplier Performance Assessment | Date: 2026-02-02 | Author: Coding Agent" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;fontColor=#999999" vertex="1" parent="1">
+          <mxGeometry x="560" y="1000" width="800" height="20" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
