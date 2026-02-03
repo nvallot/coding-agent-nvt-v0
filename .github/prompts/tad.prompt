@@ -1,0 +1,379 @@
+---
+title: Technical Architecture Document (TAD)
+description: Génère un document d'architecture technique complet et structuré
+agents: ["architecte"]
+variables:
+  - name: project_name
+    description: "Nom du projet"
+    required: true
+  - name: project_description
+    description: "Description détaillée du projet"
+    required: true
+  - name: stakeholders
+    description: "Liste des parties prenantes"
+    required: false
+---
+
+# 📐 Technical Architecture Document (TAD)
+
+Tu vas créer un **TAD complet et professionnel** pour le projet suivant:
+
+**Projet**: {{project_name}}
+
+**Description**: {{project_description}}
+
+{{#if stakeholders}}
+**Stakeholders**: {{stakeholders}}
+{{/if}}
+
+## 📋 Structure du Document
+
+Produis un TAD structuré contenant les sections suivantes:
+
+### 1. Executive Summary (2-3 paragraphes)
+
+Résume:
+- Le problème métier à résoudre
+- La solution technique proposée
+- Les bénéfices clés (3-5 points)
+- Les décisions d'architecture majeures (3-5 points)
+
+### 2. Business Context
+
+#### 2.1 Problème Métier
+- Quel problème résolvons-nous?
+- Pour qui (utilisateurs, business)?
+- Pourquoi maintenant?
+- Quel est l'impact de ne rien faire?
+
+#### 2.2 Objectifs SMART
+Liste 3-5 objectifs:
+- **S**pecific: Objectif précis
+- **M**easurable: Métrique quantifiable
+- **A**chievable: Réalisable avec ressources disponibles
+- **R**elevant: Pertinent pour le business
+- **T**ime-bound: Échéance définie
+
+Format:
+```
+O1: [Objectif] - KPI: [Métrique] - Target: [Valeur] - Deadline: [Date]
+```
+
+#### 2.3 Stakeholders
+
+| Rôle | Nom/Équipe | Responsabilités | Attentes |
+|------|------------|-----------------|----------|
+| Product Owner | | Priorisation | ROI maximisé |
+| Tech Lead | | Architecture technique | Solution robuste |
+| Security Team | | Conformité sécurité | 0 vulnérabilité critique |
+
+### 3. System Overview
+
+#### 3.1 Context Diagram (C4 Level 1)
+
+Créer un diagramme Mermaid C4 Context montrant:
+- Les acteurs (utilisateurs, admins)
+- Le système principal
+- Les systèmes externes
+- Les interactions
+
+```mermaid
+C4Context
+    title System Context - [Nom Système]
+    ...
+```
+
+#### 3.2 High-Level Architecture
+
+Vue d'ensemble de l'architecture avec:
+- Couches principales (Ingestion, Processing, Storage, Consumption)
+- Technologies clés
+- Flux de données principal
+
+### 4. Detailed Design
+
+#### 4.1 Container Diagram (C4 Level 2)
+
+Diagramme détaillant les conteneurs applicatifs:
+
+```mermaid
+C4Container
+    title Container Diagram - [Nom Système]
+    ...
+```
+
+#### 4.2 Composants Azure
+
+Pour chaque service Azure utilisé, documenter:
+
+**[Nom Service] (ex: Azure Data Factory)**:
+- **Rôle**: Orchestration ETL
+- **Configuration**: 
+  - SKU: Standard
+  - Region: West Europe
+  - Integration Runtime: Azure
+- **Pipelines**: 
+  - Pipeline1: Description
+  - Pipeline2: Description
+- **Linked Services**: Liste des connexions
+- **Triggers**: Schedule, event-based
+- **Monitoring**: Log Analytics, Application Insights
+
+Répéter pour tous les services (ADLS, Databricks, Synapse, etc.)
+
+#### 4.3 Network Architecture
+
+```mermaid
+graph TB
+    subgraph "Azure VNet"
+        ...
+    end
+```
+
+Détailler:
+- VNets et subnets
+- Private Endpoints
+- NSG rules (inbound/outbound)
+- Firewall rules
+- Exposition Internet (si applicable)
+
+#### 4.4 Security Architecture
+
+**Authentication**:
+- Managed Identity (où et comment)
+- Service Principals (si nécessaire)
+- Azure AD integration
+
+**Authorization**:
+- RBAC roles par service
+- Custom roles si nécessaire
+- Principle of least privilege
+
+**Secrets Management**:
+- Key Vault configuration
+- Secrets stockés
+- Rotation policy
+
+**Encryption**:
+- At-rest: CMK ou PMK?
+- In-transit: TLS 1.2+
+- Database: TDE activé
+
+**Network Security**:
+- Private Endpoints pour services PaaS
+- VNet integration
+- NSG et Firewall rules
+
+#### 4.5 Monitoring & Observability
+
+**Application Insights**:
+- APM (Application Performance Monitoring)
+- Distributed tracing
+- Custom metrics
+
+**Log Analytics**:
+- Centralization des logs
+- Requêtes KQL personnalisées
+- Retention: 90 jours
+
+**Azure Monitor**:
+- Métriques par service
+- Alertes configurées:
+  - Alert 1: [Condition] → [Action]
+  - Alert 2: [Condition] → [Action]
+- Dashboards
+
+**Logging Standards**:
+```json
+{
+  "timestamp": "ISO8601",
+  "correlationId": "GUID",
+  "level": "INFO|WARN|ERROR",
+  "service": "service-name",
+  "message": "...",
+  "metadata": {}
+}
+```
+
+### 5. Data Architecture
+
+#### 5.1 Data Model
+
+**Conceptual Model** (entités métier):
+```
+Customer 1----* Order *----1 Product
+```
+
+**Logical Model** (tables et relations):
+- dim_customer (SCD Type 2)
+- dim_product (SCD Type 1)
+- fact_sales (grain: order line)
+
+**Physical Model**:
+- Partitioning strategy: par date
+- Indexing: clustered, non-clustered
+- Compression: page/row
+- Format: Parquet/Delta Lake
+
+#### 5.2 Data Flow
+
+```mermaid
+graph LR
+    Sources --> Bronze --> Silver --> Gold --> Consumption
+```
+
+Détailler chaque layer:
+- **Bronze**: Raw data, format source
+- **Silver**: Cleaned, validated, deduped
+- **Gold**: Aggregated, business-ready
+
+### 6. Architecture Decisions (ADRs)
+
+Pour chaque décision majeure:
+
+**ADR-001: Choix de [Service A] vs [Service B]**
+
+- **Status**: Accepted
+- **Context**: [Problème à résoudre]
+- **Decision**: Utiliser [Service A]
+- **Rationale**: 
+  - Raison 1
+  - Raison 2
+- **Consequences**:
+  - **Pros**: ...
+  - **Cons**: ...
+  - **Mitigation**: ...
+
+Créer 3-5 ADRs minimum.
+
+### 7. Non-Functional Requirements
+
+| NFR | Requirement | Target | Solution | Validation |
+|-----|-------------|--------|----------|------------|
+| Performance | Latency end-to-end | < 5 min | Optimized Spark | Load testing |
+| Availability | Uptime | 99.9% | Multi-region | Health checks |
+| Scalability | Throughput | 1M rows/h | Auto-scaling | Stress testing |
+| Security | Encryption | 100% | At-rest + transit | Security audit |
+| Reliability | Error rate | < 0.1% | Retry logic | Monitoring |
+
+### 8. Cost Estimation
+
+Estimer les coûts mensuels Azure:
+
+| Service | SKU | Quantity | Unit Cost | Monthly Cost |
+|---------|-----|----------|-----------|--------------|
+| Resource Group | - | 1 | $0 | $0 |
+| ADLS Gen2 | Standard LRS | 1 TB | $0.02/GB | $20 |
+| Data Factory | - | 100 runs | $0.50/run | $50 |
+| Databricks | Standard | 100 DBU | $0.15/DBU | $15 |
+| Synapse SQL | DW100c | 730h | $1.20/h | $876 |
+| Key Vault | Standard | 10k ops | $0.03/10k | $0.30 |
+| Log Analytics | 10 GB/day | 300 GB/month | $2.76/GB | $828 |
+| **Total Estimated** | | | | **$1,789/month** |
+
+**Optimisations possibles**:
+- Reserved instances pour Synapse (-30%)
+- Pause Synapse hors heures ouvrées (-50%)
+- Compression des logs (-20%)
+
+### 9. Deployment Strategy
+
+#### 9.1 Environments
+
+| Environment | Purpose | Config |
+|-------------|---------|--------|
+| dev | Development | West Europe, auto-pause |
+| staging | Pre-prod validation | West Europe, minimal size |
+| prod | Production | West Europe + North Europe (DR) |
+
+#### 9.2 CI/CD Pipeline
+
+```
+Source (GitHub) 
+  → Build (GitHub Actions)
+  → Unit Tests
+  → Security Scan (Snyk/SonarQube)
+  → Terraform Plan
+  → Deploy to Dev (auto)
+  → Integration Tests
+  → Deploy to Staging (auto)
+  → E2E Tests
+  → Manual Approval (2 personnes)
+  → Deploy to Prod (Blue/Green)
+  → Smoke Tests
+  → Monitoring Validation
+```
+
+#### 9.3 Rollback Strategy
+
+- **Blue/Green Deployment**: Switch traffic en cas de problème
+- **Health Checks**: Validation automatique post-déploiement
+- **Rollback Manuel**: Procédure documentée (< 15 min)
+
+### 10. Risks & Mitigations
+
+| ID | Risk | Impact | Probability | Mitigation | Owner |
+|----|------|--------|-------------|------------|-------|
+| R-001 | Data quality issues | High | Medium | Validation layer + alerts | Data Team |
+| R-002 | Performance bottleneck | Medium | Low | Load testing + auto-scaling | DevOps |
+| R-003 | Security breach | Critical | Low | Defense in depth + audits | Security |
+| R-004 | Cost overrun | Medium | Medium | Budget alerts + reserved instances | Finance |
+
+### 11. Future Enhancements (Roadmap)
+
+**Phase 2** (Q3 2026):
+- Real-time streaming avec Event Hubs
+- ML/AI pour prédictions
+- Multi-region actif-actif
+
+**Phase 3** (Q4 2026):
+- Data Mesh architecture
+- Self-service analytics
+- Advanced governance (Purview)
+
+### 12. Appendices
+
+#### A. Glossary
+
+| Term | Definition |
+|------|------------|
+| ETL | Extract, Transform, Load |
+| SCD | Slowly Changing Dimension |
+| RBAC | Role-Based Access Control |
+
+#### B. References
+
+- [Azure Well-Architected Framework](https://learn.microsoft.com/azure/well-architected/)
+- [Data Factory Best Practices](https://...)
+- Internal standards: `.github/clients/[client]/instructions/`
+
+#### C. Contact Information
+
+| Role | Name | Email | Teams |
+|------|------|-------|-------|
+| Architect | | | |
+| Dev Lead | | | |
+| Product Owner | | | |
+
+---
+
+## ✅ Critères de Qualité
+
+Avant de livrer, vérifie:
+
+- [ ] Tous les diagrammes sont créés et clairs
+- [ ] Chaque service Azure est documenté
+- [ ] 3-5 ADRs minimum fournis
+- [ ] Estimation des coûts incluse
+- [ ] NFRs quantifiés et solutions proposées
+- [ ] Risques identifiés avec mitigations
+- [ ] Stratégie de déploiement définie
+- [ ] Roadmap future incluse
+
+---
+
+**Note**: Ce TAD doit être **vivant** et mis à jour à chaque changement architectural majeur.
+
+**Version**: 1.0.0  
+**Format**: Markdown  
+**Output**: Fichier `docs/TAD-{project_name}.md`

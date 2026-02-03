@@ -1,0 +1,43 @@
+{
+  "agents": [
+    {
+      "id": "ba",
+      "name": "Business Analyst",
+      "file": ".github/agents/business-analyst.md",
+      "description": "Analyse métier et exigences",
+      "model": "gpt-4o",
+      "temperature": 0.6
+    },
+    {
+      "id": "archi",
+      "name": "Architecte",
+      "file": ".github/agents/architecte.md",
+      "description": "Architecture et conception système",
+      "model": "gpt-4o",
+      "temperature": 0.5
+    },
+    {
+      "id": "dev",
+      "name": "Developpeur",
+      "file": ".github/agents/developpeur.md",
+      "description": "Implémentation et code",
+      "model": "gpt-4o",
+      "temperature": 0.4
+    },
+    {
+      "id": "reviewer",
+      "name": "Reviewer",
+      "file": ".github/agents/reviewer.md",
+      "description": "Revue de code et qualité",
+      "model": "gpt-4o",
+      "temperature": 0.3
+    }
+  ],
+  "settings": {
+    "defaultModel": "gpt-4o",
+    "defaultTemperature": 0.5,
+    "maxTokens": 4096,
+    "enableHandoffs": true,
+    "enableTools": true
+  }
+}
