@@ -1,0 +1,380 @@
+---
+title: Cost Estimation
+description: Estime les coûts d'infrastructure et d'opération pour un projet Azure
+agents: ["architecte"]
+---
+
+# 💰 Estimation des Coûts Azure
+
+Tu vas effectuer une estimation détaillée des coûts pour le projet suivant:
+
+**Projet**: {{project_name}}
+
+**Architecture**: {{architecture_overview}}
+
+## 📋 Méthodologie
+
+### 1. Inventaire des Ressources
+
+Liste complète des ressources Azure nécessaires:
+
+#### Compute
+- [ ] Container Apps
+- [ ] AKS (Azure Kubernetes Service)
+- [ ] App Service
+- [ ] Functions
+- [ ] Virtual Machines
+
+#### Data
+- [ ] SQL Database
+- [ ] PostgreSQL
+- [ ] MySQL
+- [ ] Cosmos DB
+- [ ] Storage Accounts (Blob, Files, Tables, Queues)
+
+#### Networking
+- [ ] Application Gateway
+- [ ] Load Balancer
+- [ ] VNet
+- [ ] Private Endpoints
+- [ ] Azure Front Door / CDN
+- [ ] VPN Gateway
+
+#### Messaging & Integration
+- [ ] Service Bus
+- [ ] Event Grid
+- [ ] Event Hubs
+- [ ] API Management
+
+#### Security & Identity
+- [ ] Key Vault
+- [ ] Azure AD (Premium features)
+- [ ] Application Gateway WAF
+- [ ] DDoS Protection
+
+#### Monitoring & Management
+- [ ] Application Insights
+- [ ] Log Analytics
+- [ ] Azure Monitor
+
+#### AI & ML
+- [ ] Cognitive Services
+- [ ] OpenAI Service
+- [ ] Machine Learning
+
+### 2. Dimensionnement
+
+Pour chaque ressource, déterminer:
+
+#### Trafic et Charge
+- **Utilisateurs actifs mensuels**: {{users_per_month | default: "10,000"}}
+- **Requêtes par jour**: {{requests_per_day | default: "100,000"}}
+- **Pics de charge**: {{peak_multiplier | default: "3x"}}
+- **Croissance prévue**: {{growth_rate | default: "+50% par an"}}
+
+#### Stockage
+- **Volume de données initial**: {{initial_data_size | default: "100 GB"}}
+- **Croissance mensuelle**: {{data_growth_per_month | default: "10 GB"}}
+- **Rétention des données**: {{retention_period | default: "90 jours"}}
+- **Backups**: {{backup_retention | default: "35 jours"}}
+
+### 3. Calcul des Coûts
+
+#### Template de Calcul
+
+```markdown
+## [Nom de la Ressource]
+
+### Configuration
+- **SKU**: [Basic | Standard | Premium]
+- **Taille**: [Specs]
+- **Région**: [West Europe]
+- **Redondance**: [LRS | ZRS | GRS]
+
+### Métriques d'Usage
+- **Compute**: X vCPU × Y heures/mois
+- **Storage**: Z GB
+- **Transactions**: N opérations/mois
+- **Bandwidth**: M GB sortant/mois
+
+### Calcul Détaillé
+```
+[Compute]
+- Base: $X/heure × 730 heures = $Y
+- Auto-scaling: +30% = $Z
+
+[Storage]
+- Data: Z GB × $0.XX/GB = $A
+- Transactions: N × $0.XX/10k = $B
+
+[Bandwidth]
+- Egress: M GB × $0.XX/GB = $C
+
+Total: $Y + $Z + $A + $B + $C = $TOTAL
+```
+
+### Optimisations Possibles
+1. [Optimisation 1]: -X% = $Y économisés
+2. [Optimisation 2]: -X% = $Y économisés
+
+### Coût Final Optimisé
+$TOTAL - $SAVINGS = $OPTIMIZED_TOTAL
+```
+
+### 4. Exemples par Service
+
+#### Container Apps
+
+```markdown
+## Container Apps - API Service
+
+### Configuration
+- **vCPU**: 0.5
+- **Memory**: 1 GB
+- **Replicas**: Min 2, Max 10
+- **Auto-scale**: Enabled (CPU > 70%)
+
+### Usage Estimation
+- **Average replicas**: 3 (peak hours) / 2 (off-hours)
+- **Weighted average**: 2.5 replicas
+- **Hours per month**: 730
+
+### Cost Calculation
+```
+vCPU-seconds = 0.5 vCPU × 2.5 replicas × 730 hours × 3600 sec
+             = 3,285,000 vCPU-seconds
+             
+Price = 3,285,000 / 1,000,000 × $0.000016
+      = $52.56
+
+Memory-GB-seconds = 1 GB × 2.5 replicas × 730 hours × 3600 sec
+                  = 6,570,000 GB-seconds
+                  
+Price = 6,570,000 / 1,000,000 × $0.000002
+      = $13.14
+
+HTTP Requests = 100,000 requests/day × 30 days
+              = 3,000,000 requests
+              = FREE (under 2M free)
+
+Total = $52.56 + $13.14 = $65.70/month
+```
+
+### Optimizations
+1. **Scale to Zero (off-hours)**: Save ~30% = $20/month
+2. **Right-size memory**: Reduce to 0.75GB = Save $3/month
+
+### Optimized Cost: ~$43/month
+```
+
+#### PostgreSQL Flexible Server
+
+```markdown
+## PostgreSQL Flexible Server
+
+### Configuration
+- **SKU**: Standard_D2s_v3 (2 vCore, 8 GB RAM)
+- **Storage**: 128 GB (P10)
+- **High Availability**: Disabled initially
+- **Backup Retention**: 35 days
+
+### Cost Calculation
+```
+Compute = 2 vCore × $0.15/vCore/hour × 730 hours
+        = $219/month
+
+Storage = 128 GB × $0.115/GB/month
+        = $14.72/month
+
+Backup Storage = 128 GB × 1.5 (estimated) × $0.095/GB/month
+               = $18.24/month
+
+Total = $219 + $14.72 + $18.24 = $251.96/month
+```
+
+### Optimizations
+1. **Reserved Capacity (1 year)**: -40% = $88 saved
+2. **Right-size if needed**: D2s → B2s = -$100/month (dev/test only)
+3. **Optimize backup storage**: -30% = $5/month
+
+### Production Cost: ~$164/month (with reservation)
+### Dev/Test Cost: ~$60/month (Burstable tier)
+```
+
+#### Azure SQL Database
+
+```markdown
+## Azure SQL Database
+
+### Configuration
+- **Tier**: General Purpose
+- **Compute**: 4 vCores
+- **Storage**: 256 GB
+- **Backup**: 7-day retention (included)
+
+### Cost Calculation
+```
+vCore = 4 vCore × $0.51/vCore/hour × 730 hours
+      = $1,489.20/month
+
+Storage = 256 GB × $0.115/GB/month
+        = $29.44/month
+
+Total = $1,489.20 + $29.44 = $1,518.64/month
+```
+
+### Optimizations
+1. **Serverless tier**: Pay only for usage
+   - $0.51/vCore-hour when active
+   - Auto-pause after 1 hour
+   - Estimated 40% usage = ~$600/month
+   
+2. **Reserved Capacity (3 years)**: -55% = $819 saved
+
+### Optimized Cost: ~$700/month
+```
+
+#### Redis Cache
+
+```markdown
+## Azure Cache for Redis
+
+### Configuration
+- **Tier**: Standard
+- **Size**: C1 (1 GB)
+- **High Availability**: Enabled (Standard)
+
+### Cost
+```
+Standard C1 = $0.068/hour × 730 hours
+            = $49.64/month
+
+Total = $49.64/month
+```
+
+### Optimizations
+1. **Right-size**: Monitor usage, downgrade if < 50% used
+2. **Basic tier**: Save 50% if HA not required (dev/test)
+
+### Production Cost: $50/month
+### Dev/Test Cost: $25/month
+```
+
+## 📊 Tableau Récapitulatif
+
+### Par Environnement
+
+| Environnement | Compute | Data | Network | Monitor | Total |
+|---------------|---------|------|---------|---------|-------|
+| **Development** | $100 | $80 | $20 | $30 | **$230** |
+| **Staging** | $150 | $150 | $30 | $50 | **$380** |
+| **Production** | $400 | $500 | $100 | $150 | **$1,150** |
+| **Total** | $650 | $730 | $150 | $230 | **$1,760/month** |
+
+### Avec Optimisations
+
+| Environnement | Avant | Après | Économie |
+|---------------|-------|-------|----------|
+| Development | $230 | $180 | -22% |
+| Staging | $380 | $300 | -21% |
+| Production | $1,150 | $850 | -26% |
+| **Total** | **$1,760** | **$1,330** | **-24%** |
+
+## 💡 Stratégies d'Optimisation
+
+### 1. Reserved Capacity
+- **Databases**: -40% à -55% sur 1-3 ans
+- **VMs**: -40% à -72% selon engagement
+- **ROI**: Breakeven en 6-12 mois
+
+### 2. Auto-Scaling Intelligent
+- Scale to zero pendant off-hours (dev/staging)
+- Scheduled scaling pour charges prévisibles
+- Metrics-based scaling pour charges variables
+
+### 3. Right-Sizing
+- Monitorer l'usage pendant 30 jours
+- Ajuster selon les métriques (CPU, RAM, IOPS)
+- Réviser trimestriellement
+
+### 4. Storage Tiers
+- Hot tier: Données fréquemment accédées
+- Cool tier: Données accédées < 1 fois/mois
+- Archive tier: Données de compliance/backup
+
+### 5. Lifecycle Management
+- Auto-delete des logs après 90 jours
+- Move to Cool tier après 30 jours
+- Purge des ressources non utilisées
+
+### 6. Budget Alerts
+```bicep
+resource budget 'Microsoft.Consumption/budgets@2023-05-01' = {
+  name: 'monthly-budget'
+  properties: {
+    amount: 1500
+    timeGrain: 'Monthly'
+    notifications: {
+      Alert80: {
+        enabled: true
+        threshold: 80
+        contactEmails: ['team@example.com']
+      }
+      Alert100: {
+        enabled: true
+        threshold: 100
+        contactEmails: ['team@example.com']
+        contactRoles: ['Owner']
+      }
+    }
+  }
+}
+```
+
+## 📈 Projection sur 12 Mois
+
+| Mois | Users | Coût Base | Scaling | Total | Cumulé |
+|------|-------|-----------|---------|-------|--------|
+| M1 | 10k | $1,330 | +$0 | $1,330 | $1,330 |
+| M2 | 12k | $1,330 | +$80 | $1,410 | $2,740 |
+| M3 | 15k | $1,330 | +$200 | $1,530 | $4,270 |
+| M6 | 25k | $1,330 | +$500 | $1,830 | $10,100 |
+| M12 | 50k | $1,330 | +$1,200 | $2,530 | $22,500 |
+
+**Moyenne mensuelle**: $1,875
+**Total annuel**: $22,500
+
+## ✅ Recommandations
+
+1. **Commencer petit**: 
+   - Utiliser des SKUs modestes
+   - Scale up selon la demande réelle
+   
+2. **Monitorer activement**:
+   - Dashboards de coût quotidiens
+   - Alertes sur dépassements
+   
+3. **Optimiser régulièrement**:
+   - Revue mensuelle des coûts
+   - Ajustements trimestriels
+   
+4. **Automatiser**:
+   - IaC pour reproductibilité
+   - Auto-scaling pour efficacité
+   
+5. **Prévoir la croissance**:
+   - Budget +50% pour imprévu
+   - Reserved capacity pour charges stables
+
+---
+
+## 🚀 Prochaines Étapes
+
+Maintenant que nous avons l'estimation, je vais créer:
+
+1. **Fichier de coûts détaillé** (costs.md)
+2. **Dashboard Azure Cost Management**
+3. **Budget alerts** (Bicep)
+4. **Recommandations d'optimisation**
+
+Prêt à commencer l'estimation pour **{{project_name}}**? 💰

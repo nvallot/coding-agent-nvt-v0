@@ -1,0 +1,195 @@
+```mermaid
+graph TB
+    subgraph "GitHub Copilot Base"
+        BASE[Base GitHub Copilot<br/>System Prompt]
+    end
+    
+    subgraph ".github"
+        subgraph "agents/"
+            ARCH[architecte.md<br/>🏗️ Architecture]
+            DEV[developpeur.md<br/>💻 Développement]
+            REV[reviewer.md<br/>👀 Code Review]
+        end
+        
+        subgraph "instructions/"
+            CONV[conventions.md<br/>📋 Conventions]
+            AZURE[azure-instructions.md<br/>☁️ Azure]
+            PATH[path-based-instructions.md<br/>📁 Path-Based]
+        end
+        
+        subgraph "knowledge/"
+            direction LR
+            K_AZURE[azure/<br/>Services & Best Practices]
+            K_ARCH[architecture/<br/>Patterns]
+        end
+        
+        subgraph "skills/"
+            S_DIAG[diagram-creation/<br/>SKILL.md]
+            S_SOL[solution-design/<br/>SKILL.md]
+            S_REV[code-review/<br/>SKILL.md]
+        end
+        
+        subgraph "Prompts (Templates)"
+            P_BRAIN[brainstorm.prompt<br/>💡 Brainstorming]
+            P_TAD[tad.prompt<br/>📄 TAD]
+            P_COST[cost-estimation.prompt<br/>💰 Coûts]
+        end
+        
+        CONFIG[copilot-config.json<br/>⚙️ Configuration]
+    end
+    
+    subgraph "System Prompt Final"
+        FINAL[Composition du Prompt]
+    end
+    
+    subgraph "Contexte Runtime"
+        WORKSPACE[Workspace Context<br/>Fichiers ouverts]
+        TOOLS[Tools Available<br/>Outils MCP]
+        USER[User Query<br/>@agent /command]
+    end
+    
+    subgraph "Serveurs MCP"
+        MCP1[Azure MCP]
+        MCP2[Excel MCP]
+        MCP3[GitHub MCP]
+    end
+    
+    %% Flux de composition du prompt
+    BASE --> FINAL
+    ARCH --> FINAL
+    DEV --> FINAL
+    REV --> FINAL
+    CONV --> FINAL
+    AZURE --> FINAL
+    PATH --> FINAL
+    K_AZURE -.RAG.-> FINAL
+    K_ARCH -.RAG.-> FINAL
+    WORKSPACE --> FINAL
+    TOOLS --> FINAL
+    
+    %% Configuration
+    CONFIG --> MCP1
+    CONFIG --> MCP2
+    CONFIG --> MCP3
+    
+    MCP1 --> TOOLS
+    MCP2 --> TOOLS
+    MCP3 --> TOOLS
+    
+    %% Skills liées aux agents
+    ARCH -.utilise.-> S_DIAG
+    ARCH -.utilise.-> S_SOL
+    DEV -.utilise.-> S_REV
+    REV -.utilise.-> S_REV
+    
+    %% Prompts accessibles
+    P_BRAIN -.template.-> FINAL
+    P_TAD -.template.-> FINAL
+    P_COST -.template.-> FINAL
+    
+    %% User interaction
+    USER --> FINAL
+    FINAL --> RESPONSE[🤖 Réponse Copilot]
+    
+    style BASE fill:#e1f5ff
+    style FINAL fill:#fff4e6
+    style RESPONSE fill:#e8f5e9
+    style CONFIG fill:#f3e5f5
+    style USER fill:#fff9c4
+    
+    classDef agent fill:#bbdefb
+    classDef instruction fill:#c8e6c9
+    classDef knowledge fill:#ffecb3
+    classDef skill fill:#f8bbd0
+    classDef prompt fill:#d1c4e9
+    classDef mcp fill:#b2dfdb
+    
+    class ARCH,DEV,REV agent
+    class CONV,AZURE,PATH instruction
+    class K_AZURE,K_ARCH knowledge
+    class S_DIAG,S_SOL,S_REV skill
+    class P_BRAIN,P_TAD,P_COST prompt
+    class MCP1,MCP2,MCP3 mcp
+```
+
+## 📊 Légende
+
+### Composants
+
+- **🔵 Base GitHub Copilot**: Prompt système de base non modifiable
+- **🟦 Agents**: Définissent les personnalités et rôles
+- **🟩 Instructions**: Instructions contextuelles chargées selon les conditions
+- **🟨 Knowledge**: Base de connaissances statique (RAG)
+- **🟥 Skills**: Compétences actives définissant les actions
+- **🟪 Prompts**: Templates réutilisables
+- **🟢 MCP Servers**: Serveurs d'outils externes
+
+### Flux
+
+1. **Composition Séquentielle** (→): Ordre de composition du prompt
+   - Base → Agents → Instructions → Knowledge → Context → Tools
+
+2. **Récupération RAG** (-.->): Knowledge récupérée dynamiquement
+
+3. **Utilisation** (-.-): Relations d'utilisation entre composants
+
+### Ordre de Composition du System Prompt
+
+```
+1. Base GitHub Copilot (non modifiable)
+   ↓
+2. Agent Instructions (agents/*.md)
+   ↓
+3. Path-based Instructions (si workspace match)
+   ↓
+4. Knowledge Chunks (via RAG)
+   ↓
+5. Workspace Context (fichiers ouverts)
+   ↓
+6. Tools Available (liste des outils MCP)
+   ↓
+7. User Query (@agent /command)
+   ↓
+8. 🤖 Réponse Copilot
+```
+
+## 🔄 Exemples d'Utilisation
+
+### Exemple 1: @architecte /diagramme
+```
+User: @architecte /diagramme
+  ↓
+Charge: architecte.md (personnalité)
+  ↓
+Utilise: diagram-creation/SKILL.md (compétence)
+  ↓
+Récupère: architecture/patterns.md (knowledge)
+  ↓
+Applique: conventions.md (instructions)
+  ↓
+Génère: Diagramme d'architecture
+```
+
+### Exemple 2: Travail sur /src/frontend/
+```
+Context: Fichier dans /src/frontend/
+  ↓
+Charge: path-based-instructions.md
+  ↓
+Applique: Instructions Frontend React
+  ↓
+Utilise: conventions.md
+  ↓
+Code généré selon le contexte
+```
+
+### Exemple 3: Utilisation d'un Prompt File
+```
+User: #brainstorm.prompt
+  ↓
+Charge: Template brainstorm.prompt
+  ↓
+Applique: Instructions du prompt
+  ↓
+Session de brainstorming guidée
+```

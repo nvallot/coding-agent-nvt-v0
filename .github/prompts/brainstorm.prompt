@@ -1,0 +1,236 @@
+---
+title: Brainstorming Session
+description: Guide une session de brainstorming structurée pour générer des idées innovantes
+agents: ["architecte", "developpeur"]
+---
+
+# 🧠 Session de Brainstorming
+
+Tu vas animer une session de brainstorming pour explorer des solutions créatives à un problème ou une opportunité.
+
+## 📋 Contexte
+
+**Sujet**: {{subject}}
+
+**Objectif**: {{goal}}
+
+**Contraintes**:
+{{#if constraints}}
+{{constraints}}
+{{else}}
+- Budget: À définir
+- Timeline: À définir
+- Ressources: À définir
+{{/if}}
+
+## 🎯 Phase 1: Divergence (Génération d'Idées)
+
+### Méthodes de Brainstorming
+
+1. **Brainstorming Classique**
+   - Générer un maximum d'idées
+   - Pas de jugement
+   - Encourager les idées folles
+   - S'appuyer sur les idées des autres
+
+2. **SCAMPER**
+   - **S**ubstitute: Que peut-on remplacer?
+   - **C**ombine: Que peut-on combiner?
+   - **A**dapt: Que peut-on adapter?
+   - **M**odify: Que peut-on modifier?
+   - **P**ut to another use: Peut-on utiliser autrement?
+   - **E**liminate: Que peut-on éliminer?
+   - **R**everse: Que peut-on inverser?
+
+3. **6 Chapeaux de Bono**
+   - 🔵 Chapeau Bleu: Organisation
+   - ⚪ Chapeau Blanc: Faits et données
+   - 🔴 Chapeau Rouge: Émotions et intuitions
+   - ⚫ Chapeau Noir: Risques et critiques
+   - 🟡 Chapeau Jaune: Avantages et optimisme
+   - 🟢 Chapeau Vert: Créativité et nouvelles idées
+
+### Questions Stimulantes
+
+- Et si nous n'avions aucune contrainte de budget?
+- Comment ferait [entreprise innovante] (Tesla, Apple, Netflix)?
+- Quel serait le pire scénario? Et si on faisait l'opposé?
+- Comment pourrions-nous rendre cela 10x meilleur?
+- Quelles technologies émergentes pourrions-nous utiliser?
+- Comment pourrions-nous simplifier radicalement?
+
+## 🎯 Phase 2: Convergence (Sélection)
+
+### Critères d'Évaluation
+
+Pour chaque idée, évaluer sur une échelle de 1-5:
+
+1. **Faisabilité Technique**
+   - Est-ce techniquement réalisable?
+   - Avons-nous l'expertise nécessaire?
+   
+2. **Impact Business**
+   - Quel est le ROI potentiel?
+   - Résout-il vraiment le problème?
+   
+3. **Effort de Réalisation**
+   - Combien de temps/ressources nécessaires?
+   - Quelle est la complexité?
+   
+4. **Innovation**
+   - Est-ce original/différenciant?
+   - Avantage compétitif?
+   
+5. **Risque**
+   - Quels sont les risques majeurs?
+   - Peut-on les mitiger?
+
+### Matrice Effort/Impact
+
+```
+Impact
+  ^
+ 5│       ★★★        ★★★★
+  │                      
+ 4│   ★           ★★★★★
+  │                      
+ 3│       ★       ★★
+  │                      
+ 2│   ★       ★
+  │                      
+ 1│       ★
+  └───────────────────────> Effort
+    1   2   3   4   5
+```
+
+**Légende**:
+- ★★★★★ Quick Wins (Impact élevé, Effort faible)
+- ★★★★ Projets Majeurs (Impact élevé, Effort élevé)
+- ★★★ Petites Améliorations (Impact moyen, Effort faible)
+- ★★ Fill-Ins (Impact faible, Effort faible)
+- ★ À Éviter (Impact faible, Effort élevé)
+
+## 📊 Priorisation: RICE Score
+
+Pour les 5 meilleures idées, calculer le score RICE:
+
+**RICE = (Reach × Impact × Confidence) / Effort**
+
+- **Reach**: Combien d'utilisateurs impactés par trimestre (ex: 10000)
+- **Impact**: Score 0.25 (minimal), 0.5 (low), 1 (medium), 2 (high), 3 (massive)
+- **Confidence**: Pourcentage de certitude (20%, 50%, 80%, 100%)
+- **Effort**: Person-months (ex: 2 pour 2 mois-homme)
+
+### Exemple
+
+```markdown
+## Idée: Intégration AI pour Recommandations
+
+- **Reach**: 5000 utilisateurs/trimestre
+- **Impact**: 2 (high - augmente engagement de 30%)
+- **Confidence**: 80%
+- **Effort**: 3 person-months
+
+**RICE Score**: (5000 × 2 × 0.8) / 3 = 2666.67
+```
+
+## 📋 Template de Sortie
+
+Après la session, produire ce document:
+
+```markdown
+# Résultats Brainstorming: {{subject}}
+
+**Date**: {{date}}
+**Participants**: {{participants}}
+**Durée**: {{duration}}
+
+## Résumé Exécutif
+
+[2-3 paragraphes résumant le problème, le processus et les principales conclusions]
+
+## Idées Générées (Phase Divergence)
+
+### Catégorie 1: [Nom]
+1. **Idée 1**: Description brève
+2. **Idée 2**: Description brève
+3. ...
+
+### Catégorie 2: [Nom]
+1. **Idée 1**: Description brève
+2. ...
+
+**Total d'idées générées**: X
+
+## Top 5 Idées (Phase Convergence)
+
+### 1. [Nom de l'idée] - RICE: XXX
+
+**Description**: 
+[Description détaillée de l'idée]
+
+**Avantages**:
+- Avantage 1
+- Avantage 2
+- ...
+
+**Inconvénients**:
+- Inconvénient 1
+- Inconvénient 2
+- ...
+
+**Scores**:
+- Faisabilité Technique: 4/5
+- Impact Business: 5/5
+- Effort: 3/5
+- Innovation: 4/5
+- Risque: 2/5
+
+**RICE Score**: XXX
+- Reach: XXX
+- Impact: XXX
+- Confidence: XX%
+- Effort: X person-months
+
+**Next Steps**:
+1. Étape 1
+2. Étape 2
+3. ...
+
+---
+
+[Répéter pour les 5 idées]
+
+## Décision Recommandée
+
+**Idée à implémenter**: [Nom]
+
+**Justification**:
+[Expliquer pourquoi cette idée a été choisie]
+
+**Plan d'Action**:
+1. **Phase 1** (Semaines 1-2): [Actions]
+2. **Phase 2** (Semaines 3-4): [Actions]
+3. **Phase 3** (Semaines 5-6): [Actions]
+
+**Critères de Succès**:
+- Métrique 1: [Objectif]
+- Métrique 2: [Objectif]
+- ...
+
+## Annexes
+
+### Toutes les Idées (Non Retenues)
+[Liste complète des autres idées pour référence future]
+
+### Notes de la Session
+[Notes brutes de la session]
+```
+
+## 🎯 Commencer
+
+Maintenant, commençons la session de brainstorming sur le sujet: **{{subject}}**
+
+Je vais d'abord clarifier le contexte avec quelques questions, puis nous passerons par les phases de divergence et convergence pour identifier les meilleures idées.
+
+Prêt à commencer? 🚀

@@ -1,0 +1,96 @@
+```mermaid
+graph LR
+    subgraph "Utilisateur"
+        USER[👤 @agent /command]
+    end
+    
+    subgraph "Architecture GitHub Copilot"
+        direction TB
+        
+        subgraph "Layer 1: Personnalité"
+            AGENTS[🏗️ Agents<br/>architecte, developpeur, reviewer]
+        end
+        
+        subgraph "Layer 2: Instructions"
+            INSTR[📋 Instructions<br/>conventions, azure, path-based]
+        end
+        
+        subgraph "Layer 3: Connaissances"
+            KNOW[📚 Knowledge<br/>azure, architecture]
+        end
+        
+        subgraph "Layer 4: Compétences"
+            SKILLS[⚡ Skills<br/>diagram, solution-design, review]
+        end
+        
+        subgraph "Layer 5: Templates"
+            PROMPTS[📝 Prompts<br/>brainstorm, tad, cost]
+        end
+    end
+    
+    subgraph "Configuration"
+        CONFIG[⚙️ copilot-config.json]
+        MCP[🔧 Serveurs MCP<br/>Azure, Excel, GitHub]
+    end
+    
+    subgraph "Contexte"
+        WORKSPACE[📁 Workspace<br/>Fichiers & Code]
+    end
+    
+    subgraph "Sortie"
+        OUTPUT[🤖 Réponse Copilot]
+    end
+    
+    USER --> AGENTS
+    AGENTS --> INSTR
+    INSTR --> KNOW
+    KNOW --> SKILLS
+    SKILLS --> PROMPTS
+    
+    CONFIG --> MCP
+    MCP --> SKILLS
+    
+    WORKSPACE --> INSTR
+    
+    PROMPTS --> OUTPUT
+    
+    style USER fill:#fff9c4
+    style AGENTS fill:#bbdefb
+    style INSTR fill:#c8e6c9
+    style KNOW fill:#ffecb3
+    style SKILLS fill:#f8bbd0
+    style PROMPTS fill:#d1c4e9
+    style CONFIG fill:#f3e5f5
+    style MCP fill:#b2dfdb
+    style WORKSPACE fill:#e0e0e0
+    style OUTPUT fill:#e8f5e9
+```
+
+## 📖 Vue Simplifiée
+
+Cette vue montre le flux principal de composition du System Prompt.
+
+### Les 5 Layers
+
+1. **🏗️ Agents**: Définissent QUI répond (personnalité, rôle)
+2. **📋 Instructions**: Définissent COMMENT répondre (règles, conventions)
+3. **📚 Knowledge**: Fournissent QUOI savoir (documentation, patterns)
+4. **⚡ Skills**: Définissent COMMENT FAIRE (actions, méthodes)
+5. **📝 Prompts**: Templates réutilisables (workflows prédéfinis)
+
+### Configuration & Outils
+
+- **⚙️ copilot-config.json**: Configure les modèles et paramètres
+- **🔧 Serveurs MCP**: Fournissent des outils externes (Azure, GitHub, Excel...)
+
+### Contexte
+
+- **📁 Workspace**: Fichiers ouverts et structure du projet
+
+### Flux
+
+```
+Utilisateur → Agents → Instructions → Knowledge → Skills → Prompts → Réponse
+                                                     ↑
+                                                   MCP Tools
+```

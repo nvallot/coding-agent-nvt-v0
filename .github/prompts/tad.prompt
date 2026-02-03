@@ -1,0 +1,448 @@
+---
+title: Technical Architecture Document (TAD)
+description: Génère un document d'architecture technique complet
+agents: ["architecte"]
+---
+
+# 📐 Technical Architecture Document (TAD)
+
+Tu vas créer un document d'architecture technique (TAD) complet pour le projet suivant:
+
+**Projet**: {{project_name}}
+
+**Description**: {{project_description}}
+
+## 📋 Structure du Document
+
+### 1. Executive Summary
+
+Résume en 2-3 paragraphes:
+- Le problème métier
+- La solution proposée
+- Les bénéfices clés
+- Les décisions d'architecture majeures
+
+### 2. Business Context
+
+#### 2.1 Problème Métier
+- Quel problème résolvons-nous?
+- Pour qui?
+- Pourquoi maintenant?
+
+#### 2.2 Objectifs
+Liste les objectifs SMART:
+- **S**pecific: Objectif précis
+- **M**easurable: Métrique quantifiable
+- **A**chievable: Réalisable
+- **R**elevant: Pertinent pour le business
+- **T**ime-bound: Échéance définie
+
+#### 2.3 Stakeholders
+| Rôle | Nom | Responsabilités | Attentes |
+|------|-----|----------------|----------|
+| Product Owner | | | |
+| Tech Lead | | | |
+| Security Team | | | |
+
+### 3. System Overview
+
+#### 3.1 Context Diagram (C4 Level 1)
+Créer un diagramme C4 Context montrant:
+- Le système dans son environnement
+- Les acteurs (utilisateurs, systèmes externes)
+- Les interactions principales
+
+```mermaid
+C4Context
+    title System Context for {{project_name}}
+
+    Person(user, "User", "End user of the system")
+    System(system, "{{project_name}}", "Main system")
+    System_Ext(external, "External System", "Third-party service")
+
+    Rel(user, system, "Uses")
+    Rel(system, external, "Calls API")
+```
+
+#### 3.2 Container Diagram (C4 Level 2)
+Montrer les composants majeurs:
+- Applications (web, mobile, API)
+- Databases
+- Message queues
+- Caches
+
+### 4. Architecture Décisions (ADRs)
+
+Pour chaque décision majeure, documenter:
+
+#### ADR-XXX: [Titre de la décision]
+
+**Status**: [Proposed | Accepted | Deprecated | Superseded]
+
+**Context**:
+[Quel problème devons-nous résoudre? Quelles sont les contraintes?]
+
+**Decision Drivers**:
+- Driver 1
+- Driver 2
+- ...
+
+**Considered Options**:
+1. Option A
+2. Option B
+3. Option C
+
+**Decision**:
+Nous choisissons [Option] parce que [justification].
+
+**Consequences**:
+
+**Positive**:
+- Conséquence positive 1
+- ...
+
+**Negative**:
+- Conséquence négative 1
+- ...
+
+**Neutral**:
+- Point neutre 1
+- ...
+
+---
+
+### Exemples d'ADRs Communs
+
+#### ADR-001: Database Selection
+- PostgreSQL vs MySQL vs MongoDB vs Cosmos DB
+
+#### ADR-002: Authentication Strategy
+- Custom auth vs OAuth2 vs SAML vs Azure AD
+
+#### ADR-003: API Style
+- REST vs GraphQL vs gRPC
+
+#### ADR-004: Deployment Platform
+- VMs vs Containers vs Serverless
+
+#### ADR-005: Messaging Pattern
+- Point-to-point vs Pub/Sub vs Event Streaming
+
+### 5. Technical Architecture
+
+#### 5.1 Technology Stack
+
+**Frontend**:
+- Framework: [React | Vue | Angular]
+- State Management: [Redux | MobX | Vuex]
+- Build Tool: [Vite | Webpack]
+- Testing: [Jest | Vitest]
+
+**Backend**:
+- Runtime: [Node.js | .NET | Java | Python]
+- Framework: [Express | NestJS | ASP.NET | Spring Boot | FastAPI]
+- ORM: [Prisma | TypeORM | Entity Framework | SQLAlchemy]
+
+**Infrastructure**:
+- Cloud Provider: [Azure | AWS | GCP]
+- Compute: [Container Apps | AKS | App Service | Functions]
+- Database: [SQL Database | PostgreSQL | Cosmos DB | MongoDB]
+- Cache: [Redis | Memcached]
+- Messaging: [Service Bus | Event Grid | Event Hubs]
+- Storage: [Blob Storage | S3]
+
+**DevOps**:
+- CI/CD: [GitHub Actions | Azure DevOps | Jenkins]
+- IaC: [Bicep | Terraform | ARM]
+- Monitoring: [Application Insights | Datadog | New Relic]
+- Logging: [Log Analytics | ELK | Splunk]
+
+#### 5.2 Component Architecture
+
+Créer un diagramme détaillé montrant:
+- Couches de l'application
+- Flux de données
+- Dépendances entre composants
+
+```mermaid
+graph TB
+    subgraph "Presentation Layer"
+        Web[Web SPA]
+        Mobile[Mobile App]
+    end
+    
+    subgraph "API Layer"
+        Gateway[API Gateway]
+        Auth[Auth Service]
+    end
+    
+    subgraph "Business Layer"
+        OrderSvc[Order Service]
+        UserSvc[User Service]
+        PaymentSvc[Payment Service]
+    end
+    
+    subgraph "Data Layer"
+        DB[(Database)]
+        Cache[(Redis)]
+        Queue[Message Queue]
+    end
+    
+    Web --> Gateway
+    Mobile --> Gateway
+    Gateway --> Auth
+    Gateway --> OrderSvc
+    Gateway --> UserSvc
+    OrderSvc --> DB
+    OrderSvc --> Queue
+    PaymentSvc --> DB
+    UserSvc --> Cache
+```
+
+#### 5.3 Data Model
+
+**Entités Principales**:
+
+```typescript
+// User entity
+interface User {
+  id: string;
+  email: string;
+  name: string;
+  role: UserRole;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+// Order entity
+interface Order {
+  id: string;
+  userId: string;
+  items: OrderItem[];
+  status: OrderStatus;
+  total: number;
+  createdAt: Date;
+}
+```
+
+**Database Schema**:
+
+```sql
+CREATE TABLE users (
+    id UUID PRIMARY KEY,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    name VARCHAR(100) NOT NULL,
+    role VARCHAR(20) NOT NULL,
+    created_at TIMESTAMPTZ DEFAULT NOW(),
+    updated_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+CREATE TABLE orders (
+    id UUID PRIMARY KEY,
+    user_id UUID REFERENCES users(id),
+    status VARCHAR(20) NOT NULL,
+    total DECIMAL(10,2) NOT NULL,
+    created_at TIMESTAMPTZ DEFAULT NOW()
+);
+```
+
+### 6. Security Architecture
+
+#### 6.1 Authentication & Authorization
+- Méthode d'authentification
+- Gestion des sessions
+- Modèle d'autorisation (RBAC, ABAC)
+
+#### 6.2 Data Protection
+- Encryption at rest
+- Encryption in transit (TLS)
+- Key management (Key Vault)
+
+#### 6.3 Network Security
+- Firewall rules
+- Private endpoints
+- Network segmentation
+- DDoS protection
+
+#### 6.4 Security Checklist
+- [ ] OWASP Top 10 addressed
+- [ ] Dependency scanning
+- [ ] SAST/DAST in pipeline
+- [ ] Penetration testing plan
+- [ ] Security headers configured
+- [ ] Secrets in Key Vault
+- [ ] Managed Identity enabled
+- [ ] Audit logging active
+
+### 7. Non-Functional Requirements
+
+#### 7.1 Performance
+| Metric | Target | Measurement |
+|--------|--------|-------------|
+| API Response Time (p95) | < 200ms | Application Insights |
+| Page Load Time | < 2s | Lighthouse |
+| Database Query Time | < 100ms | Query profiling |
+
+#### 7.2 Scalability
+- Horizontal scaling capability
+- Auto-scaling triggers
+- Load testing targets
+
+#### 7.3 Availability
+- **SLA**: 99.9% uptime
+- **RTO** (Recovery Time Objective): < 1 hour
+- **RPO** (Recovery Point Objective): < 5 minutes
+
+#### 7.4 Monitoring
+- Application metrics (APM)
+- Infrastructure metrics
+- Business metrics
+- Custom dashboards
+
+### 8. Deployment Architecture
+
+#### 8.1 Environments
+
+| Environment | Purpose | Data | Access |
+|-------------|---------|------|--------|
+| Development | Feature development | Fake/Anonymized | All developers |
+| Staging | Pre-production testing | Anonymized production | QA + Leads |
+| Production | Live system | Real data | Ops team only |
+
+#### 8.2 CI/CD Pipeline
+
+```mermaid
+graph LR
+    A[Code Push] --> B[Build]
+    B --> C[Unit Tests]
+    C --> D[Integration Tests]
+    D --> E[Security Scan]
+    E --> F[Deploy Dev]
+    F --> G{Manual Approval}
+    G -->|Yes| H[Deploy Staging]
+    H --> I[E2E Tests]
+    I --> J{Manual Approval}
+    J -->|Yes| K[Deploy Prod]
+    K --> L[Health Check]
+    L -->|Fail| M[Auto Rollback]
+```
+
+#### 8.3 Infrastructure as Code
+
+```bicep
+// main.bicep
+param environment string
+param location string = resourceGroup().location
+
+module containerApp 'modules/container-app.bicep' = {
+  name: 'containerApp'
+  params: {
+    name: 'app-${environment}'
+    location: location
+    containerImage: containerRegistry.outputs.loginServer + '/myapp:latest'
+  }
+}
+
+module database 'modules/postgresql.bicep' = {
+  name: 'database'
+  params: {
+    serverName: 'psql-${environment}'
+    location: location
+  }
+}
+```
+
+### 9. Operations
+
+#### 9.1 Monitoring Strategy
+- **Application**: Application Insights
+- **Infrastructure**: Azure Monitor
+- **Logs**: Log Analytics (90-day retention)
+
+#### 9.2 Alerting Rules
+
+| Alert | Condition | Severity | Action |
+|-------|-----------|----------|--------|
+| High Error Rate | Error rate > 5% | Critical | Page on-call |
+| Slow Responses | p95 latency > 500ms | Warning | Create ticket |
+| High CPU | CPU > 80% for 5min | Warning | Auto-scale |
+
+#### 9.3 Backup & Recovery
+- **Backup Frequency**: Daily at 2 AM UTC
+- **Retention**: 35 days
+- **Recovery Test**: Monthly
+- **Runbook**: [Link to runbook]
+
+### 10. Cost Estimation
+
+| Component | SKU | Monthly Cost | Notes |
+|-----------|-----|--------------|-------|
+| Container Apps | 2 vCPU, 4GB RAM | $150 | Auto-scale 1-10 |
+| PostgreSQL | Standard_D4s_v3 | $220 | 4 vCore, 16GB |
+| Redis Cache | Standard C1 | $50 | 1GB |
+| Service Bus | Standard | $10 | Standard tier |
+| Storage | Hot tier | $30 | 500GB |
+| Application Insights | - | $100 | 10GB/month |
+| **Total** | | **$560** | |
+
+**Cost Optimization**:
+- Reserved capacity for database: -40% = $88 saved
+- Auto-scale to zero during off-hours: ~$40 saved
+- **Optimized Total**: ~$432/month
+
+### 11. Risks & Mitigations
+
+| Risk | Impact | Probability | Mitigation | Owner |
+|------|--------|-------------|------------|-------|
+| Third-party API downtime | High | Medium | Circuit breaker, caching | Tech Lead |
+| Database performance issues | High | Low | Query optimization, read replicas | DBA |
+| Security vulnerability | Critical | Low | Regular scanning, pen testing | Security Team |
+
+### 12. Timeline & Milestones
+
+```mermaid
+gantt
+    title Project Timeline
+    dateFormat  YYYY-MM-DD
+    section Infrastructure
+    Setup environments    :2024-01-01, 5d
+    Configure CI/CD      :5d
+    section Backend
+    API implementation   :2024-01-06, 10d
+    Integration tests    :5d
+    section Frontend
+    UI development       :2024-01-06, 12d
+    E2E tests           :3d
+    section Deployment
+    Staging deployment   :2024-01-23, 2d
+    Production deployment :2024-01-25, 1d
+```
+
+### 13. Appendices
+
+#### A. Glossary
+- **Term 1**: Definition
+- **Term 2**: Definition
+
+#### B. References
+- [Link to related document 1]
+- [Link to related document 2]
+
+#### C. Change Log
+| Version | Date | Author | Changes |
+|---------|------|--------|---------|
+| 1.0 | 2024-01-01 | John Doe | Initial version |
+| 1.1 | 2024-01-15 | Jane Smith | Added security section |
+
+---
+
+## 🚀 Commencer
+
+Je vais maintenant créer le TAD pour le projet **{{project_name}}**.
+
+Commence par me fournir plus de détails sur:
+1. Le contexte métier et les objectifs
+2. Les contraintes techniques et budgétaires
+3. Les préférences technologiques (si existantes)
+
+Prêt à commencer? 📐

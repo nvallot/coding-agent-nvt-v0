@@ -1,0 +1,256 @@
+{
+  "$schema": "https://aka.ms/copilotagent.schema.json",
+  "version": "1.0",
+  "name": "GitHub Copilot Agents Architecture",
+  "description": "Configuration complète de l'architecture des Custom Agents GitHub Copilot",
+  
+  "agents": [
+    {
+      "id": "architecte",
+      "name": "Architecte",
+      "description": "Agent spécialisé en architecture système et cloud",
+      "file": "agents/architecte.md",
+      "model": {
+        "provider": "github-copilot",
+        "name": "claude-sonnet-4.5",
+        "temperature": 0.3,
+        "maxTokens": 8000
+      }
+    },
+    {
+      "id": "developpeur",
+      "name": "Développeur",
+      "description": "Agent pour implémentation et développement",
+      "file": "agents/developpeur.md",
+      "model": {
+        "provider": "github-copilot",
+        "name": "claude-sonnet-4.5",
+        "temperature": 0.2,
+        "maxTokens": 6000
+      }
+    },
+    {
+      "id": "reviewer",
+      "name": "Reviewer",
+      "description": "Agent pour revues de code et qualité",
+      "file": "agents/reviewer.md",
+      "model": {
+        "provider": "github-copilot",
+        "name": "claude-sonnet-4.5",
+        "temperature": 0.1,
+        "maxTokens": 6000
+      }
+    }
+  ],
+  
+  "instructions": [
+    {
+      "name": "conventions",
+      "description": "Conventions de code générales",
+      "file": "instructions/conventions.md",
+      "priority": 1,
+      "pathMatch": "**/*"
+    },
+    {
+      "name": "azure-instructions",
+      "description": "Instructions spécifiques Azure",
+      "file": "instructions/azure-instructions.md",
+      "priority": 2,
+      "pathMatch": "**/*",
+      "keywords": ["azure", "cloud", "infrastructure"]
+    },
+    {
+      "name": "path-based-instructions",
+      "description": "Instructions conditionnelles selon le chemin",
+      "file": "instructions/path-based-instructions.md",
+      "priority": 3,
+      "rules": [
+        {
+          "pathMatch": "src/frontend/**",
+          "section": "frontend"
+        },
+        {
+          "pathMatch": "src/backend/**",
+          "section": "backend"
+        },
+        {
+          "pathMatch": "infrastructure/**",
+          "section": "infrastructure"
+        },
+        {
+          "pathMatch": "tests/**",
+          "section": "tests"
+        }
+      ]
+    }
+  ],
+  
+  "knowledge": {
+    "sources": [
+      {
+        "name": "azure-services",
+        "description": "Documentation des services Azure",
+        "path": "knowledge/azure/services.md",
+        "type": "static"
+      },
+      {
+        "name": "azure-best-practices",
+        "description": "Meilleures pratiques Azure",
+        "path": "knowledge/azure/best-practices.md",
+        "type": "static"
+      },
+      {
+        "name": "architecture-patterns",
+        "description": "Patterns d'architecture",
+        "path": "knowledge/architecture/patterns.md",
+        "type": "static"
+      }
+    ],
+    "rag": {
+      "enabled": true,
+      "chunkSize": 1000,
+      "overlap": 200,
+      "topK": 5,
+      "similarity": "cosine",
+      "threshold": 0.7
+    }
+  },
+  
+  "skills": [
+    {
+      "name": "diagram-creation",
+      "description": "Création de diagrammes d'architecture",
+      "file": "skills/diagram-creation/SKILL.md",
+      "agents": ["architecte"],
+      "commands": ["/diagramme", "/diagram"]
+    },
+    {
+      "name": "solution-design",
+      "description": "Conception de solutions techniques",
+      "file": "skills/solution-design/SKILL.md",
+      "agents": ["architecte"],
+      "commands": ["/design", "/solution"]
+    },
+    {
+      "name": "code-review",
+      "description": "Revue de code",
+      "file": "skills/code-review/SKILL.md",
+      "agents": ["reviewer", "architecte"],
+      "commands": ["/review", "/audit"]
+    }
+  ],
+  
+  "prompts": [
+    {
+      "name": "brainstorm",
+      "description": "Session de brainstorming",
+      "file": "prompts/brainstorm.prompt",
+      "agents": ["architecte", "developpeur"],
+      "variables": [
+        {
+          "name": "subject",
+          "type": "string",
+          "required": true,
+          "description": "Sujet du brainstorming"
+        },
+        {
+          "name": "goal",
+          "type": "string",
+          "required": false,
+          "description": "Objectif de la session"
+        }
+      ]
+    },
+    {
+      "name": "tad",
+      "description": "Technical Architecture Document",
+      "file": "prompts/tad.prompt",
+      "agents": ["architecte"],
+      "variables": [
+        {
+          "name": "project_name",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "project_description",
+          "type": "string",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "cost-estimation",
+      "description": "Estimation des coûts",
+      "file": "prompts/cost-estimation.prompt",
+      "agents": ["architecte"],
+      "variables": [
+        {
+          "name": "project_name",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "architecture_overview",
+          "type": "string",
+          "required": true
+        }
+      ]
+    }
+  ],
+  
+  "tools": {
+    "builtin": [
+      "read_file",
+      "edit_file",
+      "search",
+      "semantic_search",
+      "web_fetch",
+      "terminal",
+      "debug",
+      "test"
+    ],
+    "mcp": {
+      "enabled": true,
+      "servers": [
+        {
+          "name": "azure-mcp",
+          "command": "npx",
+          "args": ["@azure/mcp-server"],
+          "env": {
+            "AZURE_SUBSCRIPTION_ID": "${env:AZURE_SUBSCRIPTION_ID}",
+            "AZURE_TENANT_ID": "${env:AZURE_TENANT_ID}"
+          }
+        },
+        {
+          "name": "github-mcp",
+          "command": "npx",
+          "args": ["@github/mcp-server"],
+          "env": {
+            "GITHUB_TOKEN": "${env:GITHUB_TOKEN}"
+          }
+        }
+      ]
+    }
+  },
+  
+  "settings": {
+    "maxInstructionFiles": 7,
+    "contextWindow": 128000,
+    "streamingEnabled": true,
+    "codeExecutionSandbox": true,
+    "telemetry": {
+      "enabled": true,
+      "instrumentationKey": "${env:APPINSIGHTS_INSTRUMENTATIONKEY}"
+    }
+  },
+  
+  "features": {
+    "pathBasedContext": true,
+    "ragKnowledge": true,
+    "customSkills": true,
+    "promptTemplates": true,
+    "multiAgent": true,
+    "mcpIntegration": true
+  }
+}
