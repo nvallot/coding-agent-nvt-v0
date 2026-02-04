@@ -1,0 +1,44 @@
+---
+title: Business Requirements Document (BRD)
+description: Génère un BRD complet et structuré
+agents: ["business-analyst"]
+variables:
+  - name: project_name
+    description: "Nom du projet"
+    required: true
+  - name: project_description
+    description: "Description détaillée du besoin"
+    required: true
+  - name: stakeholders
+    description: "Parties prenantes (optionnel)"
+    required: false
+---
+
+# 📄 Business Requirements Document (BRD)
+
+**Projet**: {{project_name}}
+
+**Description**: {{project_description}}
+
+{{#if stakeholders}}
+**Stakeholders**: {{stakeholders}}
+{{/if}}
+
+## ✅ À produire
+
+Structure le BRD avec les sections suivantes:
+
+1. **Executive Summary**
+2. **Business Context**
+3. **Objectifs & KPIs**
+4. **Scope (In/Out)**
+5. **User Stories**
+6. **Exigences Fonctionnelles**
+7. **Exigences Non-Fonctionnelles**
+8. **Risques & Hypothèses**
+9. **Données & Mapping (si applicable)**
+10. **Critères de Succès**
+
+---
+
+**Output**: Fichier `docs/BRD-{{project_name}}.md`

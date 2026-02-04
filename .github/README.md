@@ -49,8 +49,18 @@ Configuration et instructions pour les agents GitHub Copilot utilisés dans ce w
 ├── tools/                         # Utilitaires
 │   └── client-manager.ps1         # Script gestion clients
 └── prompts/                       # Prompt files
-    └── tad.prompt                 # Prompt TAD
+   ├── brd.prompt                 # Prompt BRD
+   ├── tad.prompt                 # Prompt TAD
+   ├── diagram.prompt             # Diagrammes C4 + flux
+   ├── implementation.prompt      # Plan d'implémentation
+   └── code-review.prompt         # Rapport de revue
 ```
+
+## 🚀 Entrées Rapides
+
+- [QUICKSTART.md](QUICKSTART.md)
+- [AGENTS-FLOW-DIAGRAM.md](AGENTS-FLOW-DIAGRAM.md)
+- [REFACTORISATION-SUMMARY.md](REFACTORISATION-SUMMARY.md)
 
 ## 🎯 Flux de Travail Standard
 

@@ -1,0 +1,86 @@
+---
+title: Diagrammes d'Architecture (C4 + Flux)
+description: Génère des diagrammes Mermaid clairs et cohérents pour l'architecture
+agents: ["architecte", "business-analyst", "developpeur"]
+variables:
+  - name: system_name
+    description: "Nom du système"
+    required: true
+  - name: context
+    description: "Contexte et objectifs du diagramme"
+    required: true
+  - name: actors
+    description: "Acteurs principaux"
+    required: false
+  - name: externals
+    description: "Systèmes externes"
+    required: false
+---
+
+# 🧭 Diagrammes d'Architecture
+
+**Système**: {{system_name}}
+
+**Contexte**: {{context}}
+
+{{#if actors}}
+**Acteurs**: {{actors}}
+{{/if}}
+
+{{#if externals}}
+**Systèmes externes**: {{externals}}
+{{/if}}
+
+## ✅ À produire
+
+1. **C4 Context (Niveau 1)**
+2. **C4 Container (Niveau 2)**
+3. **Data Flow** (ingestion → traitement → stockage → consommation)
+
+## 1) C4 Context
+
+```mermaid
+C4Context
+    title System Context - {{system_name}}
+    Person(user, "Utilisateur", "Utilise le système")
+    System(system, "{{system_name}}", "Système principal")
+    System_Ext(ext, "Système externe", "Système tiers")
+    Rel(user, system, "Utilise")
+    Rel(system, ext, "Échange de données")
+```
+
+## 2) C4 Container
+
+```mermaid
+C4Container
+    title Container Diagram - {{system_name}}
+    Person(user, "Utilisateur")
+    System_Boundary(sb, "{{system_name}}") {
+      Container(app, "App", "Web/API", "Interface utilisateur")
+      Container(api, "API", "REST", "Services métier")
+      ContainerDb(db, "DB", "SQL/NoSQL", "Stockage")
+    }
+    Rel(user, app, "Utilise")
+    Rel(app, api, "Appelle")
+    Rel(api, db, "Lit/Écrit")
+```
+
+## 3) Data Flow
+
+```mermaid
+flowchart LR
+  Sources[Sources] --> Ingestion[Ingestion]
+  Ingestion --> Processing[Processing]
+  Processing --> Storage[Storage]
+  Storage --> Consumption[Consumption]
+```
+
+---
+
+## ✅ Critères Qualité
+- Clarté: un diagramme = un message
+- Légendes explicites
+- Niveaux d'abstraction respectés
+- Cohérence avec le TAD
+
+**Output**: Fichier `docs/architecture/diagrams/{{system_name}}-diagrams.md`

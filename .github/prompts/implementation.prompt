@@ -1,0 +1,31 @@
+---
+title: Plan d'Implémentation
+description: Génère un plan d'implémentation avec tâches, risques et tests
+agents: ["developpeur"]
+variables:
+  - name: component_name
+    description: "Composant ou fonctionnalité"
+    required: true
+  - name: context
+    description: "Contexte technique (TAD/ADR)"
+    required: true
+---
+
+# 🛠️ Plan d'Implémentation
+
+**Composant**: {{component_name}}
+
+**Contexte**: {{context}}
+
+## ✅ À produire
+
+1. **Objectif technique**
+2. **Découpage des tâches** (steps + estimation)
+3. **Modifications de code attendues**
+4. **Tests requis** (unit, intégration, E2E si applicable)
+5. **Risques & mitigations**
+6. **Checklist de validation**
+
+---
+
+**Output**: Fichier `docs/IMPLEMENTATION-{{component_name}}.md`

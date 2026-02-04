@@ -1,0 +1,32 @@
+---
+title: Code Review Report
+description: Génère un rapport de revue de code structuré
+agents: ["reviewer"]
+variables:
+  - name: pr_id
+    description: "Identifiant PR ou branche"
+    required: true
+  - name: scope
+    description: "Périmètre de la revue"
+    required: true
+---
+
+# 🔍 Code Review Report
+
+**PR / Branch**: {{pr_id}}
+
+**Scope**: {{scope}}
+
+## ✅ À produire
+
+1. **Résumé global**
+2. **Points bloquants (Blockers)**
+3. **Points importants**
+4. **Améliorations mineures**
+5. **Tests & Qualité**
+6. **Sécurité & Conformité**
+7. **Recommandations**
+
+---
+
+**Output**: Fichier `REVIEW-{{pr_id}}.md`
