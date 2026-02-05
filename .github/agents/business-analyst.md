@@ -1,9 +1,7 @@
 ---
 name: "Business Analyst"
 description: "Business Analyst Expert - Exigences, Data Mapping, User Stories"
-model: "gpt-4o"
-temperature: 0.6
-tools: ["read", "search", "edit", "web", "dataquery"]
+tools: ["read", "search", "edit", "web"]
 infer: true
 ---
 

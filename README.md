@@ -29,75 +29,46 @@ agent-nvt-v1/
 │   │   ├── default/              # Client par défaut
 │   │   └── [client-name]/        # Dossier client spécifique
 │   │       ├── CLIENT.md         # Contexte client
-│   │       ├── instructions/     # Instructions spécifiques
-│   │       ├── knowledge/        # Base de connaissance
-│   │       ├── config/           # Configuration client
-│   │       └── data/             # Données client
+│   │       └── instructions/     # Instructions spécifiques
 │   │
 │   ├── instructions/             # 📚 Instructions globales
-│   │   ├── copilot-instructions.md  # Instructions principales
-│   │   ├── AGENTS.base.md        # Base commune agents
-│   │   ├── HIERARCHY.md          # Hiérarchie instructions
-│   │   ├── azure/                # Spécifiques Azure
-│   │   ├── common/               # Partagées
+│   │   ├── base/                 # Directives communes
+│   │   ├── agents/               # Instructions par agent
+│   │   ├── domains/              # Spécialités techniques
 │   │   └── contracts/            # Contrats livrables
 │   │
 │   ├── skills/                   # 🎯 Compétences spécialisées
-│   │   ├── diagram-creation/
-│   │   ├── solution-design/
-│   │   ├── code-implementation/
-│   │   ├── code-review/
-│   │   ├── security-audit/
-│   │   ├── testing/
-│   │   ├── data-integration/    # Nouveau: focus data
-│   │   └── azure-deployment/    # Nouveau: déploiement
+│   │   └── diagram-creation/
 │   │
 │   ├── knowledge/                # 📖 Base de connaissance globale
-│   │   ├── azure/
-│   │   │   ├── data-factory.md
-│   │   │   ├── synapse.md
-│   │   │   ├── databricks.md
-│   │   │   └── fabric.md
-│   │   ├── patterns/
-│   │   │   ├── etl-patterns.md
-│   │   │   ├── cdc-patterns.md
-│   │   │   └── streaming-patterns.md
-│   │   └── best-practices/
-│   │       ├── iac-terraform.md
-│   │       ├── security.md
-│   │       └── observability.md
+│   │   └── azure/
+│   │       └── data-factory.md
 │   │
 │   ├── prompts/                  # 📝 Templates réutilisables
-│   │   ├── brainstorm.prompt
+│   │   ├── brd.prompt
 │   │   ├── tad.prompt           # Technical Architecture Document
-│   │   ├── solution-design.prompt
-│   │   ├── cost-estimation.prompt
-│   │   ├── data-mapping.prompt  # Nouveau: mapping données
-│   │   └── pipeline-design.prompt # Nouveau: pipelines
+│   │   ├── diagram.prompt
+│   │   ├── implementation.prompt
+│   │   └── code-review.prompt
 │   │
 │   ├── config/                   # ⚙️ Configuration système
 │   │   ├── copilot-config.json
-│   │   ├── mcp-servers.json
 │   │   └── client-template/     # Template nouveau client
 │   │
 │   └── tools/                    # 🔧 Outils et scripts
-│       ├── client-manager.ps1   # Gestion clients
-│       ├── validate-agents.ps1
-│       └── deploy-config.ps1
+│       └── client-manager.ps1   # Gestion clients
 │
-├── docs/                         # 📚 Documentation
-│   ├── GETTING-STARTED.md
-│   ├── ARCHITECTURE.md
-│   ├── CLIENT-MANAGEMENT.md
-│   └── AGENT-USAGE.md
-│
-└── examples/                     # 💡 Exemples
-    ├── client-setup/
-    ├── prompts/
-    └── workflows/
+└── docs/                         # 📚 Documentation
+    └── GETTING-STARTED.md
 ```
 
 ## 🚀 Démarrage Rapide
+
+### 📌 Guides rapides
+
+- [START-HERE.md](START-HERE.md)
+- [INDEX.md](INDEX.md)
+- [.github/QUICKSTART.md](.github/QUICKSTART.md)
 
 ### 1. Activer un Client
 
@@ -125,8 +96,20 @@ agent-nvt-v1/
 ### 3. Utiliser les Prompt Files
 
 ```markdown
-# Brainstorming sur un sujet
+# BRD (Business Analyst)
+#file:brd.prompt project_name="Migration CRM" project_description="..."
+
+# TAD (Architecte)
 #file:tad.prompt project_name="Migration CRM" project_description="..."
+
+# Diagrammes
+#file:diagram.prompt system_name="NADIA" context="Architecture globale"
+
+# Plan d'implémentation (Développeur)
+#file:implementation.prompt component_name="Ingestion" context="TAD + ADRs"
+
+# Revue (Reviewer)
+#file:code-review.prompt pr_id="123" scope="Fonctions Azure"
 ```
 
 ## 📊 Hiérarchie de Chargement

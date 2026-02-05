@@ -102,56 +102,29 @@ Valider que le projet est complet, fonctionnel et prêt à l'utilisation.
 
 ### Azure Services
 - [x] `.github/knowledge/azure/data-factory.md` créé
-- [ ] `.github/knowledge/azure/synapse.md` (à créer)
-- [ ] `.github/knowledge/azure/databricks.md` (à créer)
-- [ ] `.github/knowledge/azure/adls-gen2.md` (à créer)
-- [ ] `.github/knowledge/azure/event-hubs.md` (à créer)
-
-### Patterns
-- [ ] `.github/knowledge/patterns/etl-patterns.md` (à créer)
-- [ ] `.github/knowledge/patterns/medallion-architecture.md` (à créer)
-- [ ] `.github/knowledge/patterns/lambda-architecture.md` (à créer)
-
-### Best Practices
-- [ ] `.github/knowledge/best-practices/iac-terraform.md` (à créer)
-- [ ] `.github/knowledge/best-practices/security.md` (à créer)
-- [ ] `.github/knowledge/best-practices/observability.md` (à créer)
 
 ## 📝 Prompt Files (Templates Réutilisables)
 
+- [x] `.github/prompts/brd.prompt` créé (BRD)
 - [x] `.github/prompts/tad.prompt` créé (TAD complet)
-- [ ] `.github/prompts/brainstorm.prompt` (à créer)
-- [ ] `.github/prompts/cost-estimation.prompt` (à créer)
-- [ ] `.github/prompts/solution-design.prompt` (à créer)
-- [ ] `.github/prompts/data-mapping.prompt` (à créer - spécifique)
-- [ ] `.github/prompts/pipeline-design.prompt` (à créer - spécifique)
+- [x] `.github/prompts/diagram.prompt` créé (diagrammes)
+- [x] `.github/prompts/implementation.prompt` créé (implémentation)
+- [x] `.github/prompts/code-review.prompt` créé (review)
 
 ## ⚙️ Configuration
 
 - [x] `.github/config/copilot-config.json` créé
 - [x] Agents listés avec configuration
 - [x] Settings définis (model, temperature, tokens)
-- [ ] `.github/config/mcp-servers.json` (à créer si MCP utilisé)
 
 ## 📚 Documentation
 
 - [x] `README.md` principal
 - [x] `docs/GETTING-STARTED.md` créé
-- [ ] `docs/ARCHITECTURE.md` (à créer - détails architecture)
-- [ ] `docs/CLIENT-MANAGEMENT.md` (à créer - gestion clients)
-- [ ] `docs/AGENT-USAGE.md` (à créer - guide utilisation agents)
-
-## 💡 Exemples
-
-- [ ] `examples/client-setup/` (à créer)
-- [ ] `examples/prompts/` (à créer)
-- [ ] `examples/workflows/` (à créer)
 
 ## 🔧 Outils
 
 - [x] `.github/tools/client-manager.ps1` créé
-- [ ] `.github/tools/validate-agents.ps1` (à créer - validation config)
-- [ ] `.github/tools/deploy-config.ps1` (à créer - déploiement)
 
 ## 🧪 Tests & Validation
 

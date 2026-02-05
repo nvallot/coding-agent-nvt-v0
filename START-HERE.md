@@ -1,5 +1,11 @@
 # 🎉 Migration Agents Terminée!
 
+## 🔎 Guides rapides
+
+- [INDEX.md](INDEX.md)
+- [.github/QUICKSTART.md](.github/QUICKSTART.md)
+- [.github/AGENTS-FLOW-DIAGRAM.md](.github/AGENTS-FLOW-DIAGRAM.md)
+
 ## ✅ Ce qui a été fait
 
 J'ai modifié vos **4 agents** pour utiliser le **format GitHub Copilot standard** avec support complet des **patterns `applyTo`**.
