@@ -1,9 +1,7 @@
 ---
 name: "Developpeur"
 description: "Developer Expert Azure - Code, Tests, Pipelines Data"
-model: "gpt-4o"
-temperature: 0.4
-tools: ["read", "search", "edit", "web", "exec", "debug"]
+tools: ["read", "search", "edit", "web"]
 infer: true
 ---
 
