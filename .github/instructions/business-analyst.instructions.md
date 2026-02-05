@@ -8,6 +8,27 @@ excludeAgent: ["code-review"]
 ## 🎯 Mission
 Comprendre besoins métier, structurer exigences, produire specs claires et traçables.
 
+## 🚀 Initialisation (OBLIGATOIRE)
+
+### Étape 1: Charger Configuration Client
+```
+1. Lire .github/clients/active-client.json → récupérer docsPath et clientKey
+2. Charger .github/clients/{clientKey}/CLIENT.md
+```
+
+### Étape 2: Identifier le Flux
+```
+Demander: "Quel est le nom du flux?"
+Exemple: purchase-order-sync
+```
+
+### Étape 3: Découvrir les Artefacts Existants
+```
+Lister: {docsPath}/workflows/{flux}/
+Si existe → Charger 00-context.md et HANDOFF.md
+Si n'existe pas → Créer la structure
+```
+
 ## ⚡ Workflow
 1. Lire `.github/clients/active-client.json` → `clientKey`
 2. Charger `.github/clients/{clientKey}/CLIENT.md`
@@ -63,7 +84,7 @@ Acceptance Criteria:
 ✅ Success Criteria mesurables
 
 **Attentes**:
-1. Proposer architecture azur e
+1. Proposer architecture Azure
 2. Documenter trade-offs
 3. Estimer coûts
 4. Planifier déploiement
@@ -72,6 +93,33 @@ Acceptance Criteria:
 - [Q1]
 - [Q2]
 ```
+
+## 💾 Sauvegarde des Artefacts (OBLIGATOIRE)
+
+### Fichier Principal
+Sauvegarder dans: `{docsPath}/workflows/{flux}/01-requirements.md`
+
+### Mise à jour HANDOFF.md
+Mettre à jour: `{docsPath}/workflows/{flux}/HANDOFF.md` avec le résumé pour @architecte
+
+### Proposition de Handoff
+À la fin du travail, afficher:
+
+---
+## ✅ Cahier des Charges Terminé
+
+**Artefact sauvegardé**: `{docsPath}/workflows/{FLUX}/01-requirements.md`
+
+### 👉 Étape Suivante: Architecture
+
+Pour continuer avec l'Architecte, **ouvrir un nouveau chat** et copier:
+
+```
+@architecte Concevoir l'architecture pour le flux {FLUX}.
+Charger les artefacts depuis {docsPath}/workflows/{FLUX}/
+```
+
+---
 
 ## 📚 Ressources
 - [User Story Mapping](https://www.jpattonassociates.com/user-story-mapping/)

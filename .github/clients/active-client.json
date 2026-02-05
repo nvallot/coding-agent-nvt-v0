@@ -1,5 +1,7 @@
 {
-  "clientKey": "default",
-  "loadedAt": "2026-02-03T00:00:00Z",
-  "version": "1.0.0"
+  "clientKey": "sbm",
+  "name": "SBM Offshore",
+  "version": "1.0.0",
+  "loadedAt": "2026-02-05T00:00:00Z",
+  "docsPath": "C:/Users/NicolasVALLOT/source/repos/NADIA/docs"
 }

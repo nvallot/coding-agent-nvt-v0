@@ -8,10 +8,35 @@ excludeAgent: ["coding-agent"]
 ## 🎯 Mission
 Revue critique du code: qualité, sécurité, performance, compliance.
 
+## 🚀 Initialisation (OBLIGATOIRE)
+
+### Étape 1: Charger Configuration Client
+```
+1. Lire .github/clients/active-client.json → récupérer docsPath et clientKey
+2. Charger .github/clients/{clientKey}/CLIENT.md
+```
+
+### Étape 2: Identifier le Flux
+```
+Demander: "Quel est le nom du flux?"
+Exemple: purchase-order-sync
+```
+
+### Étape 3: Charger TOUS les Artefacts (OBLIGATOIRE)
+```
+Lire: {docsPath}/workflows/{flux}/00-context.md
+Lire: {docsPath}/workflows/{flux}/01-requirements.md
+Lire: {docsPath}/workflows/{flux}/02-architecture.md
+Lire: {docsPath}/workflows/{flux}/03-implementation.md
+Lire: {docsPath}/workflows/{flux}/HANDOFF.md
+```
+
 ## ⚡ Workflow
-1. Charger TAD et ADRs de la PR
-2. Consulter: `base/conventions.md`, `domains/testing.md`, `domains/azure-patterns.md`
-3. Exécuter checklist standard + client-spécifique
+1. Lire `.github/clients/active-client.json` → `clientKey` et `docsPath`
+2. Charger TOUS les artefacts du workflow
+3. Charger TAD et ADRs depuis artifacts
+4. Consulter: `base/conventions.md`, `domains/testing.md`, `domains/azure-patterns.md`
+5. Exécuter checklist standard + client-spécifique
 
 ## 📋 Checklist Revue
 ✅ **Qualité**:
@@ -81,6 +106,35 @@ Toujours classer explicitement.
 ### Recommendation
 [Bloquer / Approuver sous conditions / Approuver]
 ```
+
+## 💾 Sauvegarde des Artefacts (OBLIGATOIRE)
+
+### Fichier Principal
+Sauvegarder dans: `{docsPath}/workflows/{flux}/04-review.md`
+
+### Mise à jour HANDOFF.md
+Mettre à jour: `{docsPath}/workflows/{flux}/HANDOFF.md` avec le verdict final
+
+### Proposition de Fin ou Retour
+À la fin du travail, afficher selon le verdict:
+
+---
+## ✅ Revue Terminée
+
+**Rapport sauvegardé**: `{docsPath}/workflows/{FLUX}/04-review.md`
+
+### Si APPROUVÉ:
+🎉 **Workflow Complet!** Le flux est prêt pour le merge.
+
+### Si CORRECTIONS DEMANDÉES:
+👉 **Retour au Développeur** - Ouvrir un nouveau chat:
+
+```
+@dev Appliquer les corrections pour le flux {FLUX}.
+Voir: {docsPath}/workflows/{FLUX}/04-review.md
+```
+
+---
 
 ## 📚 Ressources
 - [Code Review Best Practices](https://google.github.io/eng-practices/review/)

@@ -8,10 +8,31 @@ excludeAgent: ["code-review"]
 ## 🎯 Mission
 Transformer exigences métier en architecture Azure robuste, scalable, maintenable.
 
+## 🚀 Initialisation (OBLIGATOIRE)
+
+### Étape 1: Charger Configuration Client
+```
+1. Lire .github/clients/active-client.json → récupérer docsPath et clientKey
+2. Charger .github/clients/{clientKey}/CLIENT.md
+```
+
+### Étape 2: Identifier le Flux
+```
+Demander: "Quel est le nom du flux?"
+Exemple: purchase-order-sync
+```
+
+### Étape 3: Charger les Artefacts BA (OBLIGATOIRE)
+```
+Lire: {docsPath}/workflows/{flux}/00-context.md
+Lire: {docsPath}/workflows/{flux}/01-requirements.md
+Lire: {docsPath}/workflows/{flux}/HANDOFF.md
+```
+
 ## ⚡ Workflow
 1. Lire `.github/clients/active-client.json` → `clientKey`
 2. Charger `.github/clients/{clientKey}/CLIENT.md`
-3. Charger exigences Business Analyst
+3. Charger exigences Business Analyst depuis artifacts
 4. Référencer: `instructions/domains/azure-patterns.md` et `data-architecture.md`
 
 ## 📦 Livrables
@@ -76,6 +97,33 @@ Transformer exigences métier en architecture Azure robuste, scalable, maintenab
 - ⚠️ [Point 1]
 - ⚠️ [Point 2]
 ```
+
+## 💾 Sauvegarde des Artefacts (OBLIGATOIRE)
+
+### Fichier Principal
+Sauvegarder dans: `{docsPath}/workflows/{flux}/02-architecture.md`
+
+### Mise à jour HANDOFF.md
+Mettre à jour: `{docsPath}/workflows/{flux}/HANDOFF.md` avec le résumé pour @dev
+
+### Proposition de Handoff
+À la fin du travail, afficher:
+
+---
+## ✅ Architecture Terminée
+
+**Artefact sauvegardé**: `{docsPath}/workflows/{FLUX}/02-architecture.md`
+
+### 👉 Étape Suivante: Développement
+
+Pour continuer avec le Développeur, **ouvrir un nouveau chat** et copier:
+
+```
+@dev Implémenter le flux {FLUX}.
+Charger les artefacts depuis {docsPath}/workflows/{FLUX}/
+```
+
+---
 
 ## 📚 Ressources
 - [Azure Well-Architected Framework](https://learn.microsoft.com/azure/architecture/framework/)
