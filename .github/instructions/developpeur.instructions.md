@@ -1,5 +1,5 @@
 ---
-applyTo: "**/(src|Functions|Development|*.cs|*.py|*.sql|*.tf)/**"
+applyTo: "**/src/**,**/Functions/**,**/Development/**,**/*.cs,**/*.py,**/*.sql,**/*.tf"
 excludeAgent: "code-review"
 ---
 

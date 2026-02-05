@@ -1,5 +1,5 @@
 ---
-applyTo: "**/(docs|Deployment|architecture)/**"
+applyTo: "**/docs/**,**/Deployment/**,**/architecture/**"
 excludeAgent: "code-review"
 ---
 

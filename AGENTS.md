@@ -11,65 +11,63 @@ Exigences Métier → Analyse → Architecture → Développement → Revue → 
 
 ## Agents disponibles
 
+| Agent | Pattern `applyTo` | Rôle |
+|-------|-------------------|------|
+| **@ba** | `**/requirements/**,**/specifications/**,**/docs/**` | Business Analyst |
+| **@architecte** | `**/docs/**,**/Deployment/**,**/architecture/**` | Solution Architect |
+| **@dev** | `**/src/**,**/Functions/**,**/Development/**,**/*.cs,**/*.py,**/*.sql,**/*.tf` | Developer |
+| **@reviewer** | `**/*.cs,**/*.py,**/*.sql` | Code Reviewer |
+
 ### 🏗️ Agent Architecte (`@architecte`)
 - **Rôle**: Solution Architect senior
 - **Spécialité**: Conception d'architecture Azure, design système
-- **S'active sur**: Fichiers dans `/docs`, `/Deployment`, `/architecture`
-- **Livrables**: TAD, Diagrammes (C4), ADRs, Infrastructure as Code (Terraform), Estimation coûts
-
-**Instructions**: [.github/instructions/architecte.instructions.md](.github/instructions/architecte.instructions.md)
+- **Pattern**: `**/docs/**,**/Deployment/**,**/architecture/**`
+- **Livrables**: TAD, Diagrammes (C4), ADRs, Terraform, Estimation coûts
 
 ### 👤 Agent Business Analyst (`@ba`)
 - **Rôle**: Expert en analyse métier
 - **Spécialité**: Recueil d'exigences, analyse de données, user stories
-- **S'active sur**: Fichiers dans `/requirements`, `/specifications`, `/docs`
+- **Pattern**: `**/requirements/**,**/specifications/**,**/docs/**`
 - **Livrables**: BRD, Data Mapping, User Stories, Acceptance criteria
-
-**Instructions**: [.github/instructions/business-analyst.instructions.md](.github/instructions/business-analyst.instructions.md)
 
 ### 💻 Agent Développeur (`@dev`)
 - **Rôle**: Développeur expert Azure
 - **Spécialité**: Implémentation code, pipelines data, Azure services
-- **S'active sur**: Fichiers `.cs`, `.py`, `.sql`, `.tf`, `/src`, `/Functions`, `/Development`
+- **Pattern**: `**/src/**,**/Functions/**,**/Development/**,**/*.cs,**/*.py,**/*.sql,**/*.tf`
 - **Livrables**: Code production, tests, documentation, Infrastructure as Code
-
-**Instructions**: [.github/instructions/developpeur.instructions.md](.github/instructions/developpeur.instructions.md)
 
 ### 🔍 Agent Reviewer (`@reviewer`)
 - **Rôle**: Expert en revue de code
 - **Spécialité**: Qualité, sécurité, performance, compliance
-- **S'active sur**: Pull requests, fichiers `.cs`, `.py`, `.sql`
+- **Pattern**: `**/*.cs,**/*.py,**/*.sql`
 - **Livrables**: Rapport de revue détaillé, security audit, recommandations
-
-**Instructions**: [.github/instructions/reviewer.instructions.md](.github/instructions/reviewer.instructions.md)
 
 ## Structure du projet
 
 ```
 agent-nvt-v1/
 ├── .github/
-│   ├── agents/
-│   │   ├── architecte.md           # Définition agent (format original)
+│   ├── copilot-instructions.md     # Repository-wide instructions
+│   ├── agents/                     # Agent definitions
+│   │   ├── architecte.md
 │   │   ├── business-analyst.md
 │   │   ├── developpeur.md
 │   │   └── reviewer.md
-│   ├── instructions/               # Instructions GitHub Copilot (NEW)
-│   │   ├── README.md
+│   ├── instructions/               # Path-specific instructions
 │   │   ├── architecte.instructions.md
 │   │   ├── business-analyst.instructions.md
 │   │   ├── developpeur.instructions.md
 │   │   ├── reviewer.instructions.md
-│   │   └── copilot-instructions.md (repository-wide)
-│   ├── clients/                    # Configuration par client
-│   ├── knowledge/                  # Base de connaissances
-│   └── skills/                     # Compétences spécialisées
+│   │   ├── base/                   # Common directives
+│   │   ├── domains/                # Technical specialties
+│   │   └── contracts/              # Deliverable contracts
+│   ├── clients/                    # Client configurations
+│   ├── prompts/                    # Prompt templates (.prompt)
+│   ├── knowledge/                  # Knowledge base
+│   └── tools/                      # Utility scripts
 ├── docs/                           # Documentation
-├── src/                            # Code source
-├── infrastructure/                 # Infrastructure as Code
-├── tests/                          # Tests automatisés
-├── VALIDATION.md
-├── README.md
-└── [autres fichiers]
+├── AGENTS.md                       # This file
+└── README.md
 ```
 
 ## Format des instructions
@@ -99,7 +97,7 @@ excludeAgent: "code-review" | "coding-agent"
 **/*.py              - Tous les fichiers .py récursivement
 src/**/*.ts          - Tous les .ts sous src/
 **/test/**           - Tous les fichiers dans n'importe quel dossier test/
-docs|src|tests       - Dossiers alternatifs (pipe = OR)
+**/*.py,**/*.ts      - Multiple patterns (séparés par virgules)
 ```
 
 ## Workflow recommandé

@@ -1,5 +1,5 @@
 ---
-applyTo: "**/(pull_requests|*.cs|*.py|*.sql)/**"
+applyTo: "**/*.cs,**/*.py,**/*.sql"
 excludeAgent: "coding-agent"
 ---
 
