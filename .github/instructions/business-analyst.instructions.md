@@ -83,11 +83,15 @@ Acceptance Criteria:
 ✅ User Stories prioritisées
 ✅ Success Criteria mesurables
 
-**Attentes**:
+**Livrables attendus de l'architecte**:
 1. Proposer architecture Azure
 2. Documenter trade-offs
 3. Estimer coûts
 4. Planifier déploiement
+5. ✅ **Diagramme Draw.io C4 Container OBLIGATOIRE** avec icônes Azure officielles
+   - Path: `{docsPath}/workflows/{flux}/diagrams/{flux}-c4-container.drawio`
+   - Référence icônes: `.github/templates/azure-icons-index.md`
+   - Export PNG 300 DPI obligatoire
 
 **Questions en suspens**:
 - [Q1]

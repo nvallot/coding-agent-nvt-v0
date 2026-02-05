@@ -222,8 +222,65 @@ Avant de valider un diagramme, vérifier :
 - [ ] Le fichier est sauvegardé dans le bon dossier
 - [ ] Les exports PNG/SVG sont générés
 
+## 🎨 Icônes Azure Officielles (SVG)
+
+### Emplacement
+Les icônes Azure officielles sont disponibles localement :
+```
+.github/templates/Azure_Public_Service_Icons/Icons/
+```
+
+### Index de Référence
+Consulter **`.github/templates/azure-icons-index.md`** pour la liste complète des chemins.
+
+### Icônes les Plus Utilisées
+
+| Service | Chemin |
+|---------|--------|
+| **Function Apps** | `compute/10029-icon-service-Function-Apps.svg` |
+| **Service Bus** | `integration/10836-icon-service-Azure-Service-Bus.svg` |
+| **Storage Account** | `storage/10086-icon-service-Storage-Accounts.svg` |
+| **Table Storage** | `general/10841-icon-service-Table.svg` |
+| **Blob Storage** | `general/10780-icon-service-Blob-Block.svg` |
+| **Key Vault** | `security/10245-icon-service-Key-Vaults.svg` |
+| **App Insights** | `monitor/00012-icon-service-Application-Insights.svg` |
+| **Virtual Network** | `networking/10061-icon-service-Virtual-Networks.svg` |
+| **Resource Group** | `general/10007-icon-service-Resource-Groups.svg` |
+| **Data Factory** | `integration/10126-icon-service-Data-Factories.svg` |
+| **Logic Apps** | `integration/02631-icon-service-Logic-Apps.svg` |
+| **SQL Database** | `databases/10130-icon-service-SQL-Database.svg` |
+
+### Import dans Draw.io
+1. **File** → **Import from** → **Device**
+2. Sélectionner le fichier `.svg`
+3. Redimensionner à **60x60 px** ou **80x80 px**
+
+### ⚠️ OBLIGATOIRE
+Utiliser les icônes SVG officielles Microsoft pour tous les composants Azure.
+Ne **jamais** utiliser de shapes génériques (rectangles, cercles) pour représenter des services Azure.
+
+## 📁 Dossier de Sortie (OBLIGATOIRE)
+
+### Structure Standard
+Les diagrammes Draw.io doivent être sauvegardés dans :
+```
+{docsPath}/workflows/{flux}/diagrams/
+```
+
+### Fichiers Requis
+| Fichier | Contenu |
+|---------|---------|
+| `{flux}-c4-container.drawio` | Diagramme C4 Container (OBLIGATOIRE) |
+| `{flux}-c4-container.png` | Export PNG 300 DPI (OBLIGATOIRE) |
+| `{flux}-data-flow.drawio` | Flux de données (si complexe) |
+
+### Exports Obligatoires
+- **PNG** : 300 DPI minimum pour documentation
+- Format de nommage : `{flux}-{type}.png`
+
 ## 📚 Ressources
 
 - [Azure Architecture Icons](https://learn.microsoft.com/azure/architecture/icons/)
 - [C4 Model](https://c4model.com/)
 - [Draw.io Azure Shapes](https://www.diagrams.net/blog/azure-diagrams)
+- [Index icônes local](.github/templates/azure-icons-index.md)
