@@ -1,0 +1,329 @@
+name: Azure Data Factory CI/CD
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+    paths:
+      - 'data-factory/**'
+      - 'pipelines/**'
+  pull_request:
+    branches:
+      - main
+      - develop
+    paths:
+      - 'data-factory/**'
+      - 'pipelines/**'
+  workflow_dispatch:
+
+env:
+  ADF_DIR: './data-factory'
+
+jobs:
+  validate-adf:
+    name: Validate ADF Artifacts
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+    
+    - name: Install ADF validation tools
+      run: |
+        npm install -g @microsoft/azure-data-factory-utilities
+    
+    - name: Validate JSON syntax
+      working-directory: ${{ env.ADF_DIR }}
+      run: |
+        find . -name "*.json" -type f | while read file; do
+          echo "Validating $file"
+          jq empty "$file" || exit 1
+        done
+    
+    - name: Validate ADF artifacts
+      working-directory: ${{ env.ADF_DIR }}
+      run: |
+        echo "Running ADF artifact validation..."
+        # Add custom validation logic here
+        # Example: Check for required parameters, naming conventions, etc.
+    
+    - name: Check naming conventions
+      working-directory: ${{ env.ADF_DIR }}
+      run: |
+        # Validate pipeline naming: pl_source_to_destination_frequency
+        if find . -name "pipeline_*.json" | grep -v "pl_"; then
+          echo "ERROR: Pipelines must follow naming convention: pl_[source]_to_[destination]_[frequency]"
+          exit 1
+        fi
+        
+        # Validate dataset naming: ds_src_* or ds_curated_*
+        if find . -name "dataset_*.json" | grep -v "ds_"; then
+          echo "ERROR: Datasets must follow naming convention: ds_[src|curated]_[entity]"
+          exit 1
+        fi
+
+  security-scan-adf:
+    name: Security Scan ADF
+    runs-on: ubuntu-latest
+    needs: validate-adf
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Check for hardcoded secrets
+      working-directory: ${{ env.ADF_DIR }}
+      run: |
+        # Check for common secret patterns
+        if grep -r -i "password\|secret\|key" --include="*.json" . | grep -v "KeyVault\|SecretRef"; then
+          echo "ERROR: Possible hardcoded secrets found. Use Key Vault references instead."
+          exit 1
+        fi
+    
+    - name: Run secret scanning
+      uses: trufflesecurity/trufflehog@main
+      with:
+        path: ${{ env.ADF_DIR }}
+        base: ${{ github.event.repository.default_branch }}
+        head: HEAD
+
+  deploy-adf-dev:
+    name: Deploy ADF to Development
+    runs-on: ubuntu-latest
+    needs: [validate-adf, security-scan-adf]
+    if: github.ref == 'refs/heads/develop' && github.event_name == 'push'
+    environment:
+      name: development
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Azure Login
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS_DEV }}
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+    
+    - name: Install ADF deployment tools
+      run: npm install -g @microsoft/azure-data-factory-utilities
+    
+    - name: Stop ADF triggers
+      run: |
+        az datafactory trigger list \
+          --resource-group ${{ secrets.ADF_RG_DEV }} \
+          --factory-name ${{ secrets.ADF_NAME_DEV }} \
+          --query "[?properties.runtimeState=='Started'].name" -o tsv | \
+        while read trigger; do
+          echo "Stopping trigger: $trigger"
+          az datafactory trigger stop \
+            --resource-group ${{ secrets.ADF_RG_DEV }} \
+            --factory-name ${{ secrets.ADF_NAME_DEV }} \
+            --name "$trigger"
+        done
+    
+    - name: Deploy ADF artifacts
+      working-directory: ${{ env.ADF_DIR }}
+      run: |
+        # Deploy linked services first
+        for file in linkedServices/*.json; do
+          if [ -f "$file" ]; then
+            name=$(jq -r '.name' "$file")
+            echo "Deploying linked service: $name"
+            az datafactory linked-service create \
+              --resource-group ${{ secrets.ADF_RG_DEV }} \
+              --factory-name ${{ secrets.ADF_NAME_DEV }} \
+              --name "$name" \
+              --properties "@$file"
+          fi
+        done
+        
+        # Deploy datasets
+        for file in datasets/*.json; do
+          if [ -f "$file" ]; then
+            name=$(jq -r '.name' "$file")
+            echo "Deploying dataset: $name"
+            az datafactory dataset create \
+              --resource-group ${{ secrets.ADF_RG_DEV }} \
+              --factory-name ${{ secrets.ADF_NAME_DEV }} \
+              --name "$name" \
+              --properties "@$file"
+          fi
+        done
+        
+        # Deploy pipelines
+        for file in pipelines/*.json; do
+          if [ -f "$file" ]; then
+            name=$(jq -r '.name' "$file")
+            echo "Deploying pipeline: $name"
+            az datafactory pipeline create \
+              --resource-group ${{ secrets.ADF_RG_DEV }} \
+              --factory-name ${{ secrets.ADF_NAME_DEV }} \
+              --name "$name" \
+              --properties "@$file"
+          fi
+        done
+        
+        # Deploy triggers
+        for file in triggers/*.json; do
+          if [ -f "$file" ]; then
+            name=$(jq -r '.name' "$file")
+            echo "Deploying trigger: $name"
+            az datafactory trigger create \
+              --resource-group ${{ secrets.ADF_RG_DEV }} \
+              --factory-name ${{ secrets.ADF_NAME_DEV }} \
+              --name "$name" \
+              --properties "@$file"
+          fi
+        done
+    
+    - name: Start ADF triggers
+      run: |
+        az datafactory trigger list \
+          --resource-group ${{ secrets.ADF_RG_DEV }} \
+          --factory-name ${{ secrets.ADF_NAME_DEV }} \
+          --query "[].name" -o tsv | \
+        while read trigger; do
+          echo "Starting trigger: $trigger"
+          az datafactory trigger start \
+            --resource-group ${{ secrets.ADF_RG_DEV }} \
+            --factory-name ${{ secrets.ADF_NAME_DEV }} \
+            --name "$trigger" || true
+        done
+    
+    - name: Run smoke test pipeline
+      run: |
+        # Trigger a test pipeline run
+        RUN_ID=$(az datafactory pipeline create-run \
+          --resource-group ${{ secrets.ADF_RG_DEV }} \
+          --factory-name ${{ secrets.ADF_NAME_DEV }} \
+          --name "pl_smoke_test" \
+          --query "runId" -o tsv)
+        
+        echo "Pipeline run ID: $RUN_ID"
+        
+        # Wait for completion (max 5 minutes)
+        for i in {1..30}; do
+          STATUS=$(az datafactory pipeline-run show \
+            --resource-group ${{ secrets.ADF_RG_DEV }} \
+            --factory-name ${{ secrets.ADF_NAME_DEV }} \
+            --run-id "$RUN_ID" \
+            --query "status" -o tsv)
+          
+          echo "Run status: $STATUS"
+          
+          if [ "$STATUS" == "Succeeded" ]; then
+            echo "Smoke test passed!"
+            break
+          elif [ "$STATUS" == "Failed" ]; then
+            echo "Smoke test failed!"
+            exit 1
+          fi
+          
+          sleep 10
+        done
+    
+    - name: Azure Logout
+      if: always()
+      run: az logout
+
+  deploy-adf-staging:
+    name: Deploy ADF to Staging
+    runs-on: ubuntu-latest
+    needs: [validate-adf, security-scan-adf]
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    environment:
+      name: staging
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Azure Login
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS_STAGING }}
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+    
+    - name: Install ADF deployment tools
+      run: npm install -g @microsoft/azure-data-factory-utilities
+    
+    - name: Deploy ADF artifacts to Staging
+      working-directory: ${{ env.ADF_DIR }}
+      run: |
+        echo "Deploying ADF artifacts to Staging..."
+        # Similar deployment steps as dev, but with staging parameters
+        # Use environment-specific variable files
+    
+    - name: Azure Logout
+      if: always()
+      run: az logout
+
+  deploy-adf-prod:
+    name: Deploy ADF to Production
+    runs-on: ubuntu-latest
+    needs: deploy-adf-staging
+    if: github.ref == 'refs/heads/main'
+    environment:
+      name: production
+      # Manual approval required
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Azure Login
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS_PROD }}
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+    
+    - name: Install ADF deployment tools
+      run: npm install -g @microsoft/azure-data-factory-utilities
+    
+    - name: Create backup of current ADF
+      run: |
+        mkdir -p backups
+        TIMESTAMP=$(date +%Y%m%d_%H%M%S)
+        
+        az datafactory list \
+          --resource-group ${{ secrets.ADF_RG_PROD }} \
+          --factory-name ${{ secrets.ADF_NAME_PROD }} \
+          > "backups/adf_backup_${TIMESTAMP}.json"
+    
+    - name: Deploy ADF artifacts to Production
+      working-directory: ${{ env.ADF_DIR }}
+      run: |
+        echo "Deploying ADF artifacts to Production..."
+        # Production deployment with extra validation
+    
+    - name: Tag release
+      if: success()
+      run: |
+        git config user.name "GitHub Actions"
+        git config user.email "actions@github.com"
+        VERSION=$(date +'%Y.%m.%d')-${{ github.run_number }}
+        git tag -a "adf-v$VERSION" -m "ADF release $VERSION"
+        git push origin "adf-v$VERSION"
+    
+    - name: Azure Logout
+      if: always()
+      run: az logout

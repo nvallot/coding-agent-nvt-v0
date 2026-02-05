@@ -1,0 +1,71 @@
+{
+  "$schema": "https://aka.ms/copilot/config/schema",
+  "version": "1.0",
+  "agents": [
+    {
+      "id": "business-analyst",
+      "name": "Business Analyst",
+      "description": "Expert Business Analyst for Azure data integration projects. Analyzes requirements, creates BRDs, and defines user stories.",
+      "instructions": ".github/agents/business-analyst.md",
+      "model": "gpt-4",
+      "temperature": 0.3,
+      "tools": [
+        "github",
+        "web_search"
+      ]
+    },
+    {
+      "id": "solution-architect",
+      "name": "Solution Architect",
+      "description": "Expert Solution Architect for Azure cloud infrastructure. Designs technical architectures, creates TADs, and makes architectural decisions.",
+      "instructions": ".github/agents/solution-architect.md",
+      "model": "gpt-4",
+      "temperature": 0.5,
+      "tools": [
+        "github",
+        "web_search"
+      ]
+    },
+    {
+      "id": "developer",
+      "name": "Developer",
+      "description": "Expert Developer for Azure solutions. Implements C#, Python, Terraform, and Azure data pipelines following best practices.",
+      "instructions": ".github/agents/developer.md",
+      "model": "gpt-4",
+      "temperature": 0.2,
+      "tools": [
+        "github",
+        "web_search"
+      ]
+    },
+    {
+      "id": "code-reviewer",
+      "name": "Code Reviewer",
+      "description": "Expert Code Reviewer ensuring quality, security, performance, and compliance in Azure solutions.",
+      "instructions": ".github/agents/code-reviewer.md",
+      "model": "gpt-4",
+      "temperature": 0.1,
+      "tools": [
+        "github",
+        "web_search"
+      ]
+    }
+  ],
+  "prompts": [
+    {
+      "id": "brd",
+      "path": ".github/prompts/brd.prompt.md",
+      "description": "Generate a Business Requirements Document"
+    },
+    {
+      "id": "tad",
+      "path": ".github/prompts/tad.prompt.md",
+      "description": "Generate a Technical Architecture Document"
+    },
+    {
+      "id": "code-review",
+      "path": ".github/prompts/code-review.prompt.md",
+      "description": "Perform a comprehensive code review"
+    }
+  ]
+}
