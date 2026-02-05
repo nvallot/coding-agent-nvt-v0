@@ -1,6 +1,6 @@
 ---
 applyTo: "**/*.cs,**/*.py,**/*.sql"
-excludeAgent: ["coding-agent"]
+excludeAgent: "coding-agent"
 ---
 
 # 🔍 Agent Reviewer

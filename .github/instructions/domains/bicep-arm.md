@@ -1,6 +1,6 @@
 ---
 applyTo: "**/*.bicep,**/Deployment/**/*.json"
-excludeAgent: ["code-review"]
+excludeAgent: "code-review"
 ---
 
 # Bicep & ARM Templates - Standards

@@ -1,6 +1,5 @@
 ---
-applyTo: "**/tests/**,**/*test*,**/*spec*"
-excludeAgent: "code-review"
+applyTo: "**/tests/**,**/*test*,**/*spec*,**/*.cs,**/*.py"
 ---
 
 # 🧪 Testing Standards

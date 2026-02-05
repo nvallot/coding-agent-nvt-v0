@@ -1,3 +1,7 @@
+---
+applyTo: "**/docs/**,**/architecture/**,**/diagrams/**,**/Deployment/**"
+---
+
 # 🎨 Standards Draw.io pour Architectures Azure
 
 ## 📋 Vue d'ensemble
@@ -38,6 +42,85 @@ Chaque diagramme doit clairement délimiter les zones suivantes avec des **recta
 - fontStyle=1 (gras pour le titre de zone)
 - fontSize=14 pour le titre
 ```
+
+### Configurations de Zones Flexibles
+
+**Configuration 1: Full Azure (100% Cloud)**
+```
+┌─────────────────────────────────────────────────────────┐
+│ 🟦 Azure Cloud                                          │
+│  ┌─────────────┐ ┌─────────────┐ ┌─────────────┐       │
+│  │ Ingestion   │ │ Processing  │ │  Storage    │       │
+│  └─────────────┘ └─────────────┘ └─────────────┘       │
+│                                                         │
+│  ┌─────────────────────────────────────────────┐       │
+│  │ 🟩 External Services (sous-zone)            │       │
+│  │   Dataverse, APIs tierces...                │       │
+│  └─────────────────────────────────────────────┘       │
+└─────────────────────────────────────────────────────────┘
+```
+
+**Configuration 2: Hybrid (On-Prem + Azure)**
+```
+┌──────────────────┐     ┌──────────────────────────────┐
+│ 🟨 On-Premise    │────→│ 🟦 Azure Cloud               │
+│                  │     │                              │
+│  ERP, Legacy DB  │     │  Functions, Storage, etc.    │
+│                  │     │                              │
+│                  │     │  ┌─────────────────────┐    │
+│                  │     │  │ 🟩 External         │    │
+│                  │     │  └─────────────────────┘    │
+└──────────────────┘     └──────────────────────────────┘
+```
+
+**Configuration 3: Multi-Zone (Complexe)**
+```
+┌──────────────┐   ┌────────────────────────────┐   ┌────────────────┐
+│ 🟨 On-Premise │──→│ 🟦 Azure Cloud (ISP)      │──→│ 🟩 External    │
+│              │   │                            │   │                │
+│  ERP, NAV    │   │  ┌──────────────────────┐ │   │  Lucy, CRM     │
+│              │   │  │ Internal Services    │ │   │  Power Platform│
+│              │   │  │ (Functions, Storage) │ │   │                │
+│              │   │  └──────────────────────┘ │   │                │
+│              │   │                            │   │                │
+│              │   │  ⬇                        │   │                │
+│              │   │  ┌──────────────────────┐ │   │                │
+│              │   │  │ ⬜ Monitoring         │ │   │                │
+│              │   │  │ App Insights, Logs   │ │   │                │
+│              │   │  └──────────────────────┘ │   │                │
+└──────────────┘   └────────────────────────────┘   └────────────────┘
+```
+
+### Sous-zone: Internal Services
+
+Pour les zones Azure avec beaucoup de composants, utiliser une **sous-zone "Internal Services"** :
+
+```
+┌─────────────────────────────────────────────────────┐
+│ 🟦 Azure Cloud - ISP                                │
+│                                                     │
+│  ┌───────────────────────────────────────────────┐ │
+│  │ Internal Services                              │ │
+│  │                                                │ │
+│  │  ┌──────────┐  ┌──────────┐  ┌──────────┐    │ │
+│  │  │ Function │  │ Function │  │ Storage  │    │ │
+│  │  │ App 1    │  │ App 2    │  │ Account  │    │ │
+│  │  └──────────┘  └──────────┘  └──────────┘    │ │
+│  │                                                │ │
+│  │  ┌──────────┐  ┌──────────┐  ┌──────────┐    │ │
+│  │  │ Service  │  │ Key      │  │ SQL      │    │ │
+│  │  │ Bus      │  │ Vault    │  │ Database │    │ │
+│  │  └──────────┘  └──────────┘  └──────────┘    │ │
+│  │                                                │ │
+│  └───────────────────────────────────────────────┘ │
+│                                                     │
+└─────────────────────────────────────────────────────┘
+```
+
+**Layout matriciel (2xN)** :
+- Composants organisés en **grille 2 colonnes**
+- Plus facile à équilibrer visuellement
+- Évite les lignes trop longues
 
 ### Titre de Zone
 Placer le titre **en haut à gauche** de chaque zone avec :
@@ -136,16 +219,58 @@ RetrievePurchaseOrderSupplier
 - Flux secondaires: **Haut → Bas**
 - Retours/Erreurs: Flèches pointillées
 
-### Espacement
-- Entre composants dans une zone: **40-60 px**
-- Entre zones: **80-100 px**
-- Marge interne des zones: **20 px**
+### Espacement (OBLIGATOIRE)
+
+| Élément | Espacement Minimum | Recommandé |
+|---------|-------------------|------------|
+| Entre composants (horizontal) | **40 px** | 50-60 px |
+| Entre composants (vertical) | **30 px** | 40-50 px |
+| Entre zones | **80 px** | 100 px |
+| Marge interne des zones | **20 px** | 30 px |
+| Labels sous icônes | **10 px** | 15 px |
+
+### Grille et Alignement (OBLIGATOIRE)
+- **Activer la grille Draw.io**: View → Grid
+- **Taille de grille**: 20 px
+- **Snap to Grid**: Toujours activé
+- **Aligner sur grille**: Tous les composants doivent être alignés
+
+### 🚫 Règles Anti-Chevauchement (CRITIQUE)
+
+**⚠️ Le chevauchement de composants est INTERDIT**
+
+Pour éviter tout chevauchement :
+
+1. **Calcul de position**: Avant de placer un composant, vérifier l'espace disponible
+2. **Décalage automatique**: Si collision détectée, décaler de +60px horizontal ou +50px vertical
+3. **Vérification des labels**: Les labels ne doivent jamais chevaucher les composants voisins
+
+**Formule de placement**:
+```
+Position_X = Zone_Margin + (Colonne * (Icon_Width + Horizontal_Gap))
+Position_Y = Zone_Margin + Header_Height + (Ligne * (Icon_Height + Vertical_Gap + Label_Height))
+
+Où:
+- Zone_Margin = 20px
+- Header_Height = 40px (pour le titre de zone)
+- Icon_Width/Height = 60-80px
+- Horizontal_Gap = 40px minimum
+- Vertical_Gap = 30px minimum
+- Label_Height = 30px (estimé pour 2 lignes)
+```
+
+**Validation avant export**:
+- [ ] Aucun composant ne chevauche un autre
+- [ ] Aucun label ne chevauche un composant
+- [ ] Aucune flèche ne passe à travers un composant
+- [ ] Espacement minimum respecté partout
 
 ### Règles de Lisibilité
 - Maximum **8 composants par zone**
 - Si plus de 8, créer des sous-zones ou simplifier
 - Éviter les croisements de flèches
 - Aligner les composants sur une grille invisible
+- **Utiliser un layout matriciel** (lignes et colonnes) pour les zones denses
 
 ## 📐 Flèches et Connecteurs
 

@@ -1,6 +1,5 @@
 ---
 applyTo: "**/*.cs,**/Functions/**"
-excludeAgent: ["code-review"]
 ---
 
 # C# .NET 10 - Standards & Patterns
