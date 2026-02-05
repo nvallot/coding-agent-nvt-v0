@@ -1,125 +1,61 @@
-# 🤖 GitHub Copilot Agents v1 - Architecture Multi-Client
+# 🤖 GitHub Copilot Multi-Agent System
 
-> **Système d'agents GitHub Copilot pour consulting en intégration de données Azure**
-
-## 📋 Vue d'ensemble
-
-Plateforme multi-agents professionnelle pour le consulting en intégration de données sur Microsoft Azure, conçue pour gérer plusieurs clients avec des profils et contextes spécifiques.
-
-### 🎯 Agents Disponibles
-
-| Agent | Pattern `applyTo` | Rôle |
-|-------|-------------------|------|
-| **@ba** | `**/requirements/**,**/specifications/**,**/docs/**` | Business Analyst |
-| **@architecte** | `**/docs/**,**/Deployment/**,**/architecture/**` | Solution Architect |
-| **@dev** | `**/src/**,**/Functions/**,**/Development/**,**/*.cs,**/*.py,**/*.sql,**/*.tf` | Developer |
-| **@reviewer** | `**/*.cs,**/*.py,**/*.sql` | Code Reviewer |
-
-### 🏗️ Architecture
-
-```
-agent-nvt-v1/
-├── .github/
-│   ├── copilot-instructions.md     # Repository-wide instructions
-│   ├── agents/                     # Agent definitions
-│   │   ├── architecte.md
-│   │   ├── business-analyst.md
-│   │   ├── developpeur.md
-│   │   └── reviewer.md
-│   ├── instructions/               # Path-specific instructions
-│   │   ├── *.instructions.md       # Per-agent instructions
-│   │   ├── base/                   # Common directives
-│   │   ├── domains/                # Technical specialties
-│   │   └── contracts/              # Deliverable contracts
-│   ├── clients/                    # Client configurations
-│   │   ├── active-client.json      # Current active client
-│   │   └── {clientKey}/            # Client-specific folder
-│   ├── prompts/                    # Prompt templates (.prompt)
-│   ├── knowledge/                  # Knowledge base
-│   └── tools/                      # Utility scripts
-├── docs/                           # Documentation
-├── AGENTS.md                       # Agents overview
-└── README.md                       # This file
-```
+> Système d'agents pour consulting Azure Data Integration (C# .NET 10, Terraform, Bicep)
 
 ## 🚀 Démarrage Rapide
 
-### 1. Vérifier le client actif
-
 ```bash
+# 1. Vérifier le client actif
 cat .github/clients/active-client.json
-```
 
-### 2. Utiliser les Agents
-
-```bash
+# 2. Utiliser un agent
 @ba "Analyser les exigences pour [projet]"
 @architecte "Concevoir l'architecture pour [projet]"
 @dev "Implémenter [composant]"
-@reviewer "Faire la revue de code pour PR #[n]"
+@reviewer "Faire la revue de code"
 ```
 
-### 3. Utiliser les Prompt Files
+## 🎯 Agents
 
-```bash
-# Référencer un prompt file
-#prompt:brd
-#prompt:tad
-#prompt:diagram
-```
+| Agent | Rôle | Livrables |
+|-------|------|-----------|
+| `@ba` | Business Analyst | BRD, User Stories, Data Mapping |
+| `@architecte` | Solution Architect | TAD, ADRs, Diagrammes C4, IaC |
+| `@dev` | Developer | Code C#, Azure Functions, Tests |
+| `@reviewer` | Code Reviewer | Revue qualité, sécurité, perf |
 
-## 📊 Structure des Instructions
+**Workflow**: `@ba` → `@architecte` → `@dev` → `@reviewer`
 
-Selon la documentation GitHub Copilot:
+## 📚 Documentation
 
-1. **Repository-wide**: `.github/copilot-instructions.md`
-2. **Path-specific**: `.github/instructions/*.instructions.md`
-3. **Agent definitions**: `.github/agents/*.md`
+| Document | Description |
+|----------|-------------|
+| [AGENTS.md](AGENTS.md) | Documentation complète des agents |
+| [docs/GETTING-STARTED.md](docs/GETTING-STARTED.md) | Guide de démarrage |
+| [.github/instructions/INDEX.md](.github/instructions/INDEX.md) | Index des instructions |
 
-## 🎨 Fonctionnalités Clés
-
-### ✅ Multi-Client
-- Configuration par client
-- Instructions spécifiques
-- Base de connaissance dédiée
-
-### ✅ Workflow Complet
-- **BA**: Exigences et cahier des charges
-- **Architecte**: Conception et diagrammes
-- **Développeur**: Implémentation
-- **Reviewer**: Qualité et conformité
-
-### ✅ Spécialisé Azure Data
-- Patterns ETL/ELT optimisés
-- Azure Data Factory, Synapse, Fabric
-- Databricks, Event Hubs, Stream Analytics
-- Terraform pour IaC
-
-## 🔧 Configuration Client
-
-Chaque client suit cette structure:
+## 📁 Structure
 
 ```
-.github/clients/{clientKey}/
-├── CLIENT.md              # Contexte client
-└── instructions/          # Instructions spécifiques
+.github/
+├── agents/           # 4 agents (ba, architecte, dev, reviewer)
+├── instructions/     # Instructions par contexte
+│   ├── base/         # Règles universelles
+│   ├── domains/      # C#, Bicep, Terraform, Testing...
+│   └── contracts/    # Templates livrables
+├── clients/          # Configuration multi-client
+├── prompts/          # Prompt files réutilisables
+├── skills/           # Skills spécialisés
+└── knowledge/        # Base de connaissance Azure
 ```
 
-## 🤝 Workflow Agents
+## ⚡ Stack Technique
 
-```
-BA → Architecte → Développeur → Reviewer
-     Exigences    Architecture   Code        Quality
-```
-
-## 📚 Ressources
-
-- [AGENTS.md](AGENTS.md) - Documentation détaillée des agents
-- [GitHub Copilot Docs](https://docs.github.com/en/copilot)
-- [Azure Well-Architected Framework](https://learn.microsoft.com/azure/architecture/framework/)
+- **Code**: C# .NET 10, Azure Functions (Isolated Worker)
+- **IaC**: Terraform, Bicep
+- **Cloud**: Azure (ADF, Databricks, CosmosDB, Service Bus...)
+- **CI/CD**: Azure DevOps
 
 ---
 
-**Version**: 2.0.0  
-**Last updated**: 2026-02-05  
-**Auteur**: Nicolas VALLOT
+**Version**: 2.0.0 | **Updated**: 2026-02-05

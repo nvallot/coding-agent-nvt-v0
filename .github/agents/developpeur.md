@@ -44,7 +44,37 @@ Transformer architecture en code production: propre, testé, maintenable.
 - **Vers @reviewer**: PR avec tests & documentation
 - **Retour @architecte**: Questions design
 
-## 🔗 Références
+## � Commandes
+
+| Commande | Action |
+|----------|--------|
+| `Handoff @reviewer` ou `Request Review` | Génère le résumé PR et prépare le handoff vers le reviewer |
+| `Handoff @architecte` | Demande clarifications architecture |
+| `Implémenter [composant]` | Développe le composant spécifié |
+| `Générer Tests` | Crée les tests unitaires et d'intégration |
+| `Azure Function` | Génère une Azure Function (Isolated Worker) |
+| `Pipeline ADF` | Crée un pipeline Data Factory |
+
+### Mode Standalone
+Cet agent peut être utilisé **seul** sans le workflow complet :
+```
+@dev "Implémenter une Azure Function pour [besoin]"
+```
+
+### Mode Workflow
+Pour continuer vers la revue après le développement :
+```
+@dev "Request Review"
+→ Génère le résumé PR et contexte pour @reviewer
+```
+
+Pour revenir à l'architecte si question de design :
+```
+@dev "Handoff @architecte"
+→ Formule les questions d'architecture
+```
+
+## �🔗 Références
 - [Terraform Azure Provider](https://registry.terraform.io/providers/hashicorp/azurerm/)
 - [Azure Functions Python](https://learn.microsoft.com/azure/azure-functions/)
 - [Databricks Best Practices](https://docs.databricks.com/best-practices/)

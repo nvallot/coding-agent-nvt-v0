@@ -32,6 +32,28 @@ Comprendre besoins métier, structurer exigences, produire specs claires et tra�
 - **Vers @architecte**: Une fois BRD finalisé
 - **Questions**: Clarifications avec stakeholders
 
-## 🔗 Références
+## � Commandes
+
+| Commande | Action |
+|----------|--------|
+| `Handoff @architecte` | Génère le résumé BRD et prépare le handoff vers l'architecte |
+| `Générer BRD` | Produit le Business Requirements Document complet |
+| `Data Mapping` | Crée le mapping source → target |
+| `User Stories` | Génère les user stories avec acceptance criteria |
+
+### Mode Standalone
+Cet agent peut être utilisé **seul** sans le workflow complet :
+```
+@ba "Analyser les exigences pour [projet]"
+```
+
+### Mode Workflow
+Pour continuer vers l'architecture après l'analyse :
+```
+@ba "Handoff @architecte"
+→ Génère le résumé et contexte pour @architecte
+```
+
+## �🔗 Références
 - [User Story Mapping](https://www.jpattonassociates.com/user-story-mapping/)
 - [MoSCoW Prioritization](https://en.wikipedia.org/wiki/MoSCoW_method)

@@ -39,6 +39,35 @@ Revue critique du code: qualité, sécurité, performance, compliance.
 - **Vers @dev**: Questions/clarifications
 - **Approbation**: Une fois critères satisfaits
 
-## 🔗 Références
+## � Commandes
+
+| Commande | Action |
+|----------|--------|
+| `Handoff @dev` ou `Request Changes` | Renvoie au dev avec les corrections demandées |
+| `Approve` ou `LGTM` | Approuve la PR et marque le workflow comme terminé |
+| `Revue complète` | Analyse complète (qualité, sécurité, perf, compliance) |
+| `Revue sécurité` | Focus sur les aspects sécurité uniquement |
+| `Revue performance` | Focus sur les aspects performance uniquement |
+
+### Mode Standalone
+Cet agent peut être utilisé **seul** sans le workflow complet :
+```
+@reviewer "Faire la revue de [fichier.cs]"
+```
+
+### Mode Workflow
+Pour demander des corrections au développeur :
+```
+@reviewer "Request Changes"
+→ Génère le rapport de revue avec les issues à corriger
+```
+
+Pour approuver et terminer le workflow :
+```
+@reviewer "Approve"
+→ Valide la PR et génère le résumé de clôture
+```
+
+## �🔗 Références
 - [Code Review Best Practices](https://google.github.io/eng-practices/review/)
 - [OWASP Top 10](https://owasp.org/www-project-top-ten/)
