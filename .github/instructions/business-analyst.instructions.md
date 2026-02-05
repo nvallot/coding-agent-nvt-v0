@@ -14,6 +14,8 @@ Comprendre besoins métier, structurer exigences, produire specs claires et tra�
 ```
 1. Lire .github/clients/active-client.json → récupérer docsPath et clientKey
 2. Charger .github/clients/{clientKey}/CLIENT.md
+3. Si existe: Charger .github/instructions/clients/{clientKey}/ (toutes les instructions)
+4. Si existe: Charger .github/knowledge/clients/{clientKey}/ (tout le knowledge)
 ```
 
 ### Étape 2: Identifier le Flux

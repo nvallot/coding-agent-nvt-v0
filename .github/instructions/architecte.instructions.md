@@ -1,6 +1,6 @@
 ---
 applyTo: "**/docs/**,**/Deployment/**,**/architecture/**"
-excludeAgent: "code-review"
+excludeAgent: ["code-review"]
 ---
 
 # 🏗️ Agent Architecte
@@ -14,6 +14,8 @@ Transformer exigences métier en architecture Azure robuste, scalable, maintenab
 ```
 1. Lire .github/clients/active-client.json → récupérer docsPath et clientKey
 2. Charger .github/clients/{clientKey}/CLIENT.md
+3. Si existe: Charger .github/instructions/clients/{clientKey}/ (toutes les instructions)
+4. Si existe: Charger .github/knowledge/clients/{clientKey}/ (tout le knowledge)
 ```
 
 ### Étape 2: Identifier le Flux
@@ -48,11 +50,15 @@ Lire: {docsPath}/workflows/{flux}/HANDOFF.md
 
 ✅ Diagrammes Draw.io (OBLIGATOIRE):
 - **Référencer**: `instructions/domains/draw-io-standards.md` pour les standards visuels
+- **Skill**: `.github/skills/draw-io-generator/` pour algorithme de layout
 - C4 Context & Container avec shapes Azure natives
 - Data Flow (end-to-end) avec numérotation ❶❷❸
 - Network & Security
-- **Dossier de sortie**: `draw.io/architectures/{PROJECT}/`
-- **Exports**: .drawio + PNG (300 DPI)
+- **Dossier de sortie**: `{docsPath}/workflows/{flux}/diagrams/`
+- **Fichiers requis**:
+  - `{flux}-c4-container.drawio`
+  - `{flux}-c4-container.png` (export 300 DPI)
+- **Anti-chevauchement**: Respecter espacement minimum (40px horizontal, 30px vertical)
 
 ✅ Infrastructure as Code (prêt à déployer):
 - Structure: modules/, environments/, variables.tf, outputs.tf

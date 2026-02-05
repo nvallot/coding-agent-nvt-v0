@@ -1,4 +1,11 @@
+---
+type: knowledge
+clientKey: sbm
+---
+
 # SBM Glossary
+
+> **Chargement**: Manuel par agents quand `clientKey=sbm` dans `active-client.json`
 
 ## 📋 Purpose
 
@@ -171,5 +178,5 @@ sbm-{project}-{env}-{type}-{region}-{nnn}
 ---
 
 **Version**: 1.0.0  
-**Last Updated**: 2026-02-04  
+**Last Updated**: 2026-02-05  
 **Owner**: Data Integration Team

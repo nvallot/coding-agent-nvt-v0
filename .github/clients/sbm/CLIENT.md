@@ -175,9 +175,9 @@ GitHub (source) → GitHub Actions → Self-hosted runners (dans Azure)
 
 ## 📚 Sources de Vérité
 
-1. `.github/clients/sbm/CLIENT.md` (ce fichier)
-2. `.github/clients/sbm/instructions/` (prioritaire sur global)
-3. `.github/clients/sbm/knowledge/` (docs SBM spécifiques)
+1. `.github/clients/sbm/CLIENT.md` (ce fichier - profil client)
+2. `.github/instructions/clients/sbm/` (instructions SBM - auto-chargées)
+3. `.github/knowledge/clients/sbm/` (knowledge SBM - glossary, etc.)
 4. `.github/instructions/` (standards génériques)
 
 ## 📋 SLA & KPIs

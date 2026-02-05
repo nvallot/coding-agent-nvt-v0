@@ -36,7 +36,6 @@ Ce dossier contient la **documentation de référence** (REFERENCE) utilisée pa
 knowledge/
 ├── README.md                    ← Vous êtes ici
 ├── azure/                       # Documentation Azure services
-│   ├── data-factory.md         # ADF patterns & exemples
 │   ├── services.md             # Catalogue services Azure
 │   ├── patterns.md             # Medallion, Lambda, Kappa descriptions
 │   ├── service-bus.md          # Service Bus documentation
@@ -51,8 +50,9 @@ knowledge/
 │   └── testing-fixtures.md     # Test fixtures & mocks
 ├── data/                        # Data modeling reference
 │   └── modeling-reference.md   # Model types, retention tables
-└── integration/                 # Integration patterns
-    └── api-patterns.md         # REST, GraphQL, gRPC patterns
+└── clients/                     # Client-specific knowledge
+    └── sbm/                     # SBM Offshore
+        └── glossary.md         # Terminologie SBM (Lucy, PKM, ISP...)
 ```
 
 ## 📖 Format Standard
@@ -124,6 +124,7 @@ type: knowledge
 | `iac/bicep-templates.md` | Modules, parameters, deployment | @archi, @dev |
 | `coding/csharp-examples.md` | Records, patterns, DI exemples | @dev, @reviewer |
 | `coding/testing-fixtures.md` | Fixtures, mocks, assertions | @dev, @reviewer |
+| `clients/sbm/glossary.md` | Terminologie SBM (Lucy, PKM, ISP) | Projets SBM |
 
 ## 🔄 Maintenance
 
@@ -138,12 +139,20 @@ type: knowledge
 
 Les fichiers knowledge spécifiques à un client vont dans:
 ```
-.github/clients/{clientKey}/knowledge/
+knowledge/clients/{clientKey}/
 ```
 
-Exemple: `.github/clients/sbm/knowledge/glossary.md`
+Exemple: `knowledge/clients/sbm/glossary.md`
+
+Avec le pattern `applyTo` pour auto-chargement:
+```yaml
+---
+applyTo: "**/NADIA/**,**/Supplier Portal/**"
+type: knowledge
+---
+```
 
 ---
 
-**Version**: 1.0.0  
+**Version**: 1.1.0  
 **Dernière mise à jour**: 2026-02-05
