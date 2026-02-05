@@ -1,7 +1,7 @@
 ---
 name: "Reviewer"
 description: "Code Reviewer - Qualité, Sécurité, Performance, Compliance"
-tools: ["read", "search", "web"]
+tools: ["read", "search", "edit", "web"]
 infer: true
 ---
 

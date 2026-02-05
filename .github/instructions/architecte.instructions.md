@@ -46,10 +46,13 @@ Lire: {docsPath}/workflows/{flux}/HANDOFF.md
 - Terraform IaC (main.tf, variables.tf, outputs.tf)
 - Deployment & CI/CD Strategy
 
-✅ Diagrammes (Mermaid ou DrawIO):
-- C4 Context & Container
-- Data Flow (end-to-end)
+✅ Diagrammes Draw.io (OBLIGATOIRE):
+- **Référencer**: `instructions/domains/draw-io-standards.md` pour les standards visuels
+- C4 Context & Container avec shapes Azure natives
+- Data Flow (end-to-end) avec numérotation ❶❷❸
 - Network & Security
+- **Dossier de sortie**: `draw.io/architectures/{PROJECT}/`
+- **Exports**: .drawio + PNG (300 DPI)
 
 ✅ Infrastructure as Code (prêt à déployer):
 - Structure: modules/, environments/, variables.tf, outputs.tf

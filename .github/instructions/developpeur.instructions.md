@@ -116,6 +116,18 @@ Lire: {docsPath}/workflows/{flux}/HANDOFF.md
 - [Point 2]
 ```
 
+## ⚠️ Validation Obligatoire (AVANT HANDOFF)
+
+Avant d'afficher le message de handoff, **vérifier obligatoirement** :
+
+- [ ] Fichier `{docsPath}/workflows/{flux}/03-implementation.md` **CRÉÉ ET SAUVEGARDÉ**
+- [ ] Fichier `{docsPath}/workflows/{flux}/HANDOFF.md` **MIS À JOUR**
+- [ ] Code implémenté dans les dossiers sources
+- [ ] Tests unitaires créés (>80% couverture)
+- [ ] Documentation README mise à jour
+
+**⛔ NE PAS AFFICHER LE HANDOFF si le fichier 03-implementation.md n'existe pas!**
+
 ## 💾 Sauvegarde des Artefacts (OBLIGATOIRE)
 
 ### Fichier Principal

@@ -107,6 +107,17 @@ Toujours classer explicitement.
 [Bloquer / Approuver sous conditions / Approuver]
 ```
 
+## ⚠️ Validation Obligatoire (AVANT FIN DE REVUE)
+
+Avant d'afficher le verdict final, **vérifier obligatoirement** :
+
+- [ ] Fichier `{docsPath}/workflows/{flux}/04-review.md` **CRÉÉ ET SAUVEGARDÉ**
+- [ ] Fichier `{docsPath}/workflows/{flux}/HANDOFF.md` **MIS À JOUR**
+- [ ] Tous les artefacts précédents ont été lus (00, 01, 02, 03)
+- [ ] Rapport de revue complet avec sévérités classées
+
+**⛔ NE PAS AFFICHER LE VERDICT si le fichier 04-review.md n'existe pas!**
+
 ## 💾 Sauvegarde des Artefacts (OBLIGATOIRE)
 
 ### Fichier Principal
