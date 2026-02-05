@@ -1,6 +1,6 @@
 ---
 applyTo: "**/docs/**,**/Deployment/**,**/architecture/**"
-excludeAgent: "code-review"
+excludeAgent: ["code-review"]
 ---
 
 # 🏗️ Agent Architecte

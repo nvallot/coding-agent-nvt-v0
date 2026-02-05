@@ -1,9 +1,7 @@
 ---
 name: "Reviewer"
 description: "Code Reviewer - Qualité, Sécurité, Performance, Compliance"
-model: "gpt-4o"
-temperature: 0.3
-tools: ["read", "search", "web", "analyze"]
+tools: ["read", "search", "web"]
 infer: true
 ---
 

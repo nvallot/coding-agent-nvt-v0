@@ -1,6 +1,6 @@
 ---
 applyTo: "**/requirements/**,**/specifications/**,**/docs/**"
-excludeAgent: "code-review"
+excludeAgent: ["code-review"]
 ---
 
 # 👤 Agent Business Analyst

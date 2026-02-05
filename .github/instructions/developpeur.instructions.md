@@ -1,6 +1,6 @@
 ---
 applyTo: "**/src/**,**/Functions/**,**/Development/**,**/*.cs,**/*.py,**/*.sql,**/*.tf"
-excludeAgent: "code-review"
+excludeAgent: ["code-review"]
 ---
 
 # 💻 Agent Développeur
