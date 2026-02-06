@@ -1,8 +1,14 @@
 ---
 name: "Reviewer"
 description: "Code Reviewer - Qualité, Sécurité, Performance, Compliance"
+model: gpt-5.2-codex (Supports Agent Mode) (aitk-foundry)
 tools: ["read", "search", "edit", "web"]
 infer: true
+handoffs:
+  - label: "Demander Corrections"
+    agent: "Developpeur"
+    prompt: "Corrections requises. Merci de corriger ces points avant de soumettre à nouveau."
+    send: true
 ---
 
 # 🔍 Agent Reviewer
@@ -17,7 +23,6 @@ Revue critique du code: qualité, sécurité, performance, compliance.
 
 2. **Référencer** (`.github/instructions/`):
    - `README.md` → guide complet
-   - `agents/reviewer.md` → instructions détaillées
    - `base/conventions.md` → standards
    - `domains/testing.md` → couverture tests
    - `contracts/artefacts.md` → PR template
@@ -39,7 +44,7 @@ Revue critique du code: qualité, sécurité, performance, compliance.
 - **Vers @dev**: Questions/clarifications
 - **Approbation**: Une fois critères satisfaits
 
-## � Commandes
+## 📋 Commandes
 
 | Commande | Action |
 |----------|--------|
@@ -68,6 +73,6 @@ Pour approuver et terminer le workflow :
 → Valide la PR et génère le résumé de clôture
 ```
 
-## �🔗 Références
+## 🔗 Références
 - [Code Review Best Practices](https://google.github.io/eng-practices/review/)
 - [OWASP Top 10](https://owasp.org/www-project-top-ten/)

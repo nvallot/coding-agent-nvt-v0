@@ -48,11 +48,11 @@ Exigences Métier → Analyse → Architecture → Développement → Revue → 
 agent-nvt-v1/
 ├── .github/
 │   ├── copilot-instructions.md     # Repository-wide instructions
-│   ├── agents/                     # Agent definitions
-│   │   ├── architecte.md
-│   │   ├── business-analyst.md
-│   │   ├── developpeur.md
-│   │   └── reviewer.md
+│   ├── agents/                     # Agent definitions (*.agent.md)
+│   │   ├── architecte.agent.md
+│   │   ├── business-analyst.agent.md
+│   │   ├── developpeur.agent.md
+│   │   └── reviewer.agent.md
 │   ├── instructions/               # Path-specific instructions
 │   │   ├── architecte.instructions.md
 │   │   ├── business-analyst.instructions.md
@@ -246,9 +246,22 @@ Pattern 2: src/**/*.py       (plus spécifique) ← Gagne
 
 ### Ajouter un nouvel agent
 
-1. Créer `{agent-name}.md` dans `.github/agents/`
+1. Créer `{agent-name}.agent.md` dans `.github/agents/` avec le frontmatter:
+   ```yaml
+   ---
+   name: "Agent Name"
+   description: "Description de l'agent"
+   tools: ["read", "search", "edit", "web"]
+   infer: true
+   handoffs:
+     - label: "Handoff Label"
+       agent: "Target Agent"
+       prompt: "Contexte pour l'agent cible"
+       send: true
+   ---
+   ```
 2. Créer `{agent-name}.instructions.md` dans `.github/instructions/`
-3. Ajouter le frontmatter avec `applyTo`
+3. Ajouter le frontmatter `applyTo` dans le fichier instructions
 4. Documenter dans ce README
 
 ### Mettre à jour les instructions

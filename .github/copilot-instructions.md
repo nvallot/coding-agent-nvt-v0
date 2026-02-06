@@ -10,7 +10,7 @@ This repository contains a multi-agent system for GitHub Copilot, designed for A
 agent-nvt-v1/
 ├── .github/
 │   ├── copilot-instructions.md    # This file (repository-wide)
-│   ├── agents/                    # Agent definitions
+│   ├── agents/                    # Agent definitions (*.agent.md)
 │   ├── instructions/              # Path-specific instructions
 │   │   ├── *.instructions.md      # Per-agent instructions
 │   │   ├── base/                  # Common directives
