@@ -4,6 +4,14 @@
 
 This document describes the algorithm for positioning components in Draw.io diagrams to avoid overlapping.
 
+**Determinism first:** always compute positions from counts (no freehand). Derive:
+
+- column count from component volume (<=6 → 2 cols, else 3)
+- cell size = ICON + LABEL + gaps
+- zone width/height = max(cols*cell_width + margins)
+
+If a box would overflow its zone, expand the zone width before writing XML instead of letting shapes overlap.
+
 ## Grid System
 
 ```

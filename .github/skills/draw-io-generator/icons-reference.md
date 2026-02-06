@@ -10,11 +10,38 @@ This document maps Azure services to their official icon paths for use in Draw.i
 .github/templates/Azure_Public_Service_Icons/Icons/
 ```
 
+**Relative base (from `docs/workflows/{flux}/diagrams/`):**
+
+```
+../../../../.github/templates/Azure_Public_Service_Icons/Icons/
+```
+
+Always embed icons in Draw.io using the relative base (never `file:///`). Example style fragment:
+```
+shape=image;image=../../../../.github/templates/Azure_Public_Service_Icons/Icons/compute/10029-icon-service-Function-Apps.svg;imageAspect=0;
+```
+
 ## Icon Index
 
 Reference: `.github/templates/azure-icons-index.md`
 
 ## Most Used Icons by Category
+
+### Quick JSON Map (relative paths)
+
+```json
+{
+	"Function App": "../../../../.github/templates/Azure_Public_Service_Icons/Icons/compute/10029-icon-service-Function-Apps.svg",
+	"App Service": "../../../../.github/templates/Azure_Public_Service_Icons/Icons/compute/10035-icon-service-App-Services.svg",
+	"Service Bus": "../../../../.github/templates/Azure_Public_Service_Icons/Icons/integration/10836-icon-service-Azure-Service-Bus.svg",
+	"Data Factory": "../../../../.github/templates/Azure_Public_Service_Icons/Icons/integration/10126-icon-service-Data-Factories.svg",
+	"Key Vault": "../../../../.github/templates/Azure_Public_Service_Icons/Icons/security/10245-icon-service-Key-Vaults.svg",
+	"Storage Account": "../../../../.github/templates/Azure_Public_Service_Icons/Icons/storage/10086-icon-service-Storage-Accounts.svg",
+	"SQL Database": "../../../../.github/templates/Azure_Public_Service_Icons/Icons/databases/10130-icon-service-SQL-Database.svg",
+	"Databricks": "../../../../.github/templates/Azure_Public_Service_Icons/Icons/analytics/10787-icon-service-Azure-Databricks.svg",
+	"Virtual Network": "../../../../.github/templates/Azure_Public_Service_Icons/Icons/networking/10061-icon-service-Virtual-Networks.svg"
+}
+```
 
 ### Compute
 

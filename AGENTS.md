@@ -169,7 +169,7 @@ Chaque client a sa configuration spécifique:
 
 ```bash
 cat .github/clients/active-client.json
-# → { "clientKey": "nadia", "name": "NADIA" }
+# → { "clientKey": "contoso", "name": "Contoso" }
 ```
 
 ## Best Practices
@@ -178,7 +178,7 @@ cat .github/clients/active-client.json
 
 1. **Charger le client context** avant de lancer un agent
    ```bash
-   @architecte "Client: NADIA. Concevoir architecture pour..."
+   @architecte "Client: Contoso. Concevoir architecture pour..."
    ```
 
 2. **Utiliser les patterns `applyTo` correctement**

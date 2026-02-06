@@ -28,7 +28,7 @@ Chaque diagramme doit clairement délimiter les zones suivantes avec des **recta
 
 | Zone | Nom | Couleur Fond | Couleur Bordure | Exemple |
 |------|-----|--------------|-----------------|---------|
-| **On-Premise** | Systèmes internes legacy | `#FFF2CC` (Jaune pâle) | `#D6B656` (Or) | NADIA, SAP, SQL Server |
+| **On-Premise** | Systèmes internes legacy | `#FFF2CC` (Jaune pâle) | `#D6B656` (Or) | ERP legacy, SAP, SQL Server |
 | **Azure Cloud** | Services Azure managés | `#DAE8FC` (Bleu pâle) | `#6C8EBF` (Bleu) | ISP, Functions, Service Bus |
 | **External** | Systèmes tiers externes | `#D5E8D4` (Vert pâle) | `#82B366` (Vert) | Lucy, Dataverse, APIs tierces |
 | **Monitoring** | Observabilité | `#F5F5F5` (Gris clair) | `#666666` (Gris) | App Insights, Dashboard |

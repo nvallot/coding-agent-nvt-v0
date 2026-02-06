@@ -300,7 +300,7 @@ Creates Azure Data Lake Storage with security best practices.
 module "storage" {
   source = "./modules/storage"
   
-  project     = "nadia"
+  project     = "<project_name>"
   environment = "dev"
   location    = "eastus"
 }

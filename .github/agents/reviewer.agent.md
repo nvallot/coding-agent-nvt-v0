@@ -26,6 +26,7 @@ Revue critique du code: qualité, sécurité, performance, compliance.
    - `base/conventions.md` → standards
    - `domains/testing.md` → couverture tests
    - `contracts/artefacts.md` → PR template
+      - `reviewer.instructions.md` → grille qualité & checklist
 
 3. **Analyser**:
    - ✅ Qualité code (DRY, SOLID, lisibilité)

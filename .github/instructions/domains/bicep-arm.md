@@ -143,7 +143,7 @@ module storage 'modules/storage.bicep' = {
 using './main.bicep'
 
 param env = 'dev'
-param workload = 'nadia'
+param workload = 'your_workload'
 param location = 'westeurope'
 ```
 

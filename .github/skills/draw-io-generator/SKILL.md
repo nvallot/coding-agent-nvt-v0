@@ -32,8 +32,10 @@ When generating a Draw.io diagram:
 2. Determine appropriate zone configuration (Full Azure, Hybrid, Multi-Zone)
 3. Calculate positions using layout algorithm
 4. Apply anti-overlap validation
-5. Generate .drawio XML file
-6. Export to PNG (300 DPI)
+5. Resolve icons using the **relative icon root** (no `file:///` absolute paths):
+	`../../../../.github/templates/Azure_Public_Service_Icons/Icons/`
+6. Generate .drawio XML file
+7. Export to PNG (300 DPI)
 
 ## Output Location
 
@@ -46,3 +48,4 @@ docs/workflows/{flux}/diagrams/{flux}-c4-container.png
 
 - `.github/instructions/domains/draw-io-standards.md` - Visual standards
 - `.github/instructions/architecte.instructions.md` - Architect workflow
+- `icons-reference.md` - Map Azure services to relative icon paths (Draw.io image style)

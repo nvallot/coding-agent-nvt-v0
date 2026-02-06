@@ -32,7 +32,7 @@ terraform/
 ```hcl
 variable "project" {
   type = string
-  description = "Project name (e.g., 'nadia')"
+  description = "Project name (e.g., 'contoso-retail')"
 }
 
 variable "environment" {
@@ -67,11 +67,12 @@ variable "sql_password" {
 
 Format: `{prefix}-{resource-type}-{environment}`
 
+adf-ingestion-stg       (Data Factory)
 Examples:
 ```
 adls-datalake-dev        (Data Lake Storage)
 sql-analytics-prod       (SQL Database)
-kv-nadia-dev            (Key Vault)
+kv-shared-dev           (Key Vault)
 adf-ingestion-stg       (Data Factory)
 appi-monitoring-prod    (App Insights)
 ```
@@ -100,7 +101,7 @@ terraform {
     resource_group_name  = "rg-tfstate-prod"
     storage_account_name = "tfstateprod"
     container_name       = "tfstate"
-    key                  = "nadia/terraform.tfstate"
+    key                  = "<project>/terraform.tfstate"
   }
 }
 ```

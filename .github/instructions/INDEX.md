@@ -158,6 +158,6 @@ clients/sbm/CLIENT.md        ← Profil client seulement
 **Avantages**:
 - Un seul endroit pour `instructions/` et `knowledge/`
 - Pattern `applyTo` unifié
-- Isolation client via pattern projet (`**/NADIA/**`, `**/Supplier Portal/**`)
+- Isolation client via pattern projet (`**/{ProjectName}/**`, ex: `**/project-alpha/**`, `**/project-beta/**`)
 
 Voir les README.md dans chaque dossier pour plus de détails.
